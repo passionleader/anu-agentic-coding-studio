@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en-AU">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>YooHoo! Mail: Compose</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <header class="banner">
+      <p class="wordmark">
+        <span>Y</span><span>o</span><span>o</span><span>H</span><span>o</span><span>o</span><span>!</span>
+      </p>
+      <p class="tagline">Mail</p>
+      <nav aria-label="Primary">
+        <a href="./index.html">Home</a> |
+        <a href="./news.html">News</a> |
+        <a href="./mail.html">Mail</a> |
+        <a href="./clubs.html">Clubs</a>
+      </nav>
+    </header>
+    <main>
+      <h1>Compose Message</h1>
+
+      <nav class="mail-tabs" aria-label="Mail">
+        <a href="./mail.html">Inbox</a>
+        <a href="./compose.html" aria-current="page">Compose</a>
+        <a href="./sent.html">Sent</a>
+      </nav>
+
+      <form class="compose" action="./sent.html" method="get">
+        <div class="field">
+          <label for="to">To:</label>
+          <input type="text" id="to" name="to" placeholder="username@example.com" />
+        </div>
+        <div class="field">
+          <label for="subject">Subject:</label>
+          <input type="text" id="subject" name="subject" />
+        </div>
+        <div class="field">
+          <label for="body">Message:</label>
+          <textarea id="body" name="body" rows="8"></textarea>
+        </div>
+        <button type="submit">Send</button>
+        <p class="hint">
+          (This is a static prototype, so Send always opens the Sent folder
+          &mdash; it can't record your exact message without a server.)
+        </p>
+      </form>
+    </main>
+    <footer>
+      <p><a href="./index.html">&laquo; Back to YooHoo! Home</a></p>
+      <p>&copy; 1997 YooHoo! Inc.</p>
+    </footer>
+  </body>
+</html>

@@ -3,21 +3,80 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>COMP4020 prototype</title>
+    <title>YooHoo! - Your Home Page of the Web</title>
     <link rel="stylesheet" href="./styles.css" />
   </head>
   <body>
-    <header>
+    <header class="banner">
+      <p class="wordmark">
+        <span>Y</span><span>o</span><span>o</span><span>H</span><span>o</span><span>o</span><span>!</span>
+      </p>
+      <p class="tagline">Your Home Page of the Web&trade;</p>
       <nav aria-label="Primary">
-        <a href="./">Home</a>
+        <a href="./index.html">Home</a> |
+        <a href="./news.html">News</a> |
+        <a href="./mail.html">Mail</a> |
+        <a href="./clubs.html">Clubs</a>
       </nav>
     </header>
     <main>
-      <h1>COMP4020 prototype</h1>
-      <p data-testid="intro">
-        Replace this with your prototype. This week's brief is on the course website;
-        <code>spec/README.md</code> explains how the checks in this repo relate to it.
+      <h1>Welcome to YooHoo!</h1>
+
+      <form class="search" action="./search-results.html" method="get">
+        <label for="q">Search the Web:</label>
+        <input type="search" id="q" name="q" />
+        <button type="submit">YooHoo! Search</button>
+      </form>
+      <p class="hint">
+        Not sure where to start? See a
+        <a href="./search-results.html">sample search result</a>.
+      </p>
+
+      <hr />
+
+      <section aria-labelledby="directory-heading">
+        <h2 id="directory-heading">Directory</h2>
+        <table class="directory">
+          <caption>Browse by category</caption>
+          <tbody>
+            <tr>
+              <td><a href="./news.html">News</a></td>
+              <td><span>Business &amp; Finance</span></td>
+              <td><span>Entertainment</span></td>
+            </tr>
+            <tr>
+              <td><a href="./login.html">Mail</a></td>
+              <td><span>Computers &amp; Internet</span></td>
+              <td><span>Health</span></td>
+            </tr>
+            <tr>
+              <td><a href="./clubs.html">Clubs &amp; Chat</a></td>
+              <td><span>Regional</span></td>
+              <td><span>Sports</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+
+      <section aria-labelledby="whatsnew-heading">
+        <h2 id="whatsnew-heading">What's New</h2>
+        <ul class="whatsnew">
+          <li><span class="new-badge">NEW!</span> YooHoo! Mail now has 2.0MB of storage per account</li>
+          <li><span class="new-badge">NEW!</span> Clubs directory now lists over 40 clubs</li>
+          <li>Frames-based layout retired after user feedback</li>
+        </ul>
+      </section>
+
+      <hr />
+
+      <p class="construction">[ THIS PAGE IS UNDER CONSTRUCTION ]</p>
+
+      <p class="counter">
+        You are visitor number <span class="counter-digits">004217</span>
       </p>
     </main>
+    <footer>
+      <p>&copy; 1997 YooHoo! Inc. Best viewed at 800&times;600.</p>
+    </footer>
   </body>
 </html>
