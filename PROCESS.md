@@ -1,9 +1,5 @@
 # Process overview
 
-<!-- TEMPLATE: this file is a shape to fill in, not a form. Replace everything
-     in it with your own overview, and delete this comment — `pnpm
-     check:evidence` will remind you if it's still here. -->
-
 A reading-guide to how the work came together --- a map to your process, not an
 essay about it. Markers read this file and follow its citations; they don't
 trawl the repo for evidence you didn't point at, so if a moment mattered, cite
@@ -15,69 +11,49 @@ is the requirement, and each brief adds its own word count and moment count.
 
 ## What I built
 
-One paragraph: the thing, and the idea behind it.
+**YooHoo!** --- a fake, static, 90s-Yahoo-style web portal, built with no
+JavaScript per this week's spec. It has a homepage with search and a
+directory, a News section with real (fake) articles, a Mail section with
+login, inbox, compose, and sent mail, and a Clubs listing. The idea was to
+mimic what a late-90s portal site actually felt like to use, not just its
+look --- every link goes somewhere real, and the "fake" content is written
+well enough to hold together as a plausible site rather than as placeholder
+text.
 
 ## The moments that mattered
 
-Three or four for an assignment; fewer is fine for a weekly prototype. Keep the
-list short so each moment has room to do all four jobs:
+1. **Asking for a themed portal, not just "more than one page".** The spec
+   requires more than one page reachable from home. The obvious move was two
+   or three near-empty pages to satisfy that mechanically. Instead I asked
+   Claude Code to build a full 90s Yahoo-style portal (I named it YooHoo!)
+   with real navigation, search, and a directory, so the pages held together
+   as one site with a reason to click between them. I knew it was right when
+   `pnpm check`'s reachability-graph test passed and the homepage actually
+   looked and behaved like a small portal, not a spec checklist, in a
+   headless-Chrome screenshot at both required viewports.
+   ([`a11874d`](https://github.com/comp4020-agentic-coding-studio/comp4020-crit1-passionleader/commit/a11874d))
 
-1. **what happened** --- the problem, or the thing the agent got wrong
-2. **what you did instead of the obvious thing** --- the call you made, and why
-   it beat the obvious one
-3. **how you knew it was right** --- the check you ran, the viewport you looked
-   at, what you read before accepting the diff
-4. **the citation** --- a commit or commit range, a `CLAUDE.md` change, a check
-   that went from red to green, a prompt paired with the commit it produced
+2. **Fixing what "looked broken" --- dead links, an empty inbox, a Home
+   button that did nothing.** I told Claude Code: *"in main page, 'home'
+   button doesn't work... in news page, there are some news but there's no
+   contents... 'mail' looks rubbish."* Rather than patching those one at a
+   time with placeholder fixes, I asked for genuinely written fake news
+   articles (7 of them) and a fake sent/inbox message history, so the site
+   felt lived-in. Re-running the spec caught a page I'd only linked from a
+   search form and not a real `<a href>` --- the reachability test flagged it
+   immediately, which is how I knew the fix was actually complete rather than
+   just visually plausible.
+   ([`a11874d`](https://github.com/comp4020-agentic-coding-studio/comp4020-crit1-passionleader/commit/a11874d))
 
-Jobs 2 and 3 are the ones the repo can't tell a reader on its own, so they're
-where the marks are. The strongest moments are the ones where a correction
-landed in the **harness** rather than in another prompt --- a rule added to
-`CLAUDE.md`, a check wired up, an attempt thrown away: re-prompting until it
-passes is the routine case, and changing what the agent works against is the
-skilled one.
-
-Cite each moment as a link whose text is the commit hash or range and whose
-target is this repo's commit or compare URL, so a reader clicks straight to the
-evidence:
-
-- one commit: [`a1b2c3d`](https://github.com/YOUR-ORG/YOUR-REPO/commit/a1b2c3d)
-- a range:
-  [`a1b2c3d...e4f5a6b`](https://github.com/YOUR-ORG/YOUR-REPO/compare/a1b2c3d...e4f5a6b)
-
-To pair a prompt with the commit it produced, quote the prompt (curated, not a
-full transcript) next to the citation:
-
-> the prompt, verbatim
-
-Screenshots are welcome where one carries the verification better than a
-sentence does. Commit the file to this repo and link it with a **relative**
-path, which is what makes it render on GitHub: `![alt text](docs/before.png)`.
-Images don't count towards the word count and don't replace the citation.
-
-### A worked moment, for shape
-
-Delete this section along with the rest of the boilerplate --- it's here to show
-the four jobs in one paragraph, not to be imitated in content.
-
-> The date formatter kept coming back with `toLocaleDateString()` and no locale
-> argument, so the same build rendered differently on my machine and in CI. I'd
-> already re-prompted it twice, which fixed the line but not the habit, so the
-> third time I put the rule in `CLAUDE.md` instead
-> ([`3f9ac21`](https://github.com/YOUR-ORG/YOUR-REPO/commit/3f9ac21)) and added
-> a spec test that fails on a bare `toLocaleDateString`. That's what told me it
-> had actually taken: the test went red against the old code and green against
-> the new, and the next two features it wrote passed it without prompting
-> ([`3f9ac21...b7e0d14`](https://github.com/YOUR-ORG/YOUR-REPO/compare/3f9ac21...b7e0d14)).
-
-## Before you ship
-
-`pnpm check:evidence` verifies your citations resolve to real commits, that the
-current reflection entry is in `reflections/`, and that your `CLAUDE.md` is
-there --- before a marker ever opens the file. It checks that your map is
-traceable, not that it is good: the marker judges whether your small,
-deliberately chosen set of moments shows real judgement and reflection. A green
-check is not a substitute for that curation.
-
-Images are deliberately not checked, because whether one renders is visible the
-moment you look. Open this file on GitHub and look at it before you ship.
+3. **Trying to make "Sent mail" really persist, and hitting the no-JS wall
+   on purpose.** I asked for a login function and for sending mail to
+   actually record itself on a Sent page. Rather than quietly faking that
+   with something that looked like it worked, I checked whether it was even
+   possible under this week's constraint --- it isn't: no JavaScript and no
+   backend means there's no way to capture typed input and redisplay it on
+   another static page. `spec/crit-1.test.ts` enforces zero `<script>` tags
+   and no `.js` files, which is what made the constraint concrete instead of
+   a guess. So the Sent page is an honestly-labelled static mockup instead of
+   an illusion of a working feature.
+   ([`7362f10`](https://github.com/comp4020-agentic-coding-studio/comp4020-crit1-passionleader/commit/7362f10),
+   [`a11874d`](https://github.com/comp4020-agentic-coding-studio/comp4020-crit1-passionleader/commit/a11874d))
