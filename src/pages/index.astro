@@ -1,5 +1,6 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import OsIcon from "../components/OsIcon.astro";
 import { BASE, ORIGINAL_SITE_URL } from "../consts";
 import { OS_DOWNLOADS } from "../lib/detect-os";
 
@@ -45,6 +46,15 @@ const releases = [
     </p>
     <div class="button-row">
       <a class="button primary" id="os-download" href={defaultDownload.href}>
+        <span class="os-icon" data-os="windows">
+          <OsIcon os="windows" />
+        </span>
+        <span class="os-icon" data-os="macos" hidden>
+          <OsIcon os="macos" />
+        </span>
+        <span class="os-icon" data-os="linux" hidden>
+          <OsIcon os="linux" />
+        </span>
         <span id="os-download-label">{defaultDownload.label}</span>
         <span class="sub" id="os-download-sub">{defaultDownload.sub}</span>
       </a>
@@ -74,6 +84,10 @@ const releases = [
         if (name) name.textContent = os === "macos" ? "macOS" : os[0].toUpperCase() + os.slice(1);
         if (note) note.hidden = false;
         if (fallback) fallback.hidden = true;
+
+        for (const icon of document.querySelectorAll("#os-download .os-icon")) {
+          (icon as HTMLElement).hidden = icon.getAttribute("data-os") !== os;
+        }
       }
     </script>
   </section>

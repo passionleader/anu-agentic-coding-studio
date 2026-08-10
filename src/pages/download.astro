@@ -1,12 +1,15 @@
 ---
 import Layout from "../layouts/Layout.astro";
+import OsIcon from "../components/OsIcon.astro";
 import { RELEASE } from "../consts";
+import type { OS } from "../lib/detect-os";
 
 const OLDER_RELEASES = "https://www.7-zip.org/download.html";
 
-const platforms = [
+const platforms: { name: string; os?: OS; items: { label: string; href: string }[] }[] = [
   {
     name: "Windows",
+    os: "windows",
     items: [
       { label: "x64 (64-bit) installer", href: `${RELEASE}/7z2602-x64.exe` },
       { label: "x86 (32-bit) installer", href: `${RELEASE}/7z2602.exe` },
@@ -21,6 +24,7 @@ const platforms = [
   },
   {
     name: "Linux",
+    os: "linux",
     items: [
       { label: "x86-64", href: `${RELEASE}/7z2602-linux-x64.tar.xz` },
       { label: "x86 (32-bit)", href: `${RELEASE}/7z2602-linux-x86.tar.xz` },
@@ -30,6 +34,7 @@ const platforms = [
   },
   {
     name: "macOS",
+    os: "macos",
     items: [{ label: "Console version (arm64 and x86-64)", href: `${RELEASE}/7z2602-mac.tar.xz` }],
   },
   {
@@ -69,7 +74,14 @@ const platforms = [
       {
         platforms.map((platform) => (
           <div class="card">
-            <h3>{platform.name}</h3>
+            <h3>
+              {platform.os && (
+                <span class="os-icon" style="margin-right: 0.4rem;">
+                  <OsIcon os={platform.os} />
+                </span>
+              )}
+              {platform.name}
+            </h3>
             <ul class="dl-list">
               {platform.items.map((item) => (
                 <li>

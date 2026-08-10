@@ -196,6 +196,20 @@ section + section {
   font-size: 0.85em;
 }
 
+.os-icon {
+  display: inline-flex;
+  align-items: center;
+  vertical-align: middle;
+}
+
+.os-icon[hidden] {
+  display: none;
+}
+
+.os-icon svg {
+  display: block;
+}
+
 .grid {
   display: grid;
   gap: 1.25rem;
