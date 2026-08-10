@@ -67,9 +67,9 @@ const opens7z = [
     <div class="grid">
       {
         project.map((l) => (
-          <div class="card">
-            <p><a href={l.href}>{l.label}</a></p>
-          </div>
+          <a class="button secondary link-card" href={l.href}>
+            {l.label}
+          </a>
         ))
       }
     </div>
@@ -93,9 +93,9 @@ const opens7z = [
     <div class="grid">
       {
         related.map((l) => (
-          <div class="card">
-            <p><a href={l.href}>{l.label}</a></p>
-          </div>
+          <a class="button secondary link-card" href={l.href}>
+            {l.label}
+          </a>
         ))
       }
     </div>

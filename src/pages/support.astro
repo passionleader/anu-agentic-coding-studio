@@ -57,7 +57,12 @@ const channels = [
           <div class="card">
             <h3>{c.name}</h3>
             <p>{c.body}</p>
-            <p><a href={c.href}>{c.href.replace("https://", "")}</a></p>
+            <div class="channel-row">
+              <span class="channel-url">{c.href.replace("https://", "")}</span>
+              <a class="button secondary small" href={c.href}>
+                Go →
+              </a>
+            </div>
           </div>
         ))
       }
