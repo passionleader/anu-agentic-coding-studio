@@ -53,6 +53,33 @@ body {
     radial-gradient(circle at var(--blob2, 100% 20%), #ecebfb 0%, transparent 50%), var(--bg);
 }
 
+.reveal {
+  transition:
+    opacity 0.5s ease,
+    transform 0.5s ease;
+}
+
+/* Only hidden once Layout.astro's script confirms it can reveal it again —
+   .js-reveal is added by JS, so a blocked/failed script never leaves
+   content stuck invisible. */
+html.js-reveal .reveal {
+  opacity: 0;
+  transform: translateY(16px);
+}
+
+html.js-reveal .reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html.js-reveal .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
 a {
   color: var(--link);
   transition: color 0.15s ease;
@@ -205,6 +232,16 @@ details p {
   box-shadow: var(--shadow-sm);
   transition:
     transform 0.15s ease,
+    box-shadow 0.15s ease;
+}
+
+/* .reveal's opacity/transform transition is a shorthand, so .card's own
+   transition (declared after it in source order) would otherwise replace it
+   wholesale. This has to out-specificity .card, not just out-order it. */
+.card.reveal {
+  transition:
+    opacity 0.5s ease,
+    transform 0.5s ease,
     box-shadow 0.15s ease;
 }
 
@@ -397,6 +434,10 @@ footer.site-footer .wrap {
   flex-wrap: wrap;
 }
 
+#all-formats {
+  scroll-margin-top: 5rem;
+}
+
 @media (width <= 40rem) {
   .site-header .wrap {
     flex-direction: column;
@@ -405,5 +446,11 @@ footer.site-footer .wrap {
 
   nav[aria-label="Primary"] ul {
     gap: 1rem;
+  }
+
+  /* The sticky header wraps to 3 rows at this width, so a plain anchor
+     jump lands the target right under it. */
+  #all-formats {
+    scroll-margin-top: 14rem;
   }
 }
