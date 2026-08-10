@@ -1,0 +1,61 @@
+---
+import { BASE, ORIGINAL_SITE_URL } from "../consts";
+import "../styles/global.css";
+
+interface Props {
+  title: string;
+  description: string;
+}
+
+const { title, description } = Astro.props;
+const path = new URL(Astro.request.url).pathname;
+
+const links = [
+  { href: BASE, label: "Home" },
+  { href: `${BASE}download/`, label: "Download" },
+  { href: `${BASE}faq/`, label: "FAQ" },
+];
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="wrap">
+        <a class="brand" href={BASE}>7-<strong>Zip</strong></a>
+        <nav aria-label="Primary">
+          <ul>
+            {
+              links.map((link) => (
+                <li>
+                  <a href={link.href} aria-current={path === link.href ? "page" : undefined}>
+                    {link.label}
+                  </a>
+                </li>
+              ))
+            }
+          </ul>
+        </nav>
+      </div>
+    </header>
+    <main class="wrap">
+      <slot />
+    </main>
+    <footer class="site-footer">
+      <div class="wrap">
+        <p>
+          Free and open-source, mostly under the GNU LGPL. Not affiliated with
+          the 7-Zip project — this is an unsolicited redesign; the real thing
+          is at <a href={ORIGINAL_SITE_URL}>7-zip.org</a>.
+        </p>
+        <p>Original software © Igor Pavlov.</p>
+      </div>
+    </footer>
+  </body>
+</html>
