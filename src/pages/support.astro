@@ -1,0 +1,75 @@
+---
+import Layout from "../layouts/Layout.astro";
+
+const checklist = [
+  "Make sure you're using the latest version",
+  "For a bug, also try the latest beta/alpha development build",
+  "On 64-bit Windows, use the 7-Zip x64 build",
+  "Check the help system built into 7-Zip first",
+  "Read the FAQ",
+  "Search the forum before posting — it's likely been asked",
+];
+
+const channels = [
+  {
+    name: "Forum",
+    href: "https://sourceforge.net/p/sevenzip/discussion/45797/",
+    body: "For all common questions. Please write only in English.",
+  },
+  {
+    name: "Bug tickets",
+    href: "https://sourceforge.net/p/sevenzip/bugs/",
+    body: 'For confirmed bugs. Mark security-sensitive reports "Mark as Private".',
+  },
+  {
+    name: "Support requests",
+    href: "https://sourceforge.net/p/sevenzip/support-requests/",
+    body: "Direct tickets, or SourceForge's own \"Send Message\" to the project.",
+  },
+];
+---
+
+<Layout
+  title="Support"
+  description="Where to get help with 7-Zip: the forum, bug tracker, and what to include when you post."
+>
+  <section class="hero">
+    <p class="eyebrow">Support</p>
+    <h1>Getting help</h1>
+    <p class="lede">
+      A short checklist before you post, then the three real channels the
+      project actually monitors.
+    </p>
+  </section>
+
+  <section class="panel highlight">
+    <h2>Before you post</h2>
+    <ul>
+      {checklist.map((item) => <li>{item}</li>)}
+    </ul>
+  </section>
+
+  <section>
+    <h2>Where to go</h2>
+    <div class="grid">
+      {
+        channels.map((c) => (
+          <div class="card">
+            <h3>{c.name}</h3>
+            <p>{c.body}</p>
+            <p><a href={c.href}>{c.href.replace("https://", "")}</a></p>
+          </div>
+        ))
+      }
+    </div>
+  </section>
+
+  <section class="panel">
+    <h2>What to include</h2>
+    <p>
+      Whichever channel you use, say which 7-Zip version and build you're on
+      (32-bit or 64-bit) and which version of Windows you're running — most
+      threads stall on missing exactly this.
+    </p>
+  </section>
+</Layout>
