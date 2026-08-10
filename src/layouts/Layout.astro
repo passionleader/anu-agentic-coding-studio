@@ -20,6 +20,7 @@ const path = new URL(Astro.request.url).pathname;
     <meta name="description" content={description} />
   </head>
   <body>
+    <div class="scroll-glow" aria-hidden="true"></div>
     <header class="site-header">
       <div class="wrap">
         <a class="brand" href={BASE}>7-<strong>Zip</strong></a>
@@ -51,5 +52,35 @@ const path = new URL(Astro.request.url).pathname;
         <p>Original software © Igor Pavlov.</p>
       </div>
     </footer>
+    <script>
+      import { computeScrollProgress, scrollGradientPosition } from "../lib/scroll-gradient";
+
+      const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      if (!reduceMotion) {
+        const root = document.documentElement;
+        let queued = false;
+
+        const applyScrollPosition = () => {
+          queued = false;
+          const progress = computeScrollProgress(window.scrollY, window.innerHeight, document.body.scrollHeight);
+          const { blob1, blob2 } = scrollGradientPosition(progress);
+          root.style.setProperty("--blob1", blob1);
+          root.style.setProperty("--blob2", blob2);
+        };
+
+        window.addEventListener(
+          "scroll",
+          () => {
+            if (!queued) {
+              queued = true;
+              requestAnimationFrame(applyScrollPosition);
+            }
+          },
+          { passive: true },
+        );
+
+        applyScrollPosition();
+      }
+    </script>
   </body>
 </html>
