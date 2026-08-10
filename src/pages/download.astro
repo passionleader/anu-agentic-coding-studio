@@ -1,0 +1,83 @@
+---
+import Layout from "../layouts/Layout.astro";
+
+const DOWNLOAD_PAGE = "https://www.7-zip.org/download.html";
+
+const platforms = [
+  {
+    name: "Windows",
+    items: [
+      "x64 (64-bit) installer",
+      "x86 (32-bit) installer",
+      "ARM64 installer",
+      "MSI installers (x64 and x86 alternatives)",
+      "7-Zip Extra — standalone console version, 7z.dll, FAR Manager plugin",
+    ],
+  },
+  {
+    name: "Linux",
+    items: [
+      "x86-64 (console version)",
+      "x86 (32-bit)",
+      "arm64",
+      "arm",
+      "Unofficial packages exist for Debian/Ubuntu, Fedora, Gentoo, AltLinux, and others",
+    ],
+  },
+  {
+    name: "macOS",
+    items: ["Console version, arm64 and x86-64"],
+  },
+  {
+    name: "Source & SDK",
+    items: [
+      "7-Zip source code (.7z and .tar.xz)",
+      "LZMA SDK — reference implementations in C, C++, C#, and Java",
+    ],
+  },
+];
+---
+
+<Layout
+  title="Download 7-Zip — all platforms"
+  description="Every platform 7-Zip ships for: Windows, Linux, macOS, source, and the LZMA SDK."
+>
+  <section class="hero">
+    <p class="eyebrow">7-Zip 26.02 · released 2026-06-25</p>
+    <h1>Download 7-Zip</h1>
+    <p class="lede">
+      Every current build lives on the project's own download page — this is
+      an index of what's there, organised by platform instead of one long
+      version-by-version table.
+    </p>
+    <div class="button-row">
+      <a class="button primary" href={DOWNLOAD_PAGE}>Open the download page →</a>
+    </div>
+  </section>
+
+  <section>
+    <h2>By platform</h2>
+    <div class="grid">
+      {
+        platforms.map((platform) => (
+          <div class="card">
+            <h3>{platform.name}</h3>
+            <ul>
+              {platform.items.map((item) => <li>{item}</li>)}
+            </ul>
+          </div>
+        ))
+      }
+    </div>
+  </section>
+
+  <section class="panel">
+    <h2>Looking for an older release?</h2>
+    <p>
+      Recent major versions include 23.01 (2023-06-20), 19.00 (2019-02-21),
+      16.04 (2016-10-04), and 9.20 (2010-11-18). The full archive, plus
+      GitHub releases and SourceForge mirrors, is linked from the
+      <a href={DOWNLOAD_PAGE}>official download page</a>.
+    </p>
+  </section>
+</Layout>
