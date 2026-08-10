@@ -70,10 +70,12 @@ const platforms = [
         platforms.map((platform) => (
           <div class="card">
             <h3>{platform.name}</h3>
-            <ul>
+            <ul class="dl-list">
               {platform.items.map((item) => (
                 <li>
-                  <a href={item.href}>{item.label}</a>
+                  <a class="dl-link" href={item.href}>
+                    {item.label}
+                  </a>
                 </li>
               ))}
             </ul>

@@ -54,6 +54,7 @@ const path = new URL(Astro.request.url).pathname;
     </footer>
     <script>
       import { computeScrollProgress, scrollGradientPosition } from "../lib/scroll-gradient";
+      import { brandScale } from "../lib/scroll-scale";
 
       const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
       if (!reduceMotion) {
@@ -66,6 +67,7 @@ const path = new URL(Astro.request.url).pathname;
           const { blob1, blob2 } = scrollGradientPosition(progress);
           root.style.setProperty("--blob1", blob1);
           root.style.setProperty("--blob2", blob2);
+          root.style.setProperty("--brand-scale", String(brandScale(window.scrollY)));
         };
 
         window.addEventListener(
