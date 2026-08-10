@@ -51,8 +51,8 @@ I have always wanted to change ugly 7-Zip official download page. 7-Zip은 전 �
 또한 다운로드 시 반드시 필요한 기능을 넣었다. Web Browser에서 OS를 파악하는 것!
 navigator.userAgent를 읽어 들여 Browser Fingerprint를 읽는 듯했다. (e.g. "Mozilla/5.0 (Windows NT 10.0; Win64; x64)..."). Claude Code는 다음과 같이 서브스트링을 체크하여 User OS별로 다운로드할 수 있도록 디자인해 주었다.
 
-contains "mac os x" or "macintosh" → macOS
-
+> contains "mac os x" or "macintosh" → macOS
+> 
 > contains "android" → treated as unknown (Android UAs also contain "Linux", so this has to be checked first or it'd misfire)
 > 
 > contains "linux" → Linux
