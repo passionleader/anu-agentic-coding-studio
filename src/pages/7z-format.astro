@@ -1,0 +1,87 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { ORIGINAL_SITE_URL } from "../consts";
+
+const methods = ["LZMA", "LZMA2", "PPMd", "BZip2", "Copy"];
+const filters = ["BCJ / BCJ2", "ARM64 / ARMT / ARM", "PPC / SPARC / IA64", "Delta", "Swap2 / Swap4"];
+const compatibleApps = ["WinRAR", "PowerArchiver", "TUGZip", "IZArc"];
+---
+
+<Layout
+  title="7z Format"
+  description="What the 7z archive format is: open architecture, high compression ratio, AES-256 encryption, and the LZMA method behind it."
+>
+  <section class="hero">
+    <p class="eyebrow">Format</p>
+    <h1>The 7z format</h1>
+    <p class="lede">
+      7z is the new archive format 7-Zip is built around, providing a high
+      compression ratio through an open, pluggable architecture rather than
+      one fixed algorithm.
+    </p>
+  </section>
+
+  <section>
+    <h2>Main features</h2>
+    <div class="grid">
+      <div class="card">
+        <h3>Open architecture</h3>
+        <p>New compression, conversion, and encryption methods can be plugged in without breaking the format.</p>
+      </div>
+      <div class="card">
+        <h3>High compression ratio</h3>
+        <p>The default method, LZMA, is tuned specifically for this — see the LZMA SDK page for the numbers.</p>
+      </div>
+      <div class="card">
+        <h3>Strong AES-256 encryption</h3>
+        <p>
+          A 256-bit cipher key derived from your password via a SHA-256-based
+          function, run through a large number of iterations to resist
+          brute-forcing.
+        </p>
+      </div>
+      <div class="card">
+        <h3>Very large files</h3>
+        <p>Supports files and archives up to 16,000,000,000 GB, with Unicode file names throughout.</p>
+      </div>
+      <div class="card">
+        <h3>Solid compression</h3>
+        <p>Groups files together before compressing, which improves ratio further, plus compressed archive headers.</p>
+      </div>
+      <div class="card">
+        <h3>Any method, mixed</h3>
+        <p>An archive can combine compression, conversion, and encryption methods rather than being locked to one.</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Methods and filters currently integrated</h2>
+    <div class="grid">
+      <div class="card">
+        <h3>Compression methods</h3>
+        <ul>
+          {methods.map((m) => <li><code>{m}</code></li>)}
+        </ul>
+        <p>PPMd is Dmitry Shkarin's PPMdH, with small changes.</p>
+      </div>
+      <div class="card">
+        <h3>Filters</h3>
+        <ul>
+          {filters.map((f) => <li>{f}</li>)}
+        </ul>
+        <p>The executable converters improve ratio on compiled binaries; Delta helps on WAV-like data.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="panel highlight">
+    <h2>Who else reads 7z</h2>
+    <p>
+      7z code is part of 7-Zip, distributed under the GNU LGPL, and most of it
+      is also included in the LZMA SDK. Beyond 7-Zip itself, {compatibleApps.join(", ")} all
+      support opening 7z archives.
+    </p>
+    <p>See the real spec on <a href={`${ORIGINAL_SITE_URL}7z.html`}>7-zip.org/7z.html</a>.</p>
+  </section>
+</Layout>
