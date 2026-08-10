@@ -1,85 +1,50 @@
 # Process overview
 
-<!-- TEMPLATE: this file is a shape to fill in, not a form. Replace everything
-     in it with your own overview, and delete this comment — `pnpm
-     check:evidence` will remind you if it's still here. -->
-
-A reading-guide to how the work came together --- a map to your process, not an
-essay about it. Markers read this file and follow its citations; they don't
-trawl the repo for evidence you didn't point at, so if a moment mattered, cite
-it.
-
-This file is the shape; the course site's
-[assessment page](https://comp.anu.edu.au/courses/comp4020-agentic-coding-studio/topics/assessment/#what-you-submit)
-is the requirement, and its
-[word counts](https://comp.anu.edu.au/courses/comp4020-agentic-coding-studio/topics/assessment/#word-counts)
-cover every deliverable.
+A reading-guide to how the work came together — a map to your process, not an
+essay about it.
 
 ## What I built
 
-One paragraph: the thing, and the idea behind it.
+An unsolicited redesign of [7-zip.org](https://www.7-zip.org/) on Astro: a
+dark, high-contrast "developer tool" look with one unambiguous download CTA on
+the home page, a feature grid replacing the original's wall of unstructured
+text, a download page organised by platform instead of one long
+version-by-version table, and an FAQ page using native `<details>/<summary>`
+accordions so it stays fully static — no JS needed for a common, real
+open-source project whose current site badly undersells it.
 
 ## The moments that mattered
 
-Three or four for an assignment; fewer is fine for a weekly prototype. Keep the
-list short so each moment has room to do all four jobs:
+1. **Hardcoded download links I couldn't verify.** The home page's first draft
+   linked straight to guessed filenames
+   (`7z2602-x64.exe`) for the primary CTA. That contradicts the whole point of
+   an unsolicited redesign staying genuinely functional rather than a dead-end
+   mockup — a filename I made up is exactly the kind of thing that goes stale
+   or was never right. I checked it against the real download page with curl,
+   confirmed the guess wasn't verifiable, and pointed the CTA at
+   `https://www.7-zip.org/download.html` instead — a real URL I could confirm
+   returns 200
+   ([`fafe0e1`](https://github.com/comp4020-agentic-coding-studio/comp4020-crit2-passionleader/commit/fafe0e1)).
+2. **A base-path bug that only showed up by reading the built HTML.** Astro's
+   `import.meta.env.BASE_URL` doesn't guarantee a trailing slash, so every
+   internal link built as `` `${BASE}download/` `` silently concatenated wrong
+   (`…passionleaderdownload/`) once the GitHub Pages subpath was configured.
+   It looked fine in the source and only broke in `dist/index.html`'s actual
+   `href` attributes — I caught it by grepping the built output before and
+   after, not by trusting the code. Fixed by normalising `BASE` once in
+   `src/consts.ts` rather than at every call site
+   ([`60a8b6a`](https://github.com/comp4020-agentic-coding-studio/comp4020-crit2-passionleader/commit/60a8b6a)).
+3. **Stylelint's `no-descending-specificity` forced a real restructure, not a
+   suppression.** The first pass at `global.css` had `.card ul` after
+   `nav[aria-label="Primary"] ul`, and `.card p` after `details p` — both
+   flagged. Rather than disabling the rule, I read what it was actually
+   telling me (declaration order should follow specificity order) and moved
+   the `details`/`summary` and `.card` blocks earlier in the file so the
+   cascade matches the rule's assumption
+   ([`60a8b6a`](https://github.com/comp4020-agentic-coding-studio/comp4020-crit2-passionleader/commit/60a8b6a)).
 
-1. **what happened** --- the problem, or the thing the agent got wrong
-2. **what you did instead of the obvious thing** --- the call you made, and why
-   it beat the obvious one
-3. **how you knew it was right** --- the check you ran, the viewport you looked
-   at, what you read before accepting the diff
-4. **the citation** --- a commit or commit range, a `CLAUDE.md` change, a check
-   that went from red to green, a prompt paired with the commit it produced
-
-Jobs 2 and 3 are the ones the repo can't tell a reader on its own, so they're
-where the marks are. The strongest moments are the ones where a correction
-landed in the **harness** rather than in another prompt --- a rule added to
-`CLAUDE.md`, a check wired up, an attempt thrown away: re-prompting until it
-passes is the routine case, and changing what the agent works against is the
-skilled one.
-
-Cite each moment as a link whose text is the commit hash or range and whose
-target is this repo's commit or compare URL, so a reader clicks straight to the
-evidence:
-
-- one commit: [`a1b2c3d`](https://github.com/YOUR-ORG/YOUR-REPO/commit/a1b2c3d)
-- a range:
-  [`a1b2c3d...e4f5a6b`](https://github.com/YOUR-ORG/YOUR-REPO/compare/a1b2c3d...e4f5a6b)
-
-To pair a prompt with the commit it produced, quote the prompt (curated, not a
-full transcript) next to the citation:
-
-> the prompt, verbatim
-
-Screenshots are welcome where one carries the verification better than a
-sentence does. Commit the file to this repo and link it with a **relative**
-path, which is what makes it render on GitHub: `![alt text](docs/before.png)`.
-Images don't count towards the word count and don't replace the citation.
-
-### A worked moment, for shape
-
-Delete this section along with the rest of the boilerplate --- it's here to show
-the four jobs in one paragraph, not to be imitated in content.
-
-> The date formatter kept coming back with `toLocaleDateString()` and no locale
-> argument, so the same build rendered differently on my machine and in CI. I'd
-> already re-prompted it twice, which fixed the line but not the habit, so the
-> third time I put the rule in `CLAUDE.md` instead
-> ([`3f9ac21`](https://github.com/YOUR-ORG/YOUR-REPO/commit/3f9ac21)) and added
-> a spec test that fails on a bare `toLocaleDateString`. That's what told me it
-> had actually taken: the test went red against the old code and green against
-> the new, and the next two features it wrote passed it without prompting
-> ([`3f9ac21...b7e0d14`](https://github.com/YOUR-ORG/YOUR-REPO/compare/3f9ac21...b7e0d14)).
-
-## Before you ship
-
-`pnpm check:evidence` verifies your citations resolve to real commits, that the
-current reflection entry is in `reflections/`, and that your `CLAUDE.md` is
-there --- before a marker ever opens the file. It checks that your map is
-traceable, not that it is good: the marker judges whether your small,
-deliberately chosen set of moments shows real judgement and reflection. A green
-check is not a substitute for that curation.
-
-Images are deliberately not checked, because whether one renders is visible the
-moment you look. Open this file on GitHub and look at it before you ship.
+None of these needed a new `CLAUDE.md` rule — the harness carried forward from
+crit 1 had nothing custom to begin with, and this week's corrections were
+caught and fixed within the session rather than needing a standing rule for
+next time. If a similar base-path or specificity issue shows up again next
+week, that's the point at which it'd earn one.
