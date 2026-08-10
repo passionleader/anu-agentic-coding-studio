@@ -2,9 +2,11 @@
 import Layout from "../layouts/Layout.astro";
 import OsIcon from "../components/OsIcon.astro";
 import { RELEASE } from "../consts";
-import type { OS } from "../lib/detect-os";
+import { OS_DOWNLOADS, type OS } from "../lib/detect-os";
 
 const OLDER_RELEASES = "https://www.7-zip.org/download.html";
+
+const defaultDownload = OS_DOWNLOADS.windows;
 
 const platforms: { name: string; os?: OS; items: { label: string; href: string }[] }[] = [
   {
@@ -62,10 +64,38 @@ const platforms: { name: string; os?: OS; items: { label: string; href: string }
       organised by platform instead of one long version-by-version table.
     </p>
     <div class="button-row">
-      <a class="button primary" href={`${RELEASE}/7z2602-x64.exe`}>
-        Download for Windows <span class="sub">x64 · 26.02</span>
+      <a class="button primary" id="os-download" href={defaultDownload.href}>
+        <span class="os-icon" data-os="windows">
+          <OsIcon os="windows" />
+        </span>
+        <span class="os-icon" data-os="macos" hidden>
+          <OsIcon os="macos" />
+        </span>
+        <span class="os-icon" data-os="linux" hidden>
+          <OsIcon os="linux" />
+        </span>
+        <span id="os-download-label">{defaultDownload.label}</span>
+        <span class="sub" id="os-download-sub">{defaultDownload.sub}</span>
       </a>
     </div>
+    <script>
+      import { detectOS, OS_DOWNLOADS } from "../lib/detect-os";
+
+      const os = detectOS(navigator.userAgent);
+      if (os !== "unknown") {
+        const entry = OS_DOWNLOADS[os];
+        const link = document.getElementById("os-download");
+        const label = document.getElementById("os-download-label");
+        const sub = document.getElementById("os-download-sub");
+        if (link) link.setAttribute("href", entry.href);
+        if (label) label.textContent = entry.label;
+        if (sub) sub.textContent = entry.sub;
+
+        for (const icon of document.querySelectorAll("#os-download .os-icon")) {
+          (icon as HTMLElement).hidden = icon.getAttribute("data-os") !== os;
+        }
+      }
+    </script>
   </section>
 
   <section>
