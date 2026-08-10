@@ -8,6 +8,11 @@ export const BASE = rawBase.endsWith("/") ? rawBase : `${rawBase}/`;
 
 export const ORIGINAL_SITE_URL = "https://www.7-zip.org/";
 
+// Single source for the current release's asset base — download.astro and
+// the OS-detection mapping below both build real GitHub release URLs from
+// this rather than each hardcoding the version string separately.
+export const RELEASE = "https://github.com/ip7z/7zip/releases/download/26.02";
+
 // Mirrors the real site's own top nav (Home / 7z Format / LZMA SDK / Download
 // / FAQ / Support / Links), so every page here reaches the same set of pages
 // the original does, just restructured.

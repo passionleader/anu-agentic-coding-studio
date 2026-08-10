@@ -1,6 +1,9 @@
 ---
 import Layout from "../layouts/Layout.astro";
 import { BASE, ORIGINAL_SITE_URL } from "../consts";
+import { OS_DOWNLOADS } from "../lib/detect-os";
+
+const defaultDownload = OS_DOWNLOADS.windows;
 
 const releases = [
   {
@@ -34,14 +37,39 @@ const releases = [
       registration required.
     </p>
     <div class="button-row">
-      <a class="button primary" href="https://github.com/ip7z/7zip/releases/download/26.02/7z2602-x64.exe">
-        Download for Windows <span class="sub">x64 · 26.02</span>
+      <a class="button primary" id="os-download" href={defaultDownload.href}>
+        <span id="os-download-label">{defaultDownload.label}</span>
+        <span class="sub" id="os-download-sub">{defaultDownload.sub}</span>
       </a>
-      <a class="button secondary" href={`${BASE}download/`}> 32-bit &amp; ARM64 </a>
+      <a class="button secondary" href={`${BASE}download/`}> All platforms </a>
     </div>
-    <p class="lede" style="margin-top: 1rem; font-size: 0.95rem;">
+    <p class="lede" id="os-detect-note" style="margin-top: 1rem; font-size: 0.95rem;" hidden>
+      Detected <strong id="os-detect-name"></strong> — showing the matching build. Not you? See
+      <a href={`${BASE}download/`}>all downloads</a>.
+    </p>
+    <p class="lede" id="os-detect-fallback" style="margin-top: 1rem; font-size: 0.95rem;">
       Need Linux, macOS, source, or an older release? See <a href={`${BASE}download/`}>all downloads</a>.
     </p>
+    <script>
+      import { detectOS, OS_DOWNLOADS } from "../lib/detect-os";
+
+      const os = detectOS(navigator.userAgent);
+      if (os !== "unknown") {
+        const entry = OS_DOWNLOADS[os];
+        const link = document.getElementById("os-download");
+        const label = document.getElementById("os-download-label");
+        const sub = document.getElementById("os-download-sub");
+        const note = document.getElementById("os-detect-note");
+        const fallback = document.getElementById("os-detect-fallback");
+        const name = document.getElementById("os-detect-name");
+        if (link) link.setAttribute("href", entry.href);
+        if (label) label.textContent = entry.label;
+        if (sub) sub.textContent = entry.sub;
+        if (name) name.textContent = os === "macos" ? "macOS" : os[0].toUpperCase() + os.slice(1);
+        if (note) note.hidden = false;
+        if (fallback) fallback.hidden = true;
+      }
+    </script>
   </section>
 
   <section>
