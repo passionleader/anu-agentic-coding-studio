@@ -1,5 +1,5 @@
 ---
-import { BASE, ORIGINAL_SITE_URL } from "../consts";
+import { BASE, NAV_LINKS, ORIGINAL_SITE_URL } from "../consts";
 import "../styles/global.css";
 
 interface Props {
@@ -9,12 +9,6 @@ interface Props {
 
 const { title, description } = Astro.props;
 const path = new URL(Astro.request.url).pathname;
-
-const links = [
-  { href: BASE, label: "Home" },
-  { href: `${BASE}download/`, label: "Download" },
-  { href: `${BASE}faq/`, label: "FAQ" },
-];
 ---
 
 <!doctype html>
@@ -32,7 +26,7 @@ const links = [
         <nav aria-label="Primary">
           <ul>
             {
-              links.map((link) => (
+              NAV_LINKS.map((link) => (
                 <li>
                   <a href={link.href} aria-current={path === link.href ? "page" : undefined}>
                     {link.label}
