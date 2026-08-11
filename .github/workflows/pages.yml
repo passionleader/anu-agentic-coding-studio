@@ -59,6 +59,8 @@ jobs:
           cp -r crit2-passionleader/dist site/crit2-passionleader
           cp -r assessment1-passionleader/dist site/assessment1-passionleader
           cp index.html site/index.html
+          cp robots.txt site/robots.txt
+          cp sitemap.xml site/sitemap.xml
 
       - uses: actions/configure-pages@v6
       - uses: actions/upload-pages-artifact@v5
