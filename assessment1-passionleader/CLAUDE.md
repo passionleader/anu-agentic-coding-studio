@@ -1,17 +1,29 @@
 # Thermal Convection & Airflow Simulator (COMP4020 Assignment 1)
 
 An interactive explainer for thermal convection: place heat/cold sources, draw
-wall obstacles, adjust temperatures with sliders, and watch airflow particles
-and a thermal color map respond in real time. One idea, tightly scoped ---
-convection, not a general fluid sandbox.
+wall obstacles, adjust temperatures and viscosity with sliders, and watch a
+real incompressible fluid solver drive a thermal heatmap and tracer streaks in
+real time. One idea, tightly scoped --- convection, not a general fluid
+sandbox.
+
+Under the hood this isn't a particle-force toy: `js/fluid-grid.js` is a real
+grid-based semi-Lagrangian CFD solver ("Stable Fluids", Stam 1999) --- diffuse,
+project (enforce incompressibility), advect --- driven by buoyancy under the
+Boussinesq approximation. `physics.html` (linked from the header) explains the
+math for a reader who wants it: the solver ordering, the buoyancy formula, why
+the sim scales real air's viscosity/diffusivity by the same eddy-viscosity
+multiplier rather than using their real (numerically-unresolvable-in-real-time)
+values, and the Rayleigh number that predicts whether a given setup even
+convects.
 
 **Stack: pure vanilla JavaScript, HTML5 Canvas 2D, and Tailwind CSS via CDN.**
 No framework, no runtime npm dependencies, no bundling the shipped app depends
-on --- what ships is `index.html` plus three plain ES module files under `js/`.
-Vite is still present in this repo (see "The stack is swappable" below), but
-only as the course's static-build/dev-server pipeline, the same one every
-deliverable uses --- it is not a dependency of the app itself, and nothing here
-requires it to run. Opening `index.html` directly in a browser works.
+on --- what ships is `index.html`, `physics.html`, and four plain ES module
+files under `js/`. Vite is still present in this repo (see "The stack is
+swappable" below), but only as the course's static-build/dev-server pipeline,
+the same one every deliverable uses --- it is not a dependency of the app
+itself, and nothing here requires it to run. Opening `index.html` directly in
+a browser works.
 
 The **deployed site is what gets marked** --- not this repo, and not "it works
 on my machine". It's marked live in Chrome against the deployed URL at two
@@ -28,36 +40,53 @@ and see `spec/README.md` for how the checks in this repo relate to it.
 
 ## Architecture
 
-Three modules, one direction of dependency: `app.js` depends on both
+Four modules, one direction of dependency: `app.js` depends on both
 `simulation.js` and `ui.js`; `ui.js` depends on `simulation.js`;
-`simulation.js` depends on nothing. Don't add an import that points the other
-way --- it's the thing that keeps any one file replaceable without a rewrite of
-the others.
+`simulation.js` depends on `fluid-grid.js`; `fluid-grid.js` depends on nothing.
+Don't add an import that points the other way --- it's the thing that keeps
+any one file replaceable without a rewrite of the others.
 
-- **`js/simulation.js`** --- state and physics only: heat/cold `sources`,
-  `walls`, the `particles` field, and `step(dt)`. No DOM, no Canvas API, no
-  `document`/`window` reference. This is what makes the physics testable
-  headlessly (`spec/*.test.ts`) without a browser.
+- **`js/fluid-grid.js`** --- the pure numerical kernels: `diffuse`, `project`,
+  `advect`, `setBoundary`, `bilinearSample`, `resample`, all operating on flat
+  typed arrays over a grid with a 1-cell ghost border. Knows nothing about
+  sources, walls, or temperature --- just grid indices and numbers. This is
+  the layer that would stay identical if the simulation were ever extended
+  past thermal convection.
+- **`js/simulation.js`** --- state and physics vocabulary built on top of
+  `fluid-grid.js`: heat/cold `sources`, `walls`, `config` (the sliders'
+  tunables), the grid itself, `step(dt)`, and the derived readouts
+  (`rayleighNumber`, `flowRegime`, `temperatureToColor`). Everything here is in
+  physical units --- meters, seconds, °C, m/s --- never CSS pixels, and never a
+  DOM or Canvas API call. This is what makes the physics testable headlessly
+  (`spec/*.test.ts`) without a browser.
 - **`js/ui.js`** --- owns the `#controls` panel: renders its markup, binds its
   inputs, and translates them into calls against `simulation.js` (add a
-  source, change the active tool). Never touches the canvas or calls
-  `ctx.*` directly.
+  source, change the active tool, retune eddy viscosity). Never touches the
+  canvas or calls `ctx.*` directly.
 - **`js/app.js`** --- the entry point. Owns `#simulation-canvas`, the
-  `requestAnimationFrame` loop, resize handling, and translating raw pointer
-  events into canvas-space coordinates before handing them to `ui.js`. No
+  `requestAnimationFrame` loop with a fixed-timestep physics accumulator,
+  resize handling, the cosmetic tracer streaks (advected by literally sampling
+  the solver's own solved velocity field, carrying no physics of their own),
+  and converting raw pointer events into meters (via `getBoundingClientRect`
+  and the grid's physical domain size) before handing them to `ui.js`. No
   physics and no control markup live here --- if you're tempted to compute a
   velocity or build a `<label>` in this file, it belongs in one of the other
   two.
 - **`index.html`** --- structure only: the canvas element, the empty
-  `#controls` container `ui.js` fills in, and the Tailwind CDN `<script>` tag.
-  Styling is Tailwind utility classes in the markup; reach for a `<style>`
-  block only for something Tailwind's utilities genuinely can't express, and
-  keep it inline and small rather than reintroducing a separate stylesheet.
+  `#controls` container `ui.js` fills in, the header nav (including the link
+  to `physics.html`), and the Tailwind CDN `<script>` tag. Styling is Tailwind
+  utility classes in the markup; reach for a `<style>` block only for
+  something Tailwind's utilities genuinely can't express, and keep it inline
+  and small rather than reintroducing a separate stylesheet.
+- **`physics.html`** --- a static explainer page (no JS, no canvas) laying out
+  the solver's math for a reader who wants the derivation behind what's on
+  screen. Update it alongside `simulation.js` whenever a formula, constant, or
+  threshold it describes changes --- a stale explainer is worse than none.
 
 ## Coding standards
 
 - **ES modules, no bundler-dependent syntax.** `import`/`export` between the
-  three `js/` files is fine (Vite serves them natively and the build step
+  four `js/` files is fine (Vite serves them natively and the build step
   handles it), but don't reach for anything that only works because a bundler
   is present --- no dynamic `import()` for code-splitting, no npm package
   imports. If it wouldn't run from a plain `<script type="module">` off a
@@ -66,25 +95,36 @@ the others.
   template's TypeScript setup --- `js/*.js` is the app, plain and untyped.
   `tsc --noEmit` still runs (see the checks below) but it only has `spec/*.ts`
   to check now; that's expected, not a gap to fill by adding types back.
-- **Canvas conventions.** All drawing happens inside `render()` in `app.js`,
-  once per frame, driven purely by `simulation.js` state --- no code outside
-  `render()` calls a `ctx.*` method. Coordinates passed into `simulation.js`
-  are always canvas-space (post `getBoundingClientRect()` offset), never raw
-  `clientX`/`clientY`.
+- **Canvas conventions.** All drawing happens inside `render()` in `app.js`
+  and the private `draw*` helpers it alone calls (`drawHeatmap`, `drawWall`,
+  `drawGlowingSource`, `drawTracer`), once per frame, driven purely by
+  `simulation.js` state --- no other code calls a `ctx.*` method. Coordinates
+  passed into `simulation.js` are always **meters** (the solver's own physical
+  units), never CSS pixels or raw `clientX`/`clientY` --- `app.js`'s
+  `toMeters()` is the one place that conversion happens, right at the boundary
+  where a pointer event turns into a `simulation.js` call.
+- **Physical units stop at `app.js`.** `fluid-grid.js` and `simulation.js`
+  only ever deal in meters, seconds, °C, and m/s; `app.js` is the only file
+  that knows what a CSS pixel or a `devicePixelRatio` is. If you're computing
+  a `scaleX`/`scaleY` or reading `getBoundingClientRect()` anywhere else,
+  that's a sign it's drifted into the wrong module.
 - **Tailwind utility classes over custom CSS.** Reach for a utility class
   first; a `<style>` block is the exception, not the default.
 - **Name things after the simulation's own vocabulary** (`source`, `wall`,
-  `particle`, `temperature`), not generic UI terms (`item`, `data`, `thing`)
-  --- the domain should be legible from the code without cross-referencing the
-  spec.
+  `tracer`, `temperature`, `grid`), not generic UI terms (`item`, `data`,
+  `thing`) --- the domain should be legible from the code without
+  cross-referencing the spec. `tracer` (cosmetic, drawn in `app.js`, carries no
+  physics) and `source`/`wall`/`grid` (physical state in `simulation.js`) are
+  deliberately different words for deliberately different things --- don't
+  blur them into one term.
 
 ## Commit rules
 
 - **Commit at the boundary of a working change**, not at the end of a session
   --- a source you can place and see rendered, a slider that visibly changes
-  behavior, a wall that particles now deflect off. Each commit should leave
-  `pnpm check` green (see below); if you must commit mid-feature, say so in the
-  message rather than leaving it implicit.
+  behavior, a wall that the flow now visibly bends around. Each commit should
+  leave `pnpm check` green (see below); if you must commit mid-feature, say so
+  in the message rather than leaving it implicit.
 - **Prefix commits with the module they change** when it's not obvious from the
   message alone (`sim:`, `ui:`, `app:`), so the log itself documents the
   boundary the architecture above draws.
