@@ -30,10 +30,14 @@ keeping 7-Zip's own visual identity.
 
 Topic: an interactive explainer for thermal convection.
 [`assessment1-passionleader/`](assessment1-passionleader) is a vanilla
-JS/Canvas 2D/Tailwind simulator — place heat/cold sources, draw wall
-obstacles, tune source and room temperature, particle count, and air
-resistance with sliders, and watch airflow particles and a thermal color map
-respond in real time, with preset scenes (a standard convection cell, a
-thermal chimney, an insulated room with AC) and a full-screen mode.
+JS/Canvas 2D/Tailwind simulator backed by a real grid-based semi-Lagrangian
+CFD solver (Stam's "Stable Fluids") under the Boussinesq approximation — place
+heat/cold sources, draw wall obstacles, tune source power, ambient
+temperature, and eddy viscosity with sliders, and watch a solved velocity
+field drive tracer streaks and a thermal heatmap (tinted by the room's own
+ambient temperature) in real time, with preset scenes (a standard convection
+cell, a thermal chimney, an insulated room with AC) and a full-screen mode. A
+linked `physics.html` explainer lays out the solver's math for anyone who
+wants the derivation.
 
 **Live:** https://passionleader.github.io/anu-agentic-coding-studio/assessment1-passionleader/
