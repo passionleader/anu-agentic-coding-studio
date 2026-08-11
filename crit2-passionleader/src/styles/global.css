@@ -49,8 +49,8 @@ body {
   z-index: -1;
   pointer-events: none;
   background:
-    radial-gradient(circle at var(--blob1, 15% 0%), #eafaea 0%, transparent 45%),
-    radial-gradient(circle at var(--blob2, 100% 20%), #ecebfb 0%, transparent 50%), var(--bg);
+    radial-gradient(circle at var(--blob1, 15% 0%), #fff 0%, transparent 60%),
+    radial-gradient(circle at var(--blob2, 100% 20%), #b0a8f5 0%, transparent 65%), var(--bg);
 }
 
 .reveal {
@@ -179,9 +179,8 @@ section + section {
 
 .button.secondary {
   color: var(--text);
-  background: var(--glass-bg);
-  backdrop-filter: blur(8px);
-  border-color: var(--glass-border);
+  background: var(--bg);
+  border-color: var(--border);
   box-shadow: var(--shadow-sm);
 }
 
@@ -245,9 +244,8 @@ section + section {
 }
 
 details {
-  background: var(--glass-bg);
-  backdrop-filter: blur(8px);
-  border: 1px solid var(--glass-border);
+  background: var(--bg);
+  border: 1px solid var(--border);
   border-radius: var(--radius);
   padding: 0.9rem 1.1rem;
   margin-bottom: 0.6rem;
@@ -265,9 +263,8 @@ details p {
 }
 
 .card {
-  background: var(--glass-bg);
-  backdrop-filter: blur(8px);
-  border: 1px solid var(--glass-border);
+  background: var(--bg);
+  border: 1px solid var(--border);
   border-radius: var(--radius);
   padding: 1.25rem;
   box-shadow: var(--shadow-sm);
@@ -322,9 +319,8 @@ details p {
   display: block;
   padding: 0.5rem 0.75rem;
   border-radius: calc(var(--radius) - 0.2rem);
-  background: var(--glass-bg);
-  backdrop-filter: blur(6px);
-  border: 1px solid var(--glass-border);
+  background: var(--bg);
+  border: 1px solid var(--border);
   color: var(--text);
   text-decoration: none;
   font-size: 0.9rem;
@@ -346,10 +342,12 @@ details p {
 header.site-header {
   position: sticky;
   top: 0;
-  background: var(--glass-bg);
-  backdrop-filter: blur(12px) saturate(160%);
-  border-bottom: 1px solid var(--glass-border);
-  box-shadow: var(--shadow-sm);
+  background: rgb(255 255 255 / 22%);
+  backdrop-filter: blur(20px) saturate(180%);
+  border-bottom: 1px solid rgb(255 255 255 / 60%);
+  box-shadow:
+    var(--shadow-sm),
+    inset 0 1px 0 rgb(255 255 255 / 50%);
   z-index: 10;
 }
 
@@ -456,16 +454,15 @@ nav[aria-label="Primary"] a[aria-current="page"] {
 }
 
 .panel {
-  background: var(--glass-bg);
-  backdrop-filter: blur(8px);
-  border: 1px solid var(--glass-border);
+  background: var(--bg);
+  border: 1px solid var(--border);
   border-radius: var(--radius);
   padding: 1.5rem;
   box-shadow: var(--shadow-sm);
 }
 
 .panel.highlight {
-  background: linear-gradient(135deg, rgb(232 208 232 / 70%), rgb(255 255 255 / 65%));
+  background: linear-gradient(135deg, var(--highlight), #f5eef5);
   border-color: #d0a8d0;
 }
 
