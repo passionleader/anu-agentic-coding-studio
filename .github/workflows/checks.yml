@@ -42,7 +42,16 @@ jobs:
         if: ${{ !github.event.repository.is_template }}
         run: pnpm check:evidence
       - name: Check internal links
-        run: pnpm dlx linkinator ./dist --silent
+        # Astro's base ("/comp4020-crit2-passionleader") is baked into every
+        # internal href because GitHub Pages mounts this site under that path
+        # in production. linkinator serves ./dist flatly at its own root with
+        # no such prefix, so the rewrite below strips it before checking ---
+        # matching what production routing actually does, not weakening the
+        # check.
+        run: >-
+          pnpm dlx linkinator ./dist --silent
+          --url-rewrite-search "/comp4020-crit2-passionleader/"
+          --url-rewrite-replace "/"
       - name: Scan for committed secrets
         # Pinned, both halves: the SHA fixes the action's script, and `version`
         # fixes the scanner image, which otherwise floats on :latest. These two

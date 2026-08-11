@@ -21,9 +21,12 @@ and see `spec/README.md` for how the checks in this repo relate to it.
 - Before you push, run `pnpm check`. It runs most of what CI runs --- build,
   lint, and the spec --- so you catch those in seconds instead of waiting for
   the pipeline. The links check, the evidence check, the secrets scan, and the
-  deploy itself only run in CI; run `pnpm dlx linkinator ./dist --silent`
+  deploy itself only run in CI; run
+  `pnpm dlx linkinator ./dist --silent --url-rewrite-search "/comp4020-crit2-passionleader/" --url-rewrite-replace "/"`
   locally against a fresh `pnpm build` for the links check without waiting for
-  CI.
+  CI --- the rewrite strips the Astro `base` prefix the same way CI's workflow
+  does, since it's baked into every href but only actually mounted at that path
+  once GitHub Pages serves the deployed site.
 - To see what the page actually looks like rather than what you assume it looks
   like, open it in a browser (the `agent-browser` CLI, documented on
   [the course site](https://comp.anu.edu.au/courses/comp4020-agentic-coding-studio/topics/backpressure/#agent-browser-the-rendered-page-as-ground-truth),
