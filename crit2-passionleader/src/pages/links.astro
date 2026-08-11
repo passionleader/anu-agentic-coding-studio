@@ -1,0 +1,117 @@
+---
+import Layout from "../layouts/Layout.astro";
+
+const project = [
+  { label: "7-Zip at GitHub", href: "https://github.com/ip7z/7zip" },
+  { label: "7-Zip Releases at GitHub", href: "https://github.com/ip7z/7zip/releases" },
+  { label: "7-Zip at SourceForge", href: "https://sourceforge.net/projects/sevenzip/" },
+  { label: "7-Zip's Forum at SourceForge", href: "https://sourceforge.net/p/sevenzip/discussion/45797/" },
+  { label: "7-Zip website mirror at SourceForge", href: "https://sevenzip.sourceforge.io/" },
+  { label: "7-Zip at Wikipedia", href: "http://en.wikipedia.org/wiki/7-Zip" },
+];
+
+const p7zip = [
+  { label: "p7zip at SourceForge", href: "https://sourceforge.net/projects/p7zip/" },
+  {
+    label: "p7zip fork (jinfeihan57) with additional codecs and improvements",
+    href: "https://github.com/jinfeihan57/p7zip",
+  },
+];
+
+const related = [
+  { label: "LZMA utils", href: "http://tukaani.org/lzma/" },
+  { label: "XZ utils", href: "http://tukaani.org/xz/" },
+  { label: "PyLZMA — Python bindings for LZMA", href: "http://www.joachim-bauch.de/projects/python/pylzma/" },
+  { label: "7-Zip Portable", href: "http://portableapps.com/apps/utilities/7-zip_portable" },
+  { label: "SevenZipSharp — C# interface to 7z.dll", href: "http://www.codeplex.com/sevenzipsharp" },
+  { label: "7-Zip-JBinding — a Java wrapper for the 7-Zip C++ library", href: "https://sourceforge.net/projects/sevenzipjbind/" },
+  { label: "7-Zip WASM", href: "https://github.com/use-strict/7z-wasm" },
+  { label: "ZipZip — online archive manager built on 7-Zip WASM", href: "https://zipzip.pro/" },
+];
+
+const usesLzma = [
+  { label: "NSIS (Nullsoft Scriptable Install System)", href: "https://nsis.sourceforge.net/" },
+  { label: "Inno Setup", href: "http://www.jrsoftware.org/isinfo.php" },
+  { label: "Advanced Installer", href: "https://www.advancedinstaller.com/" },
+  { label: "UPX — the Ultimate Packer for eXecutables", href: "https://upx.github.io/" },
+];
+
+const opens7z = [
+  { label: "WinRAR", href: "https://www.rarlab.com/" },
+  { label: "PowerArchiver", href: "https://www.powerarchiver.com/" },
+  { label: "Total Commander", href: "https://www.ghisler.com/" },
+  { label: "FAR Manager", href: "https://www.farmanager.com/index.php?l=en" },
+  { label: "IZArc", href: "https://www.izarc.org/" },
+  { label: "PeaZip", href: "https://peazip.github.io/" },
+  { label: "The Unarchiver (macOS)", href: "https://theunarchiver.com/" },
+  { label: "Bitser", href: "https://www.bitser.org/" },
+];
+---
+
+<Layout
+  title="Links"
+  description="Where the 7-Zip project itself lives, p7zip, related tools built on LZMA, and software that reads or writes 7z archives."
+>
+  <section class="hero">
+    <p class="eyebrow">Links</p>
+    <h1>Links</h1>
+    <p class="lede">
+      The project's own pages, its Unix/Linux port, and the wider ecosystem
+      built around the 7z format and LZMA — grouped by what each thing
+      actually is, not run together in one long list.
+    </p>
+  </section>
+
+  <section>
+    <h2>Project</h2>
+    <div class="grid">
+      {
+        project.map((l) => (
+          <a class="button secondary link-card" href={l.href}>
+            {l.label}
+          </a>
+        ))
+      }
+    </div>
+  </section>
+
+  <section>
+    <h2>p7zip — the Unix/Linux port</h2>
+    <div class="panel">
+      <p>
+        The original p7zip source is unmaintained since 16.02; a community
+        fork carries it forward with additional codecs and fixes.
+      </p>
+      <ul>
+        {p7zip.map((l) => <li><a href={l.href}>{l.label}</a></li>)}
+      </ul>
+    </div>
+  </section>
+
+  <section>
+    <h2>Related projects</h2>
+    <div class="grid">
+      {
+        related.map((l) => (
+          <a class="button secondary link-card" href={l.href}>
+            {l.label}
+          </a>
+        ))
+      }
+    </div>
+  </section>
+
+  <section class="panel highlight">
+    <h2>Applications using 7-Zip (LZMA) compression</h2>
+    <ul>
+      {usesLzma.map((l) => <li><a href={l.href}>{l.label}</a></li>)}
+    </ul>
+  </section>
+
+  <section class="panel">
+    <h2>Applications that open .7z archives</h2>
+    <ul>
+      {opens7z.map((l) => <li><a href={l.href}>{l.label}</a></li>)}
+    </ul>
+  </section>
+</Layout>

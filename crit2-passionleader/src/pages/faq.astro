@@ -1,0 +1,136 @@
+---
+import Layout from "../layouts/Layout.astro";
+
+const userFaq = [
+  {
+    group: "Licensing & use",
+    items: [
+      {
+        q: "Can I use 7-Zip in a commercial organization?",
+        a: "Yes. It's free software, usable on any computer without registration or payment — including commercial use.",
+      },
+    ],
+  },
+  {
+    group: "Archives & compatibility",
+    items: [
+      {
+        q: "Why can 7z archives created by new versions of 7-Zip be larger than those from old versions?",
+        a: 'Since version 15.06, 7-Zip sorts files "by name" instead of the older "by type" order by default, which can reduce compression for solid archives with a small dictionary. Use the "qs" switch or a larger dictionary to recover the old ratio.',
+      },
+      {
+        q: "Why can't 7-Zip open some ZIP archives?",
+        a: "Usually the archive has faulty headers that more lenient programs silently ignore, or it uses a compression method 7-Zip doesn't support, such as WavPack.",
+      },
+      {
+        q: "Why can't 7-Zip open some RAR archives?",
+        a: "Version 9.20 only supports RAR 2/3/4, not RAR5 — newer 7-Zip releases do support RAR5.",
+      },
+      {
+        q: "Why does drag-and-drop extraction from 7-Zip to Explorer use temp files?",
+        a: "7-Zip doesn't know the exact drop destination in advance, so it extracts to a temp folder first and lets Explorer move the files from there.",
+      },
+      {
+        q: "Why can't 7-Zip use a big dictionary on 32-bit Windows?",
+        a: "32-bit Windows limits an application to 2 GB of fragmented virtual address space. 64-bit Windows removes that limit.",
+      },
+      {
+        q: "How can I recover a corrupted 7z archive?",
+        a: "There's a separate recovery guide for archives showing CRC/data errors or that fail to open at all — see the official site for the full steps.",
+      },
+    ],
+  },
+  {
+    group: "Command line",
+    items: [
+      {
+        q: "Why doesn't the command line version add files without extensions?",
+        a: 'The "*.*" wildcard only matches files that have an extension. Use "*" instead to match everything.',
+      },
+      {
+        q: "Why doesn't the -r switch work as expected?",
+        a: "7-Zip already compresses subfolders by default without -r. That switch instead triggers a recursive search across all matching subfolders, which can pull in more than you intended.",
+      },
+      {
+        q: "How can I store the full path of a file in an archive?",
+        a: "7-Zip only stores relative paths. Change the working directory to a common parent folder before archiving with relative paths.",
+      },
+      {
+        q: "How can I install 7-Zip in silent mode?",
+        a: "For the EXE installer, use /S and /D=<path>. For the MSI installer, use /q and INSTALLDIR=<path>.",
+      },
+    ],
+  },
+  {
+    group: "Windows setup",
+    items: [
+      {
+        q: "How can I set file associations to 7-Zip in Windows 7 and Windows Vista?",
+        a: "Run the 7-Zip File Manager as administrator (right-click → Run as administrator) to change file associations and other options.",
+      },
+    ],
+  },
+];
+
+const developerFaq = [
+  {
+    q: "Why are there linking errors compiling with Visual C++ 6.0?",
+    a: "You need the matching Platform SDK version (the Windows Server 2003 PSDK from February 2003) — newer SDKs aren't compatible with MSVC6.",
+  },
+  {
+    q: "Can I use the EXE or DLL files in a commercial application?",
+    a: "Yes, as long as your documentation credits 7-Zip's use, notes the GNU LGPL license, and links to www.7-zip.org.",
+  },
+  {
+    q: "How can I add support for 7z archives to my application?",
+    a: "Use 7z.dll / 7za.dll via its COM-style interfaces, or call the command-line 7za.exe directly.",
+  },
+  {
+    q: "Can I use the source code of 7-Zip in a commercial application?",
+    a: "The LGPL permits modification, but any modified library code must stay under LGPL/GPL — separate application code linking to it can use any license. The LZMA SDK offers more flexible terms if that's a better fit.",
+  },
+];
+---
+
+<Layout
+  title="7-Zip FAQ"
+  description="Answers to common 7-Zip questions, covering licensing, archive compatibility, the command line, and development against the LZMA SDK."
+>
+  <section class="hero">
+    <p class="eyebrow">FAQ</p>
+    <h1>Frequently asked questions</h1>
+    <p class="lede">
+      Grouped by topic instead of one long numbered list — click a question to
+      expand it.
+    </p>
+  </section>
+
+  <section>
+    <h2>User FAQ</h2>
+    {
+      userFaq.map((group) => (
+        <div class="faq-group">
+          <h3>{group.group}</h3>
+          {group.items.map((item) => (
+            <details>
+              <summary>{item.q}</summary>
+              <p>{item.a}</p>
+            </details>
+          ))}
+        </div>
+      ))
+    }
+  </section>
+
+  <section>
+    <h2>Developer FAQ</h2>
+    {
+      developerFaq.map((item) => (
+        <details>
+          <summary>{item.q}</summary>
+          <p>{item.a}</p>
+        </details>
+      ))
+    }
+  </section>
+</Layout>

@@ -1,0 +1,177 @@
+---
+import Layout from "../layouts/Layout.astro";
+import OsIcon from "../components/OsIcon.astro";
+import { BASE, ORIGINAL_SITE_URL } from "../consts";
+import { OS_DOWNLOADS } from "../lib/detect-os";
+
+const defaultDownload = OS_DOWNLOADS.windows;
+
+const formats = [
+  "APFS", "AR", "ARJ", "CAB", "CHM", "CPIO", "CramFS", "DMG", "EXT", "FAT",
+  "GPT", "HFS", "IHEX", "ISO", "LZH", "LZMA", "MBR", "MSI", "NSIS", "NTFS",
+  "QCOW2", "RAR", "RPM", "SquashFS", "UDF", "UEFI", "VDI", "VHD", "VMDK",
+  "XAR", "Z",
+];
+
+const releases = [
+  {
+    version: "26.02",
+    date: "2026-06-25",
+    note: "Latest stable release.",
+  },
+  {
+    version: "26.01",
+    date: "2026-04-02",
+    note: "Maintenance release.",
+  },
+  {
+    version: "26.00",
+    date: "2026-01-18",
+    note: "Feature release.",
+  },
+];
+---
+
+<Layout
+  title="7-Zip — a free file archiver with a high compression ratio"
+  description="7-Zip is a free, open-source file archiver with a high compression ratio, built around the 7z format and LZMA/LZMA2 compression."
+>
+  <section class="hero">
+    <p class="eyebrow">Free · open-source · no ads, no bundleware</p>
+    <h1>A file archiver that gets out of your way</h1>
+    <p class="lede">
+      7-Zip compresses harder than ZIP, opens almost anything you throw at it,
+      and costs nothing — for personal use or in a business, with no
+      registration required.
+    </p>
+    <div class="button-row">
+      <a class="button primary" id="os-download" href={defaultDownload.href}>
+        <span class="os-icon" data-os="windows">
+          <OsIcon os="windows" />
+        </span>
+        <span class="os-icon" data-os="macos" hidden>
+          <OsIcon os="macos" />
+        </span>
+        <span class="os-icon" data-os="linux" hidden>
+          <OsIcon os="linux" />
+        </span>
+        <span id="os-download-label">{defaultDownload.label}</span>
+        <span class="sub" id="os-download-sub">{defaultDownload.sub}</span>
+      </a>
+      <a class="button secondary" href={`${BASE}download/`}> All platforms </a>
+    </div>
+    <p class="lede" id="os-detect-note" style="margin-top: 1rem; font-size: 0.95rem;" hidden>
+      Detected <strong id="os-detect-name"></strong>. Not you? See <a href={`${BASE}download/`}>all downloads</a>.
+    </p>
+    <p class="lede" id="os-detect-fallback" style="margin-top: 1rem; font-size: 0.95rem;">
+      Other platforms, source, or an older release: <a href={`${BASE}download/`}>see all downloads</a>.
+    </p>
+    <script>
+      import { detectOS, OS_DOWNLOADS } from "../lib/detect-os";
+
+      const os = detectOS(navigator.userAgent);
+      if (os !== "unknown") {
+        const entry = OS_DOWNLOADS[os];
+        const link = document.getElementById("os-download");
+        const label = document.getElementById("os-download-label");
+        const sub = document.getElementById("os-download-sub");
+        const note = document.getElementById("os-detect-note");
+        const fallback = document.getElementById("os-detect-fallback");
+        const name = document.getElementById("os-detect-name");
+        if (link) link.setAttribute("href", entry.href);
+        if (label) label.textContent = entry.label;
+        if (sub) sub.textContent = entry.sub;
+        if (name) name.textContent = os === "macos" ? "macOS" : os[0].toUpperCase() + os.slice(1);
+        if (note) note.hidden = false;
+        if (fallback) fallback.hidden = true;
+
+        for (const icon of document.querySelectorAll("#os-download .os-icon")) {
+          (icon as HTMLElement).hidden = icon.getAttribute("data-os") !== os;
+        }
+      }
+    </script>
+  </section>
+
+  <section class="reveal">
+    <h2>Why it's worth installing</h2>
+    <div class="grid">
+      <div class="card reveal" style="transition-delay: 0.05s">
+        <h3>High compression</h3>
+        <p>Usually 30–70% smaller than ZIP, via the native <code>7z</code> format.</p>
+      </div>
+      <div class="card reveal" style="transition-delay: 0.1s">
+        <h3>Opens almost anything</h3>
+        <p>
+          Packs and unpacks 7z, XZ, BZIP2, GZIP, TAR, ZIP, and WIM — plus
+          unpacks over 30 more formats (<a href="#all-formats">full list below</a>).
+        </p>
+      </div>
+      <div class="card reveal" style="transition-delay: 0.15s">
+        <h3>Security built in</h3>
+        <p>AES-256 encryption for 7z/ZIP, and self-extracting archives for the recipients who don't have 7-Zip.</p>
+      </div>
+      <div class="card reveal" style="transition-delay: 0.2s">
+        <h3>Fits how you already work</h3>
+        <ul>
+          <li>Windows Shell integration</li>
+          <li>Standalone file manager</li>
+          <li>Command-line + FAR Manager plugin</li>
+        </ul>
+      </div>
+      <div class="card reveal" style="transition-delay: 0.25s">
+        <h3>Works everywhere you need it</h3>
+        <p>Windows XP–11, Server 2003–2025 (32-bit, 64-bit, ARM64), in 87 languages.</p>
+      </div>
+      <div class="card reveal" style="transition-delay: 0.3s">
+        <h3>Actually free</h3>
+        <p>GNU LGPL (mostly), no registration, no payment — commercial use included.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="reveal">
+    <h2>Recent releases</h2>
+    <ul class="timeline">
+      {
+        releases.map((release) => (
+          <li>
+            <time datetime={release.date}>{release.date}</time>
+            <strong>7-Zip {release.version}</strong> — {release.note}
+          </li>
+        ))
+      }
+    </ul>
+    <p>
+      <a href="https://www.7-zip.org/history.txt">Full version history →</a>
+    </p>
+  </section>
+
+  <section class="reveal" id="all-formats">
+    <details>
+      <summary>Full list of formats 7-Zip can unpack</summary>
+      <p>
+        Beyond packing/unpacking 7z, XZ, BZIP2, GZIP, TAR, ZIP, and WIM,
+        7-Zip unpacks-only: {formats.join(", ")}.
+      </p>
+    </details>
+  </section>
+
+  <section class="panel reveal">
+    <h2>About this redesign</h2>
+    <p>
+      This is a rebuild of <a href={ORIGINAL_SITE_URL}>7-zip.org</a>, the real
+      site for the real project — done as a studio exercise, not something
+      the 7-Zip team asked for.
+    </p>
+    <p>
+      I like 7-Zip because it's exactly what it says it is: a free, genuinely
+      excellent archiver with no dark patterns and no upsell. What its current
+      site gets wrong is presentation, not substance — the download links sit
+      in a small table with no visual priority, the feature list is one long
+      unbroken paragraph, and every release since 2010 is stacked on a single
+      page. None of that is a content problem; it's an information-hierarchy
+      problem. This version keeps every real fact and gives the one thing
+      most visitors came for, the download, an actual visual priority.
+    </p>
+  </section>
+</Layout>

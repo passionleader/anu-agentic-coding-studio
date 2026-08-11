@@ -1,0 +1,110 @@
+---
+import Layout from "../layouts/Layout.astro";
+import { ORIGINAL_SITE_URL } from "../consts";
+
+const languages = ["C", "C++", "C#", "Java"];
+const speedFacts = [
+  { label: "Compression speed", value: "2–8 MB/s on a 4 GHz CPU (2 threads)" },
+  { label: "Decompression speed", value: "30–100 MB/s on a 4 GHz CPU, or 5–15 MB/s on a 1 GHz RISC CPU" },
+  { label: "Decompression memory", value: "8–32 KB, plus the dictionary size" },
+  { label: "Decompression code size", value: "2–8 KB" },
+];
+---
+
+<Layout
+  title="LZMA SDK"
+  description="The LZMA SDK: public-domain documentation, samples, and libraries for building on LZMA compression, in C, C++, C#, and Java."
+>
+  <section class="hero">
+    <p class="eyebrow">SDK · v26.02</p>
+    <h1>LZMA SDK</h1>
+    <p class="lede">
+      The documentation, samples, header files, libraries, and tools you need
+      to develop applications that use LZMA compression — the same method
+      that powers the 7z format by default.
+    </p>
+    <div class="button-row">
+      <a class="button primary" href="https://github.com/ip7z/7zip/releases/download/26.02/lzma2602.7z">
+        Download LZMA SDK <span class="sub">26.02 · 1.7 MB</span>
+      </a>
+    </div>
+  </section>
+
+  <section class="panel highlight">
+    <h2>Public domain</h2>
+    <p>
+      As of version 4.62, the LZMA SDK is public domain: "Anyone is free to
+      copy, modify, publish, use, compile, sell, or distribute the original
+      LZMA SDK code, either in source code form or as a compiled binary, for
+      any purpose, commercial or non-commercial, and by any means."
+    </p>
+  </section>
+
+  <section>
+    <h2>What's inside</h2>
+    <div class="grid">
+      <div class="card">
+        <h3>Languages</h3>
+        <ul>
+          {languages.map((l) => <li>{l}</li>)}
+        </ul>
+        <p>Windows binaries ship for x86, x64, and arm64.</p>
+      </div>
+      <div class="card">
+        <h3>Source &amp; examples</h3>
+        <ul>
+          <li>C++ LZMA encoder/decoder source</li>
+          <li>C++ .7z compression/decompression (reduced)</li>
+          <li>ANSI-C source for LZMA / LZMA2 / XZ</li>
+          <li>ANSI-C 7z decompression example</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Tools</h3>
+        <ul>
+          <li><code>lzma.exe</code> — standalone compressor</li>
+          <li><code>7zr.exe</code> — reduced 7-Zip</li>
+          <li>SFX modules for self-extracting archives and installers</li>
+        </ul>
+      </div>
+      <div class="card">
+        <h3>Where it's used</h3>
+        <p>
+          Suitable for embedded applications thanks to a small decompression
+          footprint — ROM and firmware compression are common uses, alongside
+          general-purpose archiving.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <h2>Speed and footprint</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Metric</th>
+          <th>Figure</th>
+        </tr>
+      </thead>
+      <tbody>
+        {speedFacts.map((f) => (
+          <tr>
+            <td>{f.label}</td>
+            <td>{f.value}</td>
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </section>
+
+  <section class="panel">
+    <h2>Where the name comes from</h2>
+    <p>
+      LZMA originally stood for Lempel-Ziv-Markov chain-Arithmetic coding. In
+      the final version, arithmetic coding was replaced by range coding — the
+      name stuck anyway.
+    </p>
+    <p>See the real page on <a href={`${ORIGINAL_SITE_URL}sdk.html`}>7-zip.org/sdk.html</a>.</p>
+  </section>
+</Layout>

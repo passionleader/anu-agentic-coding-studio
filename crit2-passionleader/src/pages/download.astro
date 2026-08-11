@@ -1,0 +1,139 @@
+---
+import Layout from "../layouts/Layout.astro";
+import OsIcon from "../components/OsIcon.astro";
+import { RELEASE } from "../consts";
+import { OS_DOWNLOADS, type OS } from "../lib/detect-os";
+
+const OLDER_RELEASES = "https://www.7-zip.org/download.html";
+
+const defaultDownload = OS_DOWNLOADS.windows;
+
+const platforms: { name: string; os?: OS; items: { label: string; href: string }[] }[] = [
+  {
+    name: "Windows",
+    os: "windows",
+    items: [
+      { label: "x64 (64-bit) installer", href: `${RELEASE}/7z2602-x64.exe` },
+      { label: "x86 (32-bit) installer", href: `${RELEASE}/7z2602.exe` },
+      { label: "ARM64 installer", href: `${RELEASE}/7z2602-arm64.exe` },
+      { label: "MSI installer — x64", href: `${RELEASE}/7z2602-x64.msi` },
+      { label: "MSI installer — x86", href: `${RELEASE}/7z2602.msi` },
+      {
+        label: "7-Zip Extra — standalone 7za/7zr, 7z.dll, FAR Manager plugin",
+        href: `${RELEASE}/7z2602-extra.7z`,
+      },
+    ],
+  },
+  {
+    name: "Linux",
+    os: "linux",
+    items: [
+      { label: "x86-64", href: `${RELEASE}/7z2602-linux-x64.tar.xz` },
+      { label: "x86 (32-bit)", href: `${RELEASE}/7z2602-linux-x86.tar.xz` },
+      { label: "arm64", href: `${RELEASE}/7z2602-linux-arm64.tar.xz` },
+      { label: "arm", href: `${RELEASE}/7z2602-linux-arm.tar.xz` },
+    ],
+  },
+  {
+    name: "macOS",
+    os: "macos",
+    items: [{ label: "Console version (arm64 and x86-64)", href: `${RELEASE}/7z2602-mac.tar.xz` }],
+  },
+  {
+    name: "Source & SDK",
+    items: [
+      { label: "7-Zip source (.7z)", href: `${RELEASE}/7z2602-src.7z` },
+      { label: "7-Zip source (.tar.xz)", href: `${RELEASE}/7z2602-src.tar.xz` },
+      { label: "LZMA SDK (.7z)", href: `${RELEASE}/lzma2602.7z` },
+      { label: "7zr.exe — reduced standalone version", href: `${RELEASE}/7zr.exe` },
+    ],
+  },
+];
+---
+
+<Layout
+  title="Download 7-Zip — all platforms"
+  description="Every platform 7-Zip ships for: Windows, Linux, macOS, source, and the LZMA SDK, linked straight to the real GitHub release."
+>
+  <section class="hero">
+    <p class="eyebrow">7-Zip 26.02 · released 2026-06-25</p>
+    <h1>Download 7-Zip</h1>
+    <p class="lede">
+      Every link below points straight at the real release asset on
+      <a href="https://github.com/ip7z/7zip/releases/tag/26.02">GitHub</a> —
+      organised by platform instead of one long version-by-version table.
+    </p>
+    <div class="button-row">
+      <a class="button primary" id="os-download" href={defaultDownload.href}>
+        <span class="os-icon" data-os="windows">
+          <OsIcon os="windows" />
+        </span>
+        <span class="os-icon" data-os="macos" hidden>
+          <OsIcon os="macos" />
+        </span>
+        <span class="os-icon" data-os="linux" hidden>
+          <OsIcon os="linux" />
+        </span>
+        <span id="os-download-label">{defaultDownload.label}</span>
+        <span class="sub" id="os-download-sub">{defaultDownload.sub}</span>
+      </a>
+    </div>
+    <script>
+      import { detectOS, OS_DOWNLOADS } from "../lib/detect-os";
+
+      const os = detectOS(navigator.userAgent);
+      if (os !== "unknown") {
+        const entry = OS_DOWNLOADS[os];
+        const link = document.getElementById("os-download");
+        const label = document.getElementById("os-download-label");
+        const sub = document.getElementById("os-download-sub");
+        if (link) link.setAttribute("href", entry.href);
+        if (label) label.textContent = entry.label;
+        if (sub) sub.textContent = entry.sub;
+
+        for (const icon of document.querySelectorAll("#os-download .os-icon")) {
+          (icon as HTMLElement).hidden = icon.getAttribute("data-os") !== os;
+        }
+      }
+    </script>
+  </section>
+
+  <section>
+    <h2>By platform</h2>
+    <div class="grid">
+      {
+        platforms.map((platform) => (
+          <div class="card">
+            <h3>
+              {platform.os && (
+                <span class="os-icon" style="margin-right: 0.4rem;">
+                  <OsIcon os={platform.os} />
+                </span>
+              )}
+              {platform.name}
+            </h3>
+            <ul class="dl-list">
+              {platform.items.map((item) => (
+                <li>
+                  <a class="dl-link" href={item.href}>
+                    {item.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))
+      }
+    </div>
+  </section>
+
+  <section class="panel highlight">
+    <h2>Looking for an older release?</h2>
+    <p>
+      Recent major versions include 23.01 (2023-06-20), 19.00 (2019-02-21),
+      16.04 (2016-10-04), and 9.20 (2010-11-18). The full archive, plus
+      SourceForge mirrors, is linked from the
+      <a href={OLDER_RELEASES}>official download page</a>.
+    </p>
+  </section>
+</Layout>
