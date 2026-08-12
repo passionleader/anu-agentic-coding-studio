@@ -33,6 +33,7 @@ jobs:
             crit1-passionleader/pnpm-lock.yaml
             crit2-passionleader/pnpm-lock.yaml
             assessment1-passionleader/pnpm-lock.yaml
+            assessment1.1-passionleader/pnpm-lock.yaml
 
       - name: Build crit1-passionleader
         working-directory: crit1-passionleader
@@ -52,12 +53,19 @@ jobs:
           pnpm install --frozen-lockfile
           pnpm build
 
+      - name: Build assessment1.1-passionleader
+        working-directory: assessment1.1-passionleader
+        run: |
+          pnpm install --frozen-lockfile
+          pnpm build
+
       - name: Assemble combined site
         run: |
           mkdir -p site
           cp -r crit1-passionleader/dist site/crit1-passionleader
           cp -r crit2-passionleader/dist site/crit2-passionleader
           cp -r assessment1-passionleader/dist site/assessment1-passionleader
+          cp -r assessment1.1-passionleader/dist site/assessment1.1-passionleader
           cp index.html site/index.html
           cp robots.txt site/robots.txt
           cp sitemap.xml site/sitemap.xml
@@ -72,7 +80,7 @@ jobs:
       - name: Verify all deployed sites are online
         run: |
           base="${{ steps.deploy.outputs.page_url }}"
-          for path in "crit1-passionleader/" "crit2-passionleader/" "assessment1-passionleader/"; do
+          for path in "crit1-passionleader/" "crit2-passionleader/" "assessment1-passionleader/" "assessment1.1-passionleader/"; do
             url="${base}${path}"
             ok=""
             for i in 1 2 3 4 5; do

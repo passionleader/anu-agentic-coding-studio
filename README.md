@@ -41,3 +41,19 @@ linked `physics.html` explainer lays out the solver's math for anyone who
 wants the derivation.
 
 **Live:** https://passionleader.github.io/anu-agentic-coding-studio/assessment1-passionleader/
+
+## Assessment 1.1 — weather & atmosphere simulator
+
+Topic: an experimental follow-on from Assessment 1, deliberately kept out of
+its graded scope. [`assessment1.1-passionleader/`](assessment1.1-passionleader)
+couples two dynamic fields — temperature and atmospheric pressure — with real
+Coriolis rotation, so wind emerges the way it does on an actual synoptic
+weather chart rather than as a reskinned convection demo: place warm/cool
+zones and high/low-pressure sources, tune latitude, friction, and
+thermal-pressure coupling with sliders, and watch isobars, H/L markers, and a
+thousands-strong wind particle streamline system trace the resulting
+circulation over a sharp, ridged-noise procedural coastline. A linked
+`weather-physics.html` explainer lays out the solver's math, same as the
+original.
+
+**Live:** https://passionleader.github.io/anu-agentic-coding-studio/assessment1.1-passionleader/weather.html
