@@ -1,0 +1,118 @@
+<!doctype html>
+<!-- Seongsu Kim · u8321477@anu.edu.au -->
+<html lang="en-AU">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Weather &amp; Atmosphere Simulator</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Tailwind's default theme has no "Outfit" font family and no
+    dark-teal palette, so a small inline style block covers what its
+    utilities genuinely can't express (see CLAUDE.md). -->
+    <style>
+      body {
+        font-family:
+          "Outfit",
+          ui-sans-serif,
+          system-ui,
+          sans-serif;
+      }
+    </style>
+  </head>
+  <body class="flex h-screen flex-col overflow-hidden bg-black text-slate-100">
+    <header class="relative z-40 border-b border-[#1e3a4a] bg-black">
+      <nav
+        aria-label="Primary"
+        class="flex items-center justify-between gap-3 px-4 py-3"
+      >
+        <span class="flex min-w-0 flex-col truncate">
+          <span class="truncate text-sm font-semibold tracking-wide text-slate-300">
+            Weather &amp; Atmosphere Simulator
+          </span>
+          <span class="truncate text-[11px] text-slate-500">u8321477@anu.edu.au Seongsu Kim</span>
+        </span>
+        <div class="flex shrink-0 items-center gap-2">
+          <button
+            id="fullscreen-toggle"
+            type="button"
+            aria-pressed="false"
+            class="rounded border border-[#1e3a4a] bg-[#152530] px-3 py-1.5 text-sm font-medium hover:bg-[#1c3140]"
+          >
+            Fullscreen
+          </button>
+          <button
+            id="controls-toggle"
+            type="button"
+            aria-expanded="true"
+            aria-controls="controls"
+            class="rounded border border-[#1e3a4a] bg-[#152530] px-3 py-1.5 text-sm font-medium hover:bg-[#1c3140]"
+          >
+            Controls
+          </button>
+        </div>
+      </nav>
+    </header>
+
+    <!-- The one real heading the invariants require; the header above already
+    carries the visible title, so this stays off-screen rather than doubling
+    it. -->
+    <h1 class="sr-only">Weather &amp; Atmosphere Simulator</h1>
+
+    <main class="relative flex flex-1 overflow-hidden bg-black">
+      <div class="relative flex min-w-0 flex-1 flex-col">
+        <canvas
+          id="weather-canvas"
+          class="min-h-0 min-w-0 flex-1 touch-none bg-black"
+          aria-label="Weather simulation map"
+        ></canvas>
+
+        <div
+          id="status-bar"
+          class="pointer-events-none absolute inset-x-0 top-0 flex items-center justify-between gap-4 bg-black/70 px-3 py-1.5 font-mono text-xs text-slate-300 backdrop-blur"
+        >
+          <span>FPS: <span id="fps-value">--</span></span>
+          <span>Min P: <span id="min-pressure-value">--</span> hPa</span>
+          <span>Max P: <span id="max-pressure-value">--</span> hPa</span>
+          <span class="hidden sm:inline">f: <span id="coriolis-value">--</span> ×10⁻⁴/s</span>
+        </div>
+      </div>
+
+      <!-- Mobile-only scrim behind the controls drawer; forced hidden at
+      md and up, where the panel is an inline sidebar instead of an overlay. -->
+      <div
+        id="controls-backdrop"
+        class="fixed inset-0 z-20 hidden bg-black/50 md:hidden"
+      ></div>
+
+      <aside
+        id="controls"
+        aria-label="Simulation controls"
+        class="fixed inset-x-0 bottom-0 z-30 flex max-h-[70vh] flex-col gap-4 overflow-y-auto rounded-t-2xl border-t border-[#1e3a4a] bg-[#0f1e26] p-4 shadow-xl transition-all duration-200 ease-out md:static md:inset-auto md:z-auto md:max-h-none md:shrink-0 md:overflow-y-auto md:rounded-lg md:shadow-none"
+      >
+        <!-- js/weather-ui.js populates this panel: tool selector, sliders,
+        layer toggles, presets, and action buttons. Kept empty here so
+        weather-ui.js is the single source of truth for control markup. -->
+      </aside>
+    </main>
+
+    <script type="module" src="./js/weather-app.js"></script>
+    <script
+      data-name="BMC-Widget"
+      data-cfasync="false"
+      src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js"
+      data-id="sskim"
+      data-description="Support me on Buy me a coffee!"
+      data-message=""
+      data-color="#FF813F"
+      data-position="Right"
+      data-x_margin="18"
+      data-y_margin="18"
+    ></script>
+  </body>
+</html>

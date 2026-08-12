@@ -1,0 +1,206 @@
+<!doctype html>
+<!-- Seongsu Kim · u8321477@anu.edu.au -->
+<html lang="en-AU">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>How the Weather Simulator Works</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        font-family:
+          "Outfit",
+          ui-sans-serif,
+          system-ui,
+          sans-serif;
+      }
+    </style>
+  </head>
+  <body class="min-h-screen bg-black text-slate-100">
+    <header class="border-b border-[#1e3a4a]">
+      <nav
+        aria-label="Primary"
+        class="flex items-center justify-between gap-3 px-4 py-3"
+      >
+        <span class="flex min-w-0 flex-col truncate">
+          <span class="truncate text-sm font-semibold tracking-wide text-slate-300">
+            Weather &amp; Atmosphere Simulator
+          </span>
+          <span class="truncate text-[11px] text-slate-500">u8321477@anu.edu.au Seongsu Kim</span>
+        </span>
+        <a
+          href="./weather.html"
+          class="shrink-0 rounded border border-[#1e3a4a] bg-[#152530] px-3 py-1.5 text-sm font-medium hover:bg-[#1c3140]"
+        >
+          Back to Simulator
+        </a>
+      </nav>
+    </header>
+
+    <main class="mx-auto max-w-3xl px-4 py-10">
+      <h1 class="text-2xl font-semibold text-slate-100">How this simulator actually works</h1>
+      <p class="mt-2 text-sm text-slate-400">
+        Every number and equation below is exactly what
+        <code class="rounded bg-[#152530] px-1 py-0.5">js/weather-simulation.js</code> and
+        <code class="rounded bg-[#152530] px-1 py-0.5">js/atmosphere-grid.js</code> compute each frame — nothing on this
+        page is aspirational.
+      </p>
+
+      <section class="mt-8">
+        <h2 class="text-lg font-semibold text-slate-100">Two coupled fields, not one</h2>
+        <p class="mt-2 text-slate-300">
+          The map sits on a grid, same as the convection simulator this project started from — but instead of a single
+          incompressible fluid, two fields evolve together every step: temperature
+          <span class="font-mono">T</span> (°C) and atmospheric pressure <span class="font-mono">P</span> (hPa). Neither
+          one is a passenger: pressure differences push the wind, temperature differences push the pressure, and the wind
+          then carries both fields around. Each step does the following, in this exact order:
+        </p>
+        <ol class="mt-4 list-decimal space-y-3 pl-6 text-slate-300">
+          <li>
+            <strong class="text-slate-100">Diagnose a target pressure</strong> from the current temperature field and any
+            pressure sources (see below), then relax the real pressure field toward it, diffuse it, and advect it by the
+            existing wind.
+          </li>
+          <li>
+            <strong class="text-slate-100">Turn the pressure gradient into wind.</strong> The force pushing air from high
+            to low pressure is deflected by Coriolis rotation and slowed by surface friction, solved together in one
+            unconditionally stable step (see below).
+          </li>
+          <li>
+            <strong class="text-slate-100">Diffuse and advect the wind</strong> itself, the same semi-Lagrangian technique
+            the convection simulator uses for velocity.
+          </li>
+          <li>
+            <strong class="text-slate-100">Inject heat/cold from any active source</strong>, diffuse and advect
+            temperature by the wind it just helped produce, then relax it toward the ambient latitude gradient.
+          </li>
+        </ol>
+        <p class="mt-3 text-sm text-slate-400">
+          There's no incompressibility projection here — pressure isn't a Lagrange multiplier enforcing zero divergence,
+          it's a real forced, diffusing, advecting field in its own right. That's the central way this solver differs
+          from the convection simulator's.
+        </p>
+      </section>
+
+      <section class="mt-8">
+        <h2 class="text-lg font-semibold text-slate-100">Why pressure falls where it's warm</h2>
+        <p class="mt-2 text-slate-300">
+          Every cell's "target" pressure is a baseline that falls where temperature is above a fixed reference and rises
+          where it's below it, plus the footprint of any user-placed High/Low sources:
+        </p>
+        <p class="mt-3 rounded bg-[#0f1e26] p-3 font-mono text-sm text-slate-200">
+          P<sub>target</sub> = 1013.25 − K<sub>temp</sub> · (T − T<sub>ref</sub>)
+        </p>
+        <p class="mt-3 text-slate-300">
+          <span class="font-mono">K<sub>temp</sub></span> is the "Thermal-Pressure Coupling" slider, and
+          <span class="font-mono">T<sub>ref</sub></span> is fixed at 0°C — the midpoint between the equator and pole
+          temperatures the map is built around. It has to stay fixed rather than tracking the local latitude's own
+          ambient temperature: if it tracked ambient, the anomaly <span class="font-mono">(T − T<sub>ref</sub>)</span>
+          would sit at exactly zero everywhere once temperature settles, since temperature relaxes toward that same
+          ambient value — no pressure gradient could ever form from the equator-pole gradient alone. Pinning
+          <span class="font-mono">T<sub>ref</sub></span> instead means the equilibrium pressure genuinely varies with
+          latitude, a real "thermal low/high" effect, which combined with Coriolis is what drives persistent wind even on
+          an empty map before you place a single source.
+        </p>
+      </section>
+
+      <section class="mt-8">
+        <h2 class="text-lg font-semibold text-slate-100">Coriolis: why wind spirals, and which way</h2>
+        <p class="mt-2 text-slate-300">
+          The Coriolis parameter uses Earth's real rotation rate, not a tuned stand-in:
+        </p>
+        <p class="mt-3 rounded bg-[#0f1e26] p-3 font-mono text-sm text-slate-200">f = 2 · Ω · sin(latitude)</p>
+        <p class="mt-3 text-slate-300">
+          <span class="font-mono">Ω ≈ 7.2921 × 10⁻⁵ rad/s</span> is Earth's actual sidereal rotation rate — the status
+          bar's "f" readout is this exact formula, live, in the same ×10⁻⁴/s units textbooks use. It's positive in the
+          Northern Hemisphere and negative in the Southern, which is the entire reason flow rotates opposite ways on each
+          side of the Latitude slider's zero point, and vanishes (no rotation at all) right at the equator — the Equator
+          preset exists specifically to show that. Wind never flows straight from high to low pressure here: the
+          pressure-gradient force gets deflected sideways by this term until it settles into a near-balance, the same
+          geostrophic balance that makes real isobars on a weather chart a map of the wind, not just of the pressure.
+        </p>
+      </section>
+
+      <section class="mt-8">
+        <h2 class="text-lg font-semibold text-slate-100">An integrator that can't blow up</h2>
+        <p class="mt-2 text-slate-300">
+          The Simulation Speed slider can push a single step to represent hours of real time at once. A naive
+          step-by-step (explicit Euler) update of Coriolis and friction together is only stable below a timestep that
+          shrinks as friction drops and latitude rises — exactly the corner a low-Friction, high-Latitude, high-Speed
+          combination reaches. Rather than cap the sliders to dodge that, the wind update solves Coriolis and friction
+          together with the trapezoidal (Crank–Nicolson) rule, which stays stable and well-behaved no matter how large a
+          step it's given. At zero friction it's also exactly energy-conserving for the rotation itself, rather than
+          quietly bleeding speed away the way a simpler always-stable scheme would.
+        </p>
+      </section>
+
+      <section class="mt-8">
+        <h2 class="text-lg font-semibold text-slate-100">Reading the map</h2>
+        <ul class="mt-3 space-y-2 pl-6 text-slate-300">
+          <li class="list-disc">
+            <strong class="text-slate-100">The heatmap</strong> is the solved temperature grid itself, drawn straight
+            from the solver's array (blue colder than 0°C, white at 0°C, red hotter).
+          </li>
+          <li class="list-disc">
+            <strong class="text-slate-100">Isobars and the H/L markers</strong> are traced and detected directly from the
+            live pressure grid — the lines are a marching-squares contour trace at fixed 4 hPa intervals, and each H/L is
+            a local extremum found by comparing every cell against its neighbours.
+          </li>
+          <li class="list-disc">
+            <strong class="text-slate-100">Clouds</strong> are a pure visual reading of the pressure field, not a
+            separately simulated quantity: coverage rises the further local pressure sits below baseline, the same real
+            tendency for lows to be the cloudy, unsettled systems and highs to be the clear ones.
+          </li>
+          <li class="list-disc">
+            <strong class="text-slate-100">The wind</strong> is thousands of tiny particles, each carrying no physics
+            of its own — exactly like the convection simulator's cosmetic tracers, every one is just moved each frame
+            by sampling the solver's real velocity field at its current position. What makes them read as flowing
+            streamlines rather than a field of drifting dots is a separate trail buffer that's never fully cleared,
+            only faded a little every frame, so a particle's own recent past positions persist as a fading streak;
+            each fades in on spawn and out before it dies or drifts off the map, and moves faster and draws longer
+            wherever the underlying wind is stronger.
+          </li>
+          <li class="list-disc">
+            <strong class="text-slate-100">The coastline and its inland contour lines</strong> all trace the same
+            static, procedurally generated height field — ridged noise tuned for a jagged, high-frequency topographic
+            look rather than the smooth rounded blob a simpler noise function would give. Only the coastline itself
+            isn't purely decorative the way the inland contours are: cells above sea level genuinely relax
+            temperature faster and add extra surface friction to the wind, a toy stand-in for how real land and sea
+            behave differently, and it's this same land/sea split (thresholded from that height field) that feeds
+            that physics.
+          </li>
+          <li class="list-disc">
+            <strong class="text-slate-100">The graticule</strong> is a mix of real and decorative: its horizontal lines
+            are genuine latitude (the same coordinate the temperature gradient and Coriolis both use), but its vertical
+            lines carry no meaning — this is a flat regional slice, not a globe with real longitude wraparound.
+          </li>
+        </ul>
+      </section>
+
+      <p class="mt-10 text-sm text-slate-500">
+        Source for all of this: <span class="font-mono">js/atmosphere-grid.js</span> (the numerical kernels shared with
+        the rendering diagnostics) and <span class="font-mono">js/weather-simulation.js</span> (temperature, pressure,
+        Coriolis, friction, and sources). This simulator and the graded convection simulator it grew out of are
+        independent code with independent physics, cross-linked only through pages like this one.
+      </p>
+    </main>
+    <script
+      data-name="BMC-Widget"
+      data-cfasync="false"
+      src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js"
+      data-id="sskim"
+      data-description="Support me on Buy me a coffee!"
+      data-message=""
+      data-color="#FF813F"
+      data-position="Right"
+      data-x_margin="18"
+      data-y_margin="18"
+    ></script>
+  </body>
+</html>
