@@ -5,6 +5,8 @@ Studio) at ANU. Each `crit*-passionleader/`/`assessment*-passionleader/`
 directory is a full copy of that week's course repo, subtree-merged in with
 its original commit history intact. All of them are deployed live from this
 repo via a single GitHub Actions workflow (`.github/workflows/pages.yml`).
+> This project is supported and processed by ANU School of Computing, COMP4020 course.
+> ClaudeCode is used for this project.
 
 ## Crit 1 — the forgotten web
 
