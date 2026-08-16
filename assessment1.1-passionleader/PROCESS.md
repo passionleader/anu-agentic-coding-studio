@@ -1,83 +1,60 @@
 # Process overview
 
-<!-- TEMPLATE: this file is a shape to fill in, not a form. Replace everything
-     in it with your own overview, and delete this comment — `pnpm
-     check:evidence` will remind you if it's still here. -->
-
-A reading-guide to how the work came together --- a map to your process, not an
-essay about it. Markers read this file and follow its citations; they don't
-trawl the repo for evidence you didn't point at, so if a moment mattered, cite
-it.
-
-This file is the shape; the course site's
-[assessment page](https://comp.anu.edu.au/courses/comp4020-agentic-coding-studio/topics/assessment/#what-you-submit)
-is the requirement, and each brief adds its own word count and moment count.
-
-## What I built
-
-One paragraph: the thing, and the idea behind it.
+I built an interactive weather and atmosphere simulator that lets users explore
+temperature, pressure, wind, clouds, and terrain through a layered Canvas
+visualisation. It grew out of an earlier thermal-convection prototype that I
+deliberately set aside once a better idea was working. My process was shaped
+by one repeated question: did the simulation merely look plausible, or did its
+behaviour make physical and interactive sense?
 
 ## The moments that mattered
 
-Three or four for an assignment; fewer is fine for a weekly prototype. Keep the
-list short so each moment has room to do all four jobs:
+**Architecture before implementation.** Before asking Claude to write anything,
+I picked vanilla JavaScript, HTML5 Canvas, and Tailwind CSS over a framework,
+and specified a three-module boundary (`simulation.js` -> `ui.js` -> `app.js`)
+so the physics could be tested without a browser. Instead of trusting that the
+boundary would hold once Claude started iterating, I had it write
+`spec/simulation.test.ts` in the same commit as the physics engine itself,
+asserting that a lone heat source produces two symmetric circulation cells
+rather than one lopsided loop. That test passing headlessly — not the canvas
+merely looking right — is what told me the module boundary was real, not just
+documented
+([`f0e7eeb`](https://github.com/comp4020-agentic-coding-studio/comp4020-ass1-passionleader/commit/f0e7eeb),
+[`e3a5220`](https://github.com/comp4020-agentic-coding-studio/comp4020-ass1-passionleader/commit/e3a5220)).
 
-1. **what happened** --- the problem, or the thing the agent got wrong
-2. **what you did instead of the obvious thing** --- the call you made, and why
-   it beat the obvious one
-3. **how you knew it was right** --- the check you ran, the viewport you looked
-   at, what you read before accepting the diff
-4. **the citation** --- a commit or commit range, a `CLAUDE.md` change, a check
-   that went from red to green, a prompt paired with the commit it produced
+**The convection prototype stopped being interesting.** After several rounds of
+tuning — buoyancy, wall collisions, circulation pairing, a full particle-to-grid
+CFD rewrite — heat rose and cold sank correctly, but the experience still felt
+narrow: I could confirm the physics by watching the render, yet there wasn't
+much left to explore. Rather than keep patching a concept I'd already
+validated, I changed the problem: with `effort: max`, I asked Claude to build a
+weather simulator with coupled temperature/pressure fields, Coriolis rotation,
+wind trails, clouds, isobars, and terrain, plus a headless test for each new
+claim (source behaviour, pressure extrema, hemisphere-dependent rotation,
+numerical stability at a risky slider corner). I verified it the way I'd
+verified the convection sim — reading the rendered flow at both viewports, not
+just the diff — before treating it as more than a demo
+([`6696eb9`](https://github.com/comp4020-agentic-coding-studio/comp4020-ass1-passionleader/commit/6696eb95100c05fac66d910a86a9802fbd191981)).
 
-Jobs 2 and 3 are the ones the repo can't tell a reader on its own, so they're
-where the marks are. The strongest moments are the ones where a correction
-landed in the **harness** rather than in another prompt --- a rule added to
-`CLAUDE.md`, a check wired up, an attempt thrown away: re-prompting until it
-passes is the routine case, and changing what the agent works against is the
-skilled one.
+**Rolling back an overreaching fix.** An ambient-temperature bug — the slider's
+hot/cold direction was inverted — came back from a first fix having grown into
+a bigger rewrite than the bug needed, a change I hadn't asked for. Rather than
+layer another prompt on top of it, I rolled the change back and re-specified
+the exact behaviour I wanted at each slider extreme (leftmost = -10°C blue
+room, rightmost = 40°C red room). That respecification is what actually
+surfaced the real remaining bug: airflow rose when it should have sunk. I
+confirmed the corrected version by dragging the slider to both extremes and
+checking the airflow direction matched, not by reading the new diff and
+assuming it was fine
+([`e7817be...2cff3bf`](https://github.com/comp4020-agentic-coding-studio/comp4020-ass1-passionleader/compare/e7817be...2cff3bf)).
 
-Cite each moment as a link whose text is the commit hash or range and whose
-target is this repo's commit or compare URL, so a reader clicks straight to the
-evidence:
-
-- one commit: [`a1b2c3d`](https://github.com/YOUR-ORG/YOUR-REPO/commit/a1b2c3d)
-- a range:
-  [`a1b2c3d...e4f5a6b`](https://github.com/YOUR-ORG/YOUR-REPO/compare/a1b2c3d...e4f5a6b)
-
-To pair a prompt with the commit it produced, quote the prompt (curated, not a
-full transcript) next to the citation:
-
-> the prompt, verbatim
-
-Screenshots are welcome where one carries the verification better than a
-sentence does. Commit the file to this repo and link it with a **relative**
-path, which is what makes it render on GitHub: `![alt text](docs/before.png)`.
-Images don't count towards the word count and don't replace the citation.
-
-### A worked moment, for shape
-
-Delete this section along with the rest of the boilerplate --- it's here to show
-the four jobs in one paragraph, not to be imitated in content.
-
-> The date formatter kept coming back with `toLocaleDateString()` and no locale
-> argument, so the same build rendered differently on my machine and in CI. I'd
-> already re-prompted it twice, which fixed the line but not the habit, so the
-> third time I put the rule in `CLAUDE.md` instead
-> ([`3f9ac21`](https://github.com/YOUR-ORG/YOUR-REPO/commit/3f9ac21)) and added
-> a spec test that fails on a bare `toLocaleDateString`. That's what told me it
-> had actually taken: the test went red against the old code and green against
-> the new, and the next two features it wrote passed it without prompting
-> ([`3f9ac21...b7e0d14`](https://github.com/YOUR-ORG/YOUR-REPO/compare/3f9ac21...b7e0d14)).
-
-## Before you ship
-
-`pnpm check:evidence` verifies your citations resolve to real commits, that the
-current reflection entry is in `reflections/`, and that your `CLAUDE.md` is
-there --- before a marker ever opens the file. It checks that your map is
-traceable, not that it is good: the marker judges whether your small,
-deliberately chosen set of moments shows real judgement and reflection. A green
-check is not a substitute for that curation.
-
-Images are deliberately not checked, because whether one renders is visible the
-moment you look. Open this file on GitHub and look at it before you ship.
+**Owning that this started outside the graded scope.** The commit that
+introduced the weather simulator says, in its own message, that it was "kept
+out of the graded convection simulator entirely" — at the time I was treating
+it as a side experiment, not a submission candidate. Once it turned out to be
+the stronger result, I didn't quietly rewrite that history: I decided
+explicitly that it should become the actual deliverable, rewrote `CLAUDE.md` to
+say so, tagged the old convection state as `convection-simulator` so it stays
+reachable, and only fast-forwarded `main` onto the weather branch once
+`pnpm check` and `pnpm check:evidence` were green on it
+([`b237438...9a6cdfe`](https://github.com/comp4020-agentic-coding-studio/comp4020-ass1-passionleader/compare/b237438...9a6cdfe)).
