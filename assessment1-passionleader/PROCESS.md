@@ -1,83 +1,105 @@
-# Process overview
+# Attempt 1 — Convection Simulator Request
 
-<!-- TEMPLATE: this file is a shape to fill in, not a form. Replace everything
-     in it with your own overview, and delete this comment — `pnpm
-     check:evidence` will remind you if it's still here. -->
+### "Convection Simulation" Project Progress
 
-A reading-guide to how the work came together --- a map to your process, not an
-essay about it. Markers read this file and follow its citations; they don't
-trawl the repo for evidence you didn't point at, so if a moment mattered, cite
-it.
+The `Claude.md` file was generated via Gemini, receiving overall guidance on the comments provided. Below is a chronological summary of the actual conversation logs (saved across multiple sessions). I requested additional detailed implementation (e.g., wind patterns, "Buy Me a Coffee," full-screen mode, UI, "About This Page," etc.).
 
-This file is the shape; the course site's
-[assessment page](https://comp.anu.edu.au/courses/comp4020-agentic-coding-studio/topics/assessment/#what-you-submit)
-is the requirement, and each brief adds its own word count and moment count.
+### Phase 1 — Project Kick-off (approx. 01:00, Aug 11)
 
-## What I built
+* Requested a brief explanation of Assignment 1.
+* Instructed, "I've already created the repo, so let's clone it and start."
+* Asked if it was okay to overwrite the existing `CLAUDE.md` → Ultimately directed to "initialize it from scratch since we are starting Assignment 1."
+* Specified the core technology stack directly: Pure Vanilla JavaScript + HTML5 Canvas 2D + Tailwind CSS (CDN). Explicitly stated it must run directly on GitHub Pages without npm, build tools, or external bundling. Defined the modular structure: `index.html`, `js/app.js`, `js/simulation.js`, `js/ui.js`.
+* Requested initial responsive UI layout: Split canvas + collapsible sidebar for desktop; vertical stack/drawer for mobile. Defined the components: Tool selection buttons (Heat/Cold/Wall/Erase), sliders (temperature intensity, particle count, air resistance/viscosity), and action buttons (Play/Pause, Reset, Clear).
 
-One paragraph: the thing, and the idea behind it.
+### Phase 2 — Physics Engine & Input Logic Implementation (01:48–01:56)
 
-## The moments that mattered
+* Instructed to implement a particle-based physics engine in `js/simulation.js`: `Particle` class (x, y, vx, vy, temperature, life), temperature rise/updraft near heat sources, temperature drop/downdraft near cold sources, heat diffusion between particles, and boundary/wall collision handling.
+* Requested interaction logic: Placing sources and drawing walls via mouse/touch (drag to place heat/cold sources, drag to draw walls, particle bouncing off walls, and visualization of sources via glow effects).
 
-Three or four for an assignment; fewer is fine for a weekly prototype. Keep the
-list short so each moment has room to do all four jobs:
+### Phase 3 — Slider Integration & Mobile Optimization (02:14)
 
-1. **what happened** --- the problem, or the thing the agent got wrong
-2. **what you did instead of the obvious thing** --- the call you made, and why
-   it beat the obvious one
-3. **how you knew it was right** --- the check you ran, the viewport you looked
-   at, what you read before accepting the diff
-4. **the citation** --- a commit or commit range, a `CLAUDE.md` change, a check
-   that went from red to green, a prompt paired with the commit it produced
+* Requested integration of sliders/buttons with actual simulation parameters (temperature intensity, particle density → adjust without frame drops).
+* Requested preset buttons: "Standard Convection Cell," "Thermal Chimney Effect," "Insulated Room with AC."
+* Requested mobile optimization: Minimum touch target of 44×44px, preventing page scrolling while drawing, etc.
 
-Jobs 2 and 3 are the ones the repo can't tell a reader on its own, so they're
-where the marks are. The strongest moments are the ones where a correction
-landed in the **harness** rather than in another prompt --- a rule added to
-`CLAUDE.md`, a check wired up, an attempt thrown away: re-prompting until it
-passes is the routine case, and changing what the agent works against is the
-skilled one.
+### Phase 4 — First Bug Report/Debugging Round (02:26–03:08)
 
-Cite each moment as a link whose text is the commit hash or range and whose
-target is this repo's commit or compare URL, so a reader clicks straight to the
-evidence:
+* Reported: "It’s almost there, but convection isn't happening, and I can't erase walls" — requested root cause identification and fix.
+* Reported: "Red/blue points are working, but there is no clockwise circular convection. The air going up just hits the ceiling and keeps going up." — Pointed out the need for true clockwise circulation.
+* Directed three specific tunings at once: ① Increase trajectory length according to air speed; ② Increase base air resistance since air feels too light; ③ Exclude negative values from source temperature intensity.
+* Demanded physically accurate behavior: "In a sealed room, convection should occur even with a single heat source (in a cold environment)."
+* Proposed: "Create a temporary folder, copy the project, and turn it into a scientifically/mathematically accurate simulator, considering as many factors as possible." (This was interrupted, then re-instructed in Phase 4 below).
 
-- one commit: [`a1b2c3d`](https://github.com/YOUR-ORG/YOUR-REPO/commit/a1b2c3d)
-- a range:
-  [`a1b2c3d...e4f5a6b`](https://github.com/YOUR-ORG/YOUR-REPO/compare/a1b2c3d...e4f5a6b)
+### Phase 5 — Session Resumption, Preset/Boundary Bug Fixes (03:13–03:58)
 
-To pair a prompt with the commit it produced, quote the prompt (curated, not a
-full transcript) next to the citation:
+* Reported: "Checked the 'chimney effect' preset; air should be sucked in from the bottom and rise through the chimney, but convection only happens inside the chimney."
+* Strictly constrained: "Since this canvas is essentially a sealed environment, convection should occur with just one heat source/sink. Do not add or remove air particles during simulation."
+* Defined physical criteria: "If the heat source is in the center of the floor, it should rise from the center and descend from both ends—that is true convection."
+* Requested canvas boundaries be visible (issue with particles disappearing off-screen). Requested the Chimney preset be lifted slightly from the floor and shortened in length.
+* Requested significantly higher air resistance (weight) (it was moving too chaotically).
+* Reported additional bugs: Air speed not stopping once accelerated due to lack of resistance, particles leaking out because of missing floor boundaries, tool panel invisible when entering full-screen, and empty areas not being filled with particles when expanded to full-screen.
 
-> the prompt, verbatim
+### Phase 6 — Massive UI/Theme Overhaul (03:52)
 
-Screenshots are welcome where one carries the verification better than a
-sentence does. Commit the file to this repo and link it with a **relative**
-path, which is what makes it render on GitHub: `![alt text](docs/before.png)`.
-Images don't count towards the word count and don't replace the citation.
+* Clearly set canvas floor boundaries to match window size.
+* Moved FPS/particle count display from bottom to top, removed the bottom bar.
+* Added full-screen mode.
+* Added "Empty Canvas" to presets.
+* Set Heat button to red, Cool button to blue.
+* Directed full theme change: Black background, "warm black" buttons (mix of black and dark brown), and improved fonts.
 
-### A worked moment, for shape
+### Phase 7 — Slider Intensity Fine-tuning (03:36–03:44)
 
-Delete this section along with the rest of the boilerplate --- it's here to show
-the four jobs in one paragraph, not to be imitated in content.
+* "Lower the maximum value for Source Temperature Intensity to 30."
+* "The default value should be 20" (Requested readjustment of defaults after max value change).
+* Questioned the normalization basis in `buildCirculationPairs` being set to 30: "Why did you do this? Convection has become too strong." Pointed out unintended side effects.
+* Re-requested to lower the intensity as it was still too strong in the presets.
 
-> The date formatter kept coming back with `toLocaleDateString()` and no locale
-> argument, so the same build rendered differently on my machine and in CI. I'd
-> already re-prompted it twice, which fixed the line but not the habit, so the
-> third time I put the rule in `CLAUDE.md` instead
-> ([`3f9ac21`](https://github.com/YOUR-ORG/YOUR-REPO/commit/3f9ac21)) and added
-> a spec test that fails on a bare `toLocaleDateString`. That's what told me it
-> had actually taken: the test went red against the old code and green against
-> the new, and the next two features it wrote passed it without prompting
-> ([`3f9ac21...b7e0d14`](https://github.com/YOUR-ORG/YOUR-REPO/compare/3f9ac21...b7e0d14)).
+### Phase 8 — Commit/Deploy & Massive Rewrite Instruction (04:08–04:28)
 
-## Before you ship
+* Reported regression: "The convection preset isn't working again, and the tool menu is missing in full-screen."
+* Directed: "Now let's commit and push to GitHub" — instructed to commit/push to the course repository.
+* Directed: "Then commit/upload to my personal GitHub as well" — requested reflection in the personal portfolio repository.
+* Reported "404 file not found" error after deployment → verified GitHub Pages deployment workflow.
+* **Most Significant Turning Point:** "Now, go back locally, create a new branch named 'experimental', and rewrite it into a perfectly accurate simulator, scientifically and mathematically. Consider as many factors as possible. You can use Astro if necessary." — This instruction led to a full rewrite of the particle-based simulation into a **grid-based semi-Lagrangian CFD solver (Stam's "Stable Fluids," Boussinesq approximation).**
 
-`pnpm check:evidence` verifies your citations resolve to real commits, that the
-current reflection entry is in `reflections/`, and that your `CLAUDE.md` is
-there --- before a marker ever opens the file. It checks that your map is
-traceable, not that it is good: the marker judges whether your small,
-deliberately chosen set of moments shows real judgement and reflection. A green
-check is not a substitute for that curation.
+### Phase 9 — UI Adjustments Post-Grid CFD Rewrite (11:24–12:19)
 
-Images are deliberately not checked, because whether one renders is visible the
-moment you look. Open this file on GitHub and look at it before you ship.
+* Requested a link to check the current app.
+* Reported broken "How this works" hyperlink in `physics.html` and requested a fix.
+* Requested moving the "How this works" button to the bottom of the toolbar, into a new group named "ETC" with a different color.
+* Requested adding a "Buy Me a Coffee" icon button (instructed not to link it yet — cited "waiting for API key").
+* Requested naming the three-button group (Pause/Reset/Clear all sources) as "Control."
+* Provided the actual "Buy Me a Coffee" widget script (e.g., `data-id="sskim"`).
+* Pointed out duplicate button issue and requested linking the custom button to `[buymeacoffee.com/sskim](https://buymeacoffee.com/sskim)`. Simultaneously requested changing slider colors from blue to orange.
+
+### Phase 10 — Ambient Temperature Direction Bug Round (12:21–12:58)
+
+* Reported: "Ambient Temperature is reversed. The air gets colder when I raise the temperature."
+* After a fix attempt, reported: "Now the ambient temperature slider doesn't work at all."
+* Provided strong feedback (mixed KR/EN): "You just needed to swap the temperature labels on the slider; why make it so complicated? Revert to the state before this comment." — Expressed frustration with overly complex solutions and explicitly directed a rollback.
+* Re-specified: "Set it so the left end of the slider is a blue room/-10°C, and the right end is a red room/40°C."
+* "Roll back previous command" → Shortly after, cancelled the rollback itself: "Cancel the rollback and go to commit 7bf0beb" (process of trial and error).
+* Finally pointed out the physics direction bug: "Colors and sliders are fine, but the airflow logic is reversed. If I turn the slider to the right end (40°C, red zone), air should rise, but it descends." (The exact bug addressed at the start of this session).
+
+### Phase 11 — Label Name Change (13:03)
+
+* Limited scope: "Let's change the 'Source Temperature' slider label. No need to touch the airflow logic—just change the name to 'Source Power'."
+
+### Phase 12 — Final Commit/Deploy/Personal Repo Reflection (13:07)
+
+* "Commit push!! This is the final project!!!" — Instructed to commit/push to the course repo in a very strong tone.
+* Requested commit/push to the personal repo (`[github.com/passionleader/anu-agentic-coding-studio](https://github.com/passionleader/anu-agentic-coding-studio)`). Initially asked to "create a new directory like previous ones," but self-corrected: **"There is already an old assessment1 folder, so please commit to that old folder."**
+* Requested making the result accessible via a live URL.
+* Requested updating `README.md` with a brief description of the final result and the live URL.
+
+### Phase 13 — Rubric Verification Request (13:22)
+
+* Requested: "Check if this meets the Assignment 1 criteria based on the rubric" — asked for an evidence-based assessment by checking the official course rubric document, not just guesswork.
+
+### Phase 14 — Process Documentation Preparation (13:29–Present)
+
+* Requested a temporary summary file to be created in Korean for writing `PROCESS.md/reflections/assignment-1.md`.
+* Requested copying it to the desktop directory after reporting it couldn't be found.
+* Expanded the scope after still failing to find the file: **"Summarize the requests/instructions for the entire 'beginning to end' of the Assignment 1 project, just like this current request."**
