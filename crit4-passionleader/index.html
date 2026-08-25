@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en-AU">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="icon"
+      href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%231a1240'/%3E%3Crect x='5' y='5' width='10' height='10' rx='2' fill='%23ff5da2'/%3E%3Crect x='17' y='5' width='10' height='10' rx='2' fill='%2322e0c4'/%3E%3Crect x='5' y='17' width='10' height='10' rx='2' fill='%23ffc857'/%3E%3Crect x='17' y='17' width='10' height='10' rx='2' fill='%239d6bff'/%3E%3C/svg%3E"
+    />
+    <title>Chord Session — an instant-play chord instrument</title>
+    <meta
+      name="description"
+      content="Press a chord pad to hear a live piano-and-bass chord and build a progression, right in the browser."
+    />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:image" content="./card.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="app">
+      <header class="topbar">
+        <nav aria-label="Primary">
+          <a href="./">Home</a>
+        </nav>
+        <h1 class="topbar__title">Chord Session</h1>
+        <div class="transport" role="group" aria-label="Progression controls">
+          <button type="button" id="undo-button" class="glass-button" title="Undo the last change">
+            <span aria-hidden="true">↶</span> Undo
+          </button>
+          <button type="button" id="delete-button" class="glass-button" title="Delete the selected chord">
+            <span aria-hidden="true">⌫</span> Delete
+          </button>
+          <button type="button" id="play-button" class="glass-button" title="Play the progression from the start">
+            <span aria-hidden="true">▶</span> Play
+          </button>
+          <button type="button" id="stop-button" class="glass-button" title="Stop all playback immediately">
+            <span aria-hidden="true">■</span> Stop
+          </button>
+          <label class="speed-control" for="speed-slider">
+            Speed
+            <input type="range" id="speed-slider" min="0.5" max="2" step="0.1" value="1" />
+            <output id="speed-value" for="speed-slider">1.0×</output>
+          </label>
+          <button type="button" id="clear-button" class="glass-button glass-button--danger" title="Clear the progression">
+            <span aria-hidden="true">✕</span> Clear
+          </button>
+        </div>
+      </header>
+
+      <main>
+        <section class="panel progression" aria-label="Progression">
+          <ol id="progression-list" class="progression__list"></ol>
+        </section>
+
+        <section class="panel pads" aria-label="Choose a chord">
+          <div class="pads__header">
+            <label class="instrument-control" for="instrument-select">
+              Instrument
+              <select id="instrument-select"></select>
+            </label>
+          </div>
+          <div id="pad-grid" class="pads__grid" role="group" aria-label="Chord pads"></div>
+        </section>
+
+        <section class="status" aria-label="Status">
+          <p id="status-line" class="status__line"></p>
+        </section>
+
+        <div class="rhythm-row">
+          <section class="panel rhythm rhythm--bass" aria-label="Bass rhythm">
+            <h2 class="rhythm__title">Bass</h2>
+            <label class="rhythm__control" for="bass-pattern-select">
+              Pattern
+              <select id="bass-pattern-select"></select>
+            </label>
+          </section>
+
+          <section class="panel rhythm rhythm--drums" aria-label="Drums rhythm">
+            <h2 class="rhythm__title">Drums</h2>
+            <label class="rhythm__control" for="drum-pattern-select">
+              Pattern
+              <select id="drum-pattern-select"></select>
+            </label>
+          </section>
+        </div>
+      </main>
+
+      <p id="sr-announcer" class="visually-hidden" role="status" aria-live="polite"></p>
+    </div>
+    <script type="module" src="./main.ts"></script>
+  </body>
+</html>
