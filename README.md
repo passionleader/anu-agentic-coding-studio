@@ -41,3 +41,14 @@ linked `physics.html` explainer lays out the solver's math for anyone who
 wants the derivation.
 
 **Live:** https://passionleader.github.io/anu-agentic-coding-studio/assessment1-passionleader/
+
+## Crit 4 — an instrument
+
+Topic: build a playable instrument in the browser.
+[`crit4-passionleader/`](crit4-passionleader) is **Chord Session**, a live
+Web Audio chord instrument — press a chord pad to hear it, get six
+next-chord suggestions ranked by real voice-leading and functional-harmony
+rules, then play the whole progression back with a synchronised bass line
+and drum pattern, all mouse/keyboard/touch playable.
+
+**Live:** https://passionleader.github.io/anu-agentic-coding-studio/crit4-passionleader/
