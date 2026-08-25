@@ -1,0 +1,224 @@
+<!doctype html>
+<html lang="en-AU">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>How the Convection Simulator Works</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      body {
+        font-family:
+          "Outfit",
+          ui-sans-serif,
+          system-ui,
+          sans-serif;
+      }
+    </style>
+  </head>
+  <body class="min-h-screen bg-black text-slate-100">
+    <header class="border-b border-[#3a2a20]">
+      <nav
+        aria-label="Primary"
+        class="flex items-center justify-between gap-3 px-4 py-3"
+      >
+        <span class="flex min-w-0 flex-col truncate">
+          <span class="truncate text-sm font-semibold tracking-wide text-slate-300">
+            Thermal Convection &amp; Airflow Simulator
+          </span>
+          <span class="truncate text-[11px] text-slate-500">u8321477@anu.edu.au</span>
+        </span>
+        <a
+          href="./index.html"
+          class="shrink-0 rounded border border-[#3a2a20] bg-[#241a15] px-3 py-1.5 text-sm font-medium hover:bg-[#2f2119]"
+        >
+          Back to Simulator
+        </a>
+      </nav>
+    </header>
+
+    <main class="mx-auto max-w-3xl px-4 py-10">
+      <h1 class="text-2xl font-semibold text-slate-100">How this simulator actually works</h1>
+      <p class="mt-2 text-sm text-slate-400">
+        Every number and equation below is exactly what <code class="rounded bg-[#241a15] px-1 py-0.5">js/simulation.js</code>
+        and <code class="rounded bg-[#241a15] px-1 py-0.5">js/fluid-grid.js</code> compute each frame — nothing on this page is
+        aspirational.
+      </p>
+
+      <section class="mt-8">
+        <h2 class="text-lg font-semibold text-slate-100">A real fluid solver, not a particle toy</h2>
+        <p class="mt-2 text-slate-300">
+          Air in the simulator lives on a grid — a 2D array of cells, each holding a velocity
+          <span class="font-mono">(u, v)</span> and a temperature <span class="font-mono">T</span>. Every frame, the solver
+          advances that grid through the incompressible Navier–Stokes equations using
+          <a
+            class="text-sky-400 underline hover:text-sky-300"
+            href="https://www.dgp.toronto.edu/people/stam/reality/Research/pdf/ns.pdf"
+            target="_blank"
+            rel="noopener"
+            >Jos Stam's "Stable Fluids" method (1999)</a
+          >: a semi-Lagrangian scheme that stays numerically stable no matter how large a timestep or how fast the flow gets
+          — the property that makes an interactive, real-time fluid sim possible at all. Each step does five things, in
+          this exact order:
+        </p>
+        <ol class="mt-4 list-decimal space-y-3 pl-6 text-slate-300">
+          <li>
+            <strong class="text-slate-100">Add forces.</strong> Buoyancy pushes warmer-than-ambient cells up and
+            colder-than-ambient cells down (see below).
+          </li>
+          <li>
+            <strong class="text-slate-100">Diffuse velocity.</strong> Viscosity spreads momentum into neighboring cells,
+            solved implicitly via Jacobi iteration — unconditionally stable, unlike an explicit diffusion step.
+          </li>
+          <li>
+            <strong class="text-slate-100">Project.</strong> Real air is incompressible: it can't pile up or empty out of a
+            cell. This step solves a pressure field and subtracts its gradient from the velocity until the flow is
+            divergence-free.
+          </li>
+          <li>
+            <strong class="text-slate-100">Advect.</strong> Each cell's velocity gets carried along by the flow itself —
+            traced backward in time to find where its value came from, then bilinearly sampled from there.
+          </li>
+          <li>
+            <strong class="text-slate-100">Diffuse and advect temperature</strong> the same way, as a passive scalar
+            riding along with the now-solved velocity field, then inject heat near any active source.
+          </li>
+        </ol>
+        <p class="mt-3 text-sm text-slate-400">
+          Walls are just grid cells marked solid: their velocity is pinned to zero (no-slip) and they're excluded from
+          every neighbor's diffusion/pressure stencil, so a wall reads as "no flow through here" without any special-case
+          collision code.
+        </p>
+      </section>
+
+      <section class="mt-8">
+        <h2 class="text-lg font-semibold text-slate-100">Why hot air rises: the Boussinesq approximation</h2>
+        <p class="mt-2 text-slate-300">
+          Real air is compressible — its density genuinely drops as it warms. Solving that in full is far more expensive
+          than a real-time budget allows, so (like almost every convection simulation, real engineering ones included) this
+          one uses the <strong class="text-slate-100">Boussinesq approximation</strong>: density is treated as constant
+          everywhere it doesn't matter, and its only effect is a buoyant force proportional to how far a parcel's
+          temperature has drifted from ambient:
+        </p>
+        <p class="mt-3 rounded bg-[#1c1512] p-3 font-mono text-sm text-slate-200">
+          a<sub>buoyancy</sub> = g · β · (T − T<sub>ambient</sub>)
+        </p>
+        <p class="mt-3 text-slate-300">
+          <span class="font-mono">g</span> is gravity (9.81 m/s²) and <span class="font-mono">β</span> is air's thermal
+          expansion coefficient, <span class="font-mono">β = 1 / T<sub>ambient</sub></span> in kelvin — recomputed every
+          call from whatever the ambient temperature slider is currently set to, not a hardcoded constant, since it
+          genuinely depends on the absolute temperature of the room.
+        </p>
+      </section>
+
+      <section class="mt-8">
+        <h2 class="text-lg font-semibold text-slate-100">Real air's numbers, and why the sim doesn't use them directly</h2>
+        <p class="mt-2 text-slate-300">
+          The simulator's constants for air are the real, textbook ones at room temperature:
+        </p>
+        <ul class="mt-3 space-y-1 pl-6 text-slate-300">
+          <li class="list-disc">
+            Kinematic viscosity <span class="font-mono">ν ≈ 1.5 × 10⁻⁵ m²/s</span>
+          </li>
+          <li class="list-disc">
+            Thermal diffusivity <span class="font-mono">α ≈ 2.1 × 10⁻⁵ m²/s</span>
+          </li>
+          <li class="list-disc">
+            Prandtl number <span class="font-mono">Pr = ν / α ≈ 0.71</span> — the ratio of how fast momentum diffuses
+            versus how fast heat diffuses, a fixed material property of air
+          </li>
+        </ul>
+        <p class="mt-3 text-slate-300">
+          Plugged into the Rayleigh number below at room scale, real air comes out deep in the
+          <em>turbulent</em> regime — Ra in the hundreds of millions. A grid coarse enough to run in a browser at 60fps has
+          nowhere near the resolution to actually capture that turbulence; it would just go numerically unstable and blow
+          up. So the solver's own diffusion instead uses an <strong class="text-slate-100">eddy viscosity</strong>: both
+          <span class="font-mono">ν</span> and <span class="font-mono">α</span> are scaled up by the same
+          "Eddy Viscosity ×" slider, which boosts the <em>magnitude</em> of diffusion for numerical stability while
+          keeping their <em>ratio</em> — the effective Prandtl number — exactly what real air's is. This is the same move
+          real-time and large-eddy turbulence models make: model the large, visible structures faithfully, and let a
+          single tuned viscosity stand in for the cascade of small eddies too fine to resolve.
+        </p>
+      </section>
+
+      <section class="mt-8">
+        <h2 class="text-lg font-semibold text-slate-100">The Rayleigh number: will it even convect?</h2>
+        <p class="mt-2 text-slate-300">
+          The status bar's "Ra" reading is the dimensionless number that governs whether buoyancy actually wins against
+          viscous and thermal dissipation — the ratio of the force driving convection to the forces resisting it:
+        </p>
+        <p class="mt-3 rounded bg-[#1c1512] p-3 font-mono text-sm text-slate-200">
+          Ra = g · β · ΔT · L³ / (ν · α)
+        </p>
+        <p class="mt-3 text-slate-300">
+          where <span class="font-mono">ΔT</span> is the temperature difference driving the flow and
+          <span class="font-mono">L</span> is a characteristic length (the room's height, here). It's computed against
+          real, unscaled air — answering "if this were a real room, would it actually convect" — regardless of the eddy
+          viscosity the solver itself is running with. Three regimes:
+        </p>
+        <ul class="mt-3 space-y-1 pl-6 text-slate-300">
+          <li class="list-disc">
+            <span class="font-mono">Ra &lt; 1700</span> — <strong class="text-slate-100">conduction-dominated</strong>:
+            below the classic critical Rayleigh number (≈1708) for the onset of Rayleigh–Bénard convection in a fluid
+            layer heated from below. Heat just conducts through; buoyancy isn't strong enough to organize a flow.
+          </li>
+          <li class="list-disc">
+            <span class="font-mono">1700 ≤ Ra &lt; 10⁶</span> —
+            <strong class="text-slate-100">steady convection cells</strong>: buoyancy wins, and the result is smooth,
+            orderly rolling currents — what the convection-cell preset is built to show.
+          </li>
+          <li class="list-disc">
+            <span class="font-mono">Ra ≥ 10⁶</span> — <strong class="text-slate-100">turbulent convection</strong>: past a
+            representative (not exact — the real threshold depends on geometry) boundary where the flow stops being
+            orderly. Real room-scale air, as noted above, lives here.
+          </li>
+        </ul>
+      </section>
+
+      <section class="mt-8">
+        <h2 class="text-lg font-semibold text-slate-100">Reading the canvas</h2>
+        <ul class="mt-3 space-y-2 pl-6 text-slate-300">
+          <li class="list-disc">
+            <strong class="text-slate-100">The color field</strong> is the solved temperature grid itself, drawn straight
+            from the solver's own array (blue colder than ambient, white at ambient, red hotter) — not a separate
+            visualization layer.
+          </li>
+          <li class="list-disc">
+            <strong class="text-slate-100">The streaks</strong> are cosmetic tracers with no physics of their own: each
+            one is just a point that gets moved every frame by sampling the solver's real, solved velocity field at its
+            current position — literally the same field the physics runs on. Their length and brightness scale with local
+            speed, like a wind map.
+          </li>
+          <li class="list-disc">
+            <strong class="text-slate-100">Glowing markers</strong> are heat/cold sources — continuous forcing that
+            relaxes nearby grid cells toward the source's temperature every frame, not a one-shot injection, so it keeps
+            driving convection as long as it's there.
+          </li>
+        </ul>
+      </section>
+
+      <p class="mt-10 text-sm text-slate-500">
+        Source for all of this:
+        <span class="font-mono">js/fluid-grid.js</span> (the numerical kernels: diffusion, projection, advection) and
+        <span class="font-mono">js/simulation.js</span> (buoyancy, sources, walls, and the dimensionless numbers above).
+      </p>
+    </main>
+    <script
+      data-name="BMC-Widget"
+      data-cfasync="false"
+      src="https://cdnjs.buymeacoffee.com/1.0.0/widget.prod.min.js"
+      data-id="sskim"
+      data-description="Support me on Buy me a coffee!"
+      data-message=""
+      data-color="#FF813F"
+      data-position="Right"
+      data-x_margin="18"
+      data-y_margin="18"
+    ></script>
+  </body>
+</html>

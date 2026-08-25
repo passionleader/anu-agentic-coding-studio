@@ -5,6 +5,8 @@ Studio) at ANU. Each `crit*-passionleader/`/`assessment*-passionleader/`
 directory is a full copy of that week's course repo, subtree-merged in with
 its original commit history intact. All of them are deployed live from this
 repo via a single GitHub Actions workflow (`.github/workflows/pages.yml`).
+> This project is supported and processed by ANU School of Computing, COMP4020 course.
+> ClaudeCode is used for this project.
 
 ## Crit 1 — the forgotten web
 
@@ -28,19 +30,19 @@ keeping 7-Zip's own visual identity.
 
 ## Assessment 1 — thermal convection & airflow simulator
 
-Topic: an interactive explainer for thermal convection.
-[`assessment1-passionleader/`](assessment1-passionleader) is a vanilla
-JS/Canvas 2D/Tailwind simulator backed by a real grid-based semi-Lagrangian
-CFD solver (Stam's "Stable Fluids") under the Boussinesq approximation — place
-heat/cold sources, draw wall obstacles, tune source power, ambient
-temperature, and eddy viscosity with sliders, and watch a solved velocity
-field drive tracer streaks and a thermal heatmap (tinted by the room's own
-ambient temperature) in real time, with preset scenes (a standard convection
-cell, a thermal chimney, an insulated room with AC) and a full-screen mode. A
-linked `physics.html` explainer lays out the solver's math for anyone who
-wants the derivation.
+Topic: an interactive explainer for thermal convection. [assessment1-passionleader/](https://github.com/passionleader/anu-agentic-coding-studio/blob/main/assessment1-passionleader) is a vanilla JavaScript, HTML5 Canvas 2D, and Tailwind CSS simulator backed by a grid-based semi-Lagrangian CFD solver using the Boussinesq approximation. Users can place heat and cold sources, draw wall obstacles, adjust source power, ambient temperature, and eddy viscosity, and observe the resulting velocity field through tracer streaks and a thermal heatmap. The project also includes preset scenes, fullscreen mode, and a linked `physics.html` page explaining the solver and its mathematical assumptions.
+
+Development note: This was my initial direction for the assignment. After evaluating the prototype, I decided that the convection concept felt too narrow, which led me to develop the separate weather and atmosphere simulator in `assessment1.1-passionleader/`.
 
 **Live:** https://passionleader.github.io/anu-agentic-coding-studio/assessment1-passionleader/
+
+## Assessment 1.1 — weather & atmosphere simulator
+
+Topic: an interactive explainer for atmospheric weather systems. [assessment1.1-passionleader/](https://github.com/passionleader/anu-agentic-coding-studio/blob/main/assessment1.1-passionleader) is a separate weather simulation project that couples temperature and atmospheric pressure fields with Coriolis rotation. Users can place warm and cool zones, add high- and low-pressure systems, adjust latitude, friction, and thermal-pressure coupling, and explore the resulting temperature field, pressure contours, clouds, terrain, and wind streamlines. The simulator includes a procedural coastline, H/L pressure markers, animated wind trails, responsive controls, and a linked `weather-physics.html` page explaining the numerical model and physical assumptions.
+
+Development note: This project grew out of the initial convection simulator. After deciding that the first concept was not engaging enough, I changed direction and explored a broader weather and atmosphere simulation instead.
+
+**Live:** https://passionleader.github.io/anu-agentic-coding-studio/assessment1.1-passionleader/weather.html
 
 ## Crit 4 — an instrument
 
