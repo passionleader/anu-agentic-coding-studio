@@ -64,6 +64,6 @@ pushes right through 3 stages of 5 maps each, fighting slimes with a
 boomerang (upgraded to a one-shot-kill gun on pickup), collecting fruit for
 score, and facing a boss at the end of every stage. Every sprite, background
 layer, weapon, sound effect, and the BGM is hand-authored for this project
-(Python/Pillow, Python's `wave` module, and Logic Pro for the music).
+(Python/Pillow, Python's `wave` module, and **Logic Pro** for the music).
 
 **Live:** https://passionleader.github.io/anu-agentic-coding-studio/crit5-passionleader/
