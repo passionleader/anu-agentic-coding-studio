@@ -54,3 +54,16 @@ rules, then play the whole progression back with a synchronised bass line
 and drum pattern, all mouse/keyboard/touch playable.
 
 **Live:** https://passionleader.github.io/anu-agentic-coding-studio/crit4-passionleader/
+
+## Crit 5 — a game
+
+Topic: build a tiny browser game with one obvious mechanic and no tutorial.
+[`crit5-passionleader/`](crit5-passionleader) is **Retro Run & Gun**, a SEGA
+*Wonder Boy*-inspired side-scrolling run-and-gun: a chibi cat with 3 lives
+pushes right through 3 stages of 5 maps each, fighting slimes with a
+boomerang (upgraded to a one-shot-kill gun on pickup), collecting fruit for
+score, and facing a boss at the end of every stage. Every sprite, background
+layer, weapon, sound effect, and the BGM is hand-authored for this project
+(Python/Pillow, Python's `wave` module, and Logic Pro for the music).
+
+**Live:** https://passionleader.github.io/anu-agentic-coding-studio/crit5-passionleader/
