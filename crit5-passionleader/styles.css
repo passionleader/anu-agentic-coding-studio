@@ -102,6 +102,7 @@ canvas#game {
   border: 2px solid #1c3d21;
   border-radius: 0.4rem;
   cursor: pointer;
+  touch-action: manipulation;
 }
 
 #game-controls button:active {
@@ -138,6 +139,7 @@ canvas#game {
   border-radius: 0.5rem;
   user-select: none;
   -webkit-user-select: none;
+  touch-action: manipulation;
 }
 
 #touch-controls button:active {

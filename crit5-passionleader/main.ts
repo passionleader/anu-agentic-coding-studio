@@ -120,6 +120,8 @@ const pauseBtn = must(document.querySelector<HTMLButtonElement>("#pause-btn"), "
 const resumeBtn = must(document.querySelector<HTMLButtonElement>("#resume-btn"), "missing #resume-btn");
 const resetBtn = must(document.querySelector<HTMLButtonElement>("#reset-btn"), "missing #reset-btn");
 const muteBtn = must(document.querySelector<HTMLButtonElement>("#mute-btn"), "missing #mute-btn");
+const fullscreenBtn = must(document.querySelector<HTMLButtonElement>("#fullscreen-btn"), "missing #fullscreen-btn");
+const gameWrap = must(document.querySelector<HTMLElement>("#game-wrap"), "missing #game-wrap");
 
 const player = { x: 60, y: 0, vy: 0, vx: 0, facing: 1 as 1 | -1, grounded: true };
 let weapon: Weapon = "boomerang";
@@ -175,6 +177,20 @@ pauseBtn.addEventListener("click", () => pauseGame());
 resumeBtn.addEventListener("click", () => resumeGame());
 resetBtn.addEventListener("click", () => resetGame());
 muteBtn.addEventListener("click", () => toggleMute());
+fullscreenBtn.addEventListener("click", () => toggleFullscreen());
+document.addEventListener("fullscreenchange", () => {
+  const active = document.fullscreenElement != null;
+  fullscreenBtn.textContent = active ? "⛗" : "⛶";
+  fullscreenBtn.setAttribute("aria-label", active ? "Exit fullscreen" : "Enter fullscreen");
+});
+
+function toggleFullscreen(): void {
+  if (document.fullscreenElement) {
+    document.exitFullscreen().catch(() => {});
+  } else {
+    gameWrap.requestFullscreen().catch(() => {});
+  }
+}
 
 function instantiateMonster(spec: { x: number; hp: number; isBoss: boolean }): Monster {
   const stage = STAGES[stageIndex];
@@ -735,6 +751,7 @@ Promise.all([
     const touchControls = must(document.querySelector<HTMLElement>("#touch-controls"), "missing #touch-controls");
     touchControls.hidden = false;
     setupTouchControls(keys, fire, jump);
+    if (document.fullscreenEnabled) fullscreenBtn.hidden = false;
   }
   loop();
 });
