@@ -10,9 +10,9 @@ vision, not what I actually meant. Writing `Plan.md` and `CLAUDE.md` carefully
 up front wasn't enough by itself; even "obvious" mechanics (a scrolling map,
 a boss whose HP scales with the stage) only appeared once I described them
 in that much detail. The real breakthrough was two decisions: composing the
-retro BGM myself in Logic Pro — picking chords and instruments by hand
-instead of letting its AI session player do it for me — and running a
-second Claude Code session, the two messaging each other directly
+retro BGM myself in Logic Pro — I used its AI session player to perform the
+parts, but picked every chord progression and instrument by hand myself —
+and running a second Claude Code session, the two messaging each other directly
 (`ListAgents`/`SendMessage`) while I managed both. Directing, not just
 prompting once, is what closed the gap.
 
@@ -36,7 +36,7 @@ a real market.
 
 어릴 적 자주 했던 세가(SEGA) 게임을 모티브로 만들었으나, 정작 완성된 것은 2000년대 초반 플래시 게임 스타일에 가까운 결과물이었다. 직접 그리라고 시키지 않고 무료 어셋을 찾아서 쓰라고 지시했기 때문에, 내가 생각한 모습과 클로드코드가 고른 어셋이 섞여서 이런 결과가 나온 것 같다. 어쨌든 클로드코드가 만들어 온 결과물에 하나하나 살을 덧붙여서 겨우 게임이라고 부를 만한 수준까지 끌어올렸다. 어셋을 구현하는 부분이 특히 어려웠다 — 어떻게 설명해야 게임다운 어셋/배경이 나올지 한참 고민했다.
 
-이번에는 레트로 스타일의 음악을 Logic Pro로 직접 만들어 게임에 적용해봤다는 점을 강조하고 싶다. 로직 프로에도 AI 기반 세션 플레이어가 있지만 그건 쓰지 않고, 순전히 코드 진행을 직접 나열하고 알맞은 악기를 골라서 만들었다.
+이번에는 레트로 스타일의 음악을 Logic Pro로 직접 만들어 게임에 적용해봤다는 점을 강조하고 싶다. 로직 프로의 AI 기반 세션 플레이어를 연주에 활용하긴 했지만, 코드 진행과 악기 선택은 전부 내가 직접 골라서 만들었다.
 
 또한 내 머릿속에 있는 내용을 구체화하기 위해 다음과 같은 세부 사항까지 하나하나 지시해야 했다 — 사람이면 당연히 알아서 할 "간단한" 작업인데도 이 정도로 자세히 알려줘야 했다:
 

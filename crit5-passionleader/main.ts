@@ -214,10 +214,18 @@ function advanceMap(): void {
   loadMap(stageIndex, mapIndex + 1);
 }
 
+function endGame(): void {
+  gameOver = true;
+  bgm.pause();
+  pauseBtn.hidden = true;
+  resumeBtn.hidden = true;
+  resetBtn.hidden = false;
+}
+
 function advanceStage(): void {
   if (stageIndex >= STAGES.length - 1) {
     victory = true;
-    gameOver = true;
+    endGame();
     return;
   }
   loadMap(stageIndex + 1, 0);
@@ -230,7 +238,7 @@ function takeHit(now: number): void {
   invulnerableUntil = now + INVULNERABLE_MS;
   shakeUntil = now + SHAKE_MS;
   playSfx(sfxHurt);
-  if (isGameOver(lives)) gameOver = true;
+  if (isGameOver(lives)) endGame();
 }
 
 function fallIntoGap(now: number): void {
@@ -262,6 +270,7 @@ function resetGame(): void {
   score = 0;
   gameOver = false;
   victory = false;
+  paused = true;
   lastFireAt = -Infinity;
   hurtUntil = -Infinity;
   invulnerableUntil = -Infinity;

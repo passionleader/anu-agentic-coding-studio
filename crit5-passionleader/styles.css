@@ -1,10 +1,10 @@
 body {
   margin: 0;
   padding: 2rem;
-  font-family: system-ui, sans-serif;
+  font-family: "IBM Plex Sans", system-ui, sans-serif;
   line-height: 1.6;
   color: #f4f4f0;
-  background: #0a0f0b;
+  background: #0a1510;
 }
 
 main {
@@ -19,6 +19,49 @@ header nav {
   flex-wrap: wrap;
   max-width: 50rem;
   margin: 0 auto;
+}
+
+header h1 {
+  max-width: 50rem;
+  margin: 0 auto;
+  font-family: "Press Start 2P", monospace;
+  font-weight: 400;
+  font-size: 1.15rem;
+  line-height: 1.5;
+  letter-spacing: 0.02em;
+  text-wrap: balance;
+  color: #6fd66a;
+}
+
+header nav.byline {
+  justify-content: flex-start;
+  align-items: center;
+  gap: 0.85rem;
+  margin-top: 0.25rem;
+}
+
+.email-link {
+  color: inherit;
+  text-decoration: none;
+}
+
+.email-link:hover {
+  text-decoration: underline;
+}
+
+.btn-white {
+  display: inline-block;
+  background: #f4f4f0;
+  color: #0a0f0b;
+  padding: 0.35rem 0.85rem;
+  border-radius: 0.4rem;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.9rem;
+}
+
+.btn-white:hover {
+  background: #d8ded9;
 }
 
 a {
@@ -107,6 +150,10 @@ canvas#game {
   }
 
   header nav {
+    max-width: 70rem;
+  }
+
+  header h1 {
     max-width: 70rem;
   }
 

@@ -18,17 +18,23 @@
     <meta property="og:image" content="./card.png" />
     <meta name="twitter:card" content="summary_large_image" />
 
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=IBM+Plex+Sans:wght@400;600&display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="./styles.css" />
   </head>
   <body>
     <header>
-      <nav aria-label="Primary">
-        <a href="mailto:u8321477@anu.edu.au">u8321477@anu.edu.au</a>
-        <a href="./assets.html">View assets!</a>
+      <h1>Seong&#39;s Retro Adventure</h1>
+      <nav aria-label="Primary" class="byline">
+        <a href="mailto:u8321477@anu.edu.au" class="email-link">u8321477@anu.edu.au</a>
+        <a href="./assets.html" class="btn-white">View assets!</a>
       </nav>
     </header>
     <main>
-      <h1>Retro Run &amp; Gun</h1>
       <div id="game-wrap">
         <canvas id="game" aria-label="Retro Run & Gun gameplay"></canvas>
         <div id="game-controls">

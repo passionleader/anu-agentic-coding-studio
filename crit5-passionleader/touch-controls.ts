@@ -1,8 +1,12 @@
-// On-screen touch controls, shown only on touch devices, mirroring the
-// keyboard's ArrowLeft/ArrowRight/ArrowUp/Space handling in main.ts.
-
+// On-screen touch controls, shown only on phone-sized touch devices,
+// mirroring the keyboard's ArrowLeft/ArrowRight/ArrowUp/Space handling in
+// main.ts. A touch-capable but wide viewport (a touchscreen laptop, a
+// tablet in landscape) keeps the keyboard-only layout instead --- 899px
+// matches the site's own mobile/desktop breakpoint in styles.css.
 export function isTouchDevice(): boolean {
-  return "ontouchstart" in window || navigator.maxTouchPoints > 0;
+  const hasTouch = "ontouchstart" in window || navigator.maxTouchPoints > 0;
+  const isPhoneSized = window.matchMedia("(max-width: 899px)").matches;
+  return hasTouch && isPhoneSized;
 }
 
 function bind(button: HTMLElement, onDown: () => void, onUp?: () => void): void {
