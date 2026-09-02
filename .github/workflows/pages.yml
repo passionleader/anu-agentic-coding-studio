@@ -36,6 +36,8 @@ jobs:
             assessment1.1-passionleader/pnpm-lock.yaml
             crit4-passionleader/pnpm-lock.yaml
             crit5-passionleader/pnpm-lock.yaml
+            riff5-passionleader/original/pnpm-lock.yaml
+            riff5-passionleader/modified/pnpm-lock.yaml
 
       - name: Build crit1-passionleader
         working-directory: crit1-passionleader
@@ -73,6 +75,18 @@ jobs:
           pnpm install --frozen-lockfile
           pnpm build
 
+      - name: Build riff5-passionleader/original
+        working-directory: riff5-passionleader/original
+        run: |
+          pnpm install --frozen-lockfile
+          pnpm build
+
+      - name: Build riff5-passionleader/modified
+        working-directory: riff5-passionleader/modified
+        run: |
+          pnpm install --frozen-lockfile
+          pnpm build
+
       - name: Assemble combined site
         run: |
           mkdir -p site
@@ -82,6 +96,9 @@ jobs:
           cp -r assessment1.1-passionleader/dist site/assessment1.1-passionleader
           cp -r crit4-passionleader/dist site/crit4-passionleader
           cp -r crit5-passionleader/dist site/crit5-passionleader
+          mkdir -p site/riff5-passionleader
+          cp -r riff5-passionleader/original/dist site/riff5-passionleader/original
+          cp -r riff5-passionleader/modified/dist site/riff5-passionleader/modified
           cp index.html site/index.html
           cp robots.txt site/robots.txt
           cp sitemap.xml site/sitemap.xml
@@ -96,7 +113,7 @@ jobs:
       - name: Verify all deployed sites are online
         run: |
           base="${{ steps.deploy.outputs.page_url }}"
-          for path in "crit1-passionleader/" "crit2-passionleader/" "assessment1-passionleader/" "assessment1.1-passionleader/" "crit4-passionleader/" "crit5-passionleader/"; do
+          for path in "crit1-passionleader/" "crit2-passionleader/" "assessment1-passionleader/" "assessment1.1-passionleader/" "crit4-passionleader/" "crit5-passionleader/" "riff5-passionleader/original/" "riff5-passionleader/modified/"; do
             url="${base}${path}"
             ok=""
             for i in 1 2 3 4 5; do

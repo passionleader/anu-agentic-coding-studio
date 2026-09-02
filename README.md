@@ -67,3 +67,26 @@ layer, weapon, sound effect, and the BGM is hand-authored for this project
 (Python/Pillow, Python's `wave` module, and **Logic Pro** for the music).
 
 **Live:** https://passionleader.github.io/anu-agentic-coding-studio/crit5-passionleader/
+
+## Riff 5 — take someone else's prototype somewhere it hasn't been
+
+Topic: COMP4020's "riff" exercise — the course hands each pod member an
+untouched copy of a teammate's shipped crit-5 game and half an hour to push
+it somewhere its own author wouldn't have risked in graded work. Our pod's
+starting point was a two-hue falling-circle dodge game: a player circle
+switches between two hues, same-hue obstacles pass through safely, and a
+mismatched hue ends the run.
+
+[`riff5-passionleader/original/`](riff5-passionleader/original) is that
+starting point, mirrored with full history and left completely unmodified —
+**the base game here is exactly the source ANU's COMP4020 course provisioned
+for the riff exercise, with nothing changed.**
+[`riff5-passionleader/modified/`](riff5-passionleader/modified) is what the
+pod agreed to build on top of it after discussing what direction to take it:
+falling banana/poop pickups themed as a monkey catching fruit, a heart-based
+lives system with a heart-icon HUD, a rare high-value bonus ball, hand-picked
+BGM/SFX, and a Twemoji sprite reskin — implemented and committed by me as the
+pod's representative.
+
+**Live (original):** https://passionleader.github.io/anu-agentic-coding-studio/riff5-passionleader/original/
+**Live (modified):** https://passionleader.github.io/anu-agentic-coding-studio/riff5-passionleader/modified/
