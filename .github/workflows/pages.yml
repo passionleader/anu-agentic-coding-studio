@@ -38,7 +38,7 @@ jobs:
             crit5-passionleader/pnpm-lock.yaml
             riff5-passionleader/original/pnpm-lock.yaml
             riff5-passionleader/modified/pnpm-lock.yaml
-            ass2-passionleader/pnpm-lock.yaml
+            assessment2-passionleader/pnpm-lock.yaml
 
       - name: Build crit1-passionleader
         working-directory: crit1-passionleader
@@ -88,8 +88,8 @@ jobs:
           pnpm install --frozen-lockfile
           pnpm build
 
-      - name: Build ass2-passionleader
-        working-directory: ass2-passionleader
+      - name: Build assessment2-passionleader
+        working-directory: assessment2-passionleader
         run: |
           pnpm install --frozen-lockfile
           pnpm build
@@ -106,7 +106,7 @@ jobs:
           mkdir -p site/riff5-passionleader
           cp -r riff5-passionleader/original/dist site/riff5-passionleader/original
           cp -r riff5-passionleader/modified/dist site/riff5-passionleader/modified
-          cp -r ass2-passionleader/dist site/ass2-passionleader
+          cp -r assessment2-passionleader/dist site/assessment2-passionleader
           cp index.html site/index.html
           cp robots.txt site/robots.txt
           cp sitemap.xml site/sitemap.xml
@@ -121,7 +121,7 @@ jobs:
       - name: Verify all deployed sites are online
         run: |
           base="${{ steps.deploy.outputs.page_url }}"
-          for path in "crit1-passionleader/" "crit2-passionleader/" "assessment1-passionleader/" "assessment1.1-passionleader/" "crit4-passionleader/" "crit5-passionleader/" "riff5-passionleader/original/" "riff5-passionleader/modified/" "ass2-passionleader/"; do
+          for path in "crit1-passionleader/" "crit2-passionleader/" "assessment1-passionleader/" "assessment1.1-passionleader/" "crit4-passionleader/" "crit5-passionleader/" "riff5-passionleader/original/" "riff5-passionleader/modified/" "assessment2-passionleader/"; do
             url="${base}${path}"
             ok=""
             for i in 1 2 3 4 5; do

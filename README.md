@@ -94,7 +94,7 @@ pod's representative.
 ## Assignment 2 — SLOP2950: Weaponised Etiquette
 
 Topic: a fictional, satirical university course on public etiquette.
-[`ass2-passionleader/`](ass2-passionleader) is **SLOP2950 — Weaponised
+[`assessment2-passionleader/`](assessment2-passionleader) is **SLOP2950 — Weaponised
 Etiquette**, a full fake-course content site (Astro + Content Collections)
 covering 12 weeks of case studies on everyday manners (elevators, libraries,
 seat-saving, transit, footpaths, queues, restrooms), each with a lecture
