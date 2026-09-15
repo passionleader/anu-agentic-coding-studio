@@ -15,10 +15,10 @@ cover every deliverable.
 SLOP2950 "Weaponised Etiquette" is a fictional twelve-week course that treats
 public-etiquette violations as an academic discipline: watch a norm, isolate
 the deliberate act that breaks it, describe precisely what happens next. The
-topic follows from a premise about what a good course is: it satirises
-something no real degree would teach, while staying genuinely useful —
-manners are learned, vary by culture, and where the line sits is
-subjective, yet no class actually covers it. I
+topic follows a premise about what a good course is: satirise something no
+real degree teaches while staying genuinely useful — manners are learned,
+vary by culture, and where the line sits is subjective, yet no class
+covers it. I
 wanted the voice to read as a straight-faced, over-evaluated university
 course rather than a literal list of "how to annoy people," so tone was a
 first-class constraint from the first commit
@@ -32,15 +32,13 @@ reason every week studies the same isolate-the-act method rather than a
 grab-bag of "manners" trivia. I encoded that as a `CLAUDE.md` rule
 (analytical, cataloguing voice, no second-person instructions;
 [`63fdb0a`](https://github.com/comp4020-agentic-coding-studio/comp4020-ass2-passionleader/commit/63fdb0a5b9e44fa6bf2f0c5363fe898f769ed21c))
-and as a machine check: `spec/course-promises.test.ts` verifies the promises
-a syllabus makes that a build can't — assessment weights summing to 100,
-every named teacher resolving, every lecture's `slides` field pointing at a
-real deck — rather than trusting the schema alone
+and as a machine check, `spec/course-promises.test.ts`, verifying promises a
+syllabus makes that a build can't — weights summing to 100, every teacher
+resolving, every lecture's `slides` pointing at a real deck
 ([`eb77930`](https://github.com/comp4020-agentic-coding-studio/comp4020-ass2-passionleader/commit/eb779306d72ff0dc3c7f67d5fc0f42d270d048b4)).
 What I left uncoded on purpose: forcing every week into a physical-space
-label. Littering and queueing are commons behaviours with no fixed venue, and
-a schema field would have manufactured a fake distinction rather than
-reflect that
+label — littering and queueing are commons behaviours with no fixed venue,
+and a field would have manufactured a fake distinction
 ([`851fff2`](https://github.com/comp4020-agentic-coding-studio/comp4020-ass2-passionleader/commit/851fff2f6a2f2996070d50860360d5429a4c6748)).
 
 ## The breakthrough: a harness that has to look, not just pass
@@ -56,12 +54,11 @@ lecture pages, invisible to every typecheck/build/test run, until a
 screenshot pass looked at the `<h1>`
 ([`0208664`](https://github.com/comp4020-agentic-coding-studio/comp4020-ass2-passionleader/commit/0208664131d233404f3a491e5bd930b1cc28e60e)).
 
-What the harness didn't do was save time. Coordinating five roles through
+What the harness didn't save was time: coordinating five roles through
 revision rounds ran mostly sequentially, for more tokens than one continuing
-session doing the same change. The pattern that worked afterward was
-narrower: build one sample end-to-end, show it to me, let me pick a
-direction, then roll the rest out in that style — the Week 3 elevator slide
-went first
+session doing the same change. What worked afterward was narrower: build one
+sample end-to-end, show it to me, let me pick a direction, then roll the
+rest out in that style — the Week 3 elevator slide went first
 ([`df8a346`](https://github.com/comp4020-agentic-coding-studio/comp4020-ass2-passionleader/commit/df8a346ae8ab7e18247fddd9104c0dc88141ef44),
 [`1b36245`](https://github.com/comp4020-agentic-coding-studio/comp4020-ass2-passionleader/commit/1b36245bc3eb59211334e64afc9fa971dbaa78d9),
 [`e13cc1c`](https://github.com/comp4020-agentic-coding-studio/comp4020-ass2-passionleader/commit/e13cc1c75e027505fea6aa8d8f5f2923d6427aca)).
@@ -69,6 +66,16 @@ The same discipline shaped content: tutorial "record your reaction" prompts
 are grounded in how people actually describe these moments, not an invented
 scenario
 ([`557f3a5`](https://github.com/comp4020-agentic-coding-studio/comp4020-ass2-passionleader/commit/557f3a53f1b5a5b1f3a42c1e35245f89ead17359)).
+
+## Design and imagery
+
+Slide layout follows two ANU courses I've sat in — Computer Architecture and
+HCI — rather than a style designed from scratch; it happened to converge on
+the Agentic Coding Studio site's own look, unprompted
+([`85feec7`](https://github.com/comp4020-agentic-coding-studio/comp4020-ass2-passionleader/commit/85feec7ec4544717bbc9fa4463394b9e0872f4c0)).
+Deck imagery moved from generated vector art to real, attributed stock
+photography once vector art stopped carrying a convincing before/after beat
+([`df8a346`](https://github.com/comp4020-agentic-coding-studio/comp4020-ass2-passionleader/commit/df8a346ae8ab7e18247fddd9104c0dc88141ef44)–[`e13cc1c`](https://github.com/comp4020-agentic-coding-studio/comp4020-ass2-passionleader/commit/e13cc1c75e027505fea6aa8d8f5f2923d6427aca)).
 
 ## Reflection
 
