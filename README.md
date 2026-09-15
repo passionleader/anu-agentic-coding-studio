@@ -102,4 +102,4 @@ deck, a multiple-choice self-check quiz, and supporting assessments — built
 to read as an over-produced, over-assessed university course that grades
 rigorously on a subject nobody is ever formally taught.
 
-**Live:** https://comp4020-agentic-coding-studio.github.io/comp4020-ass2-passionleader/
+**Live:** https://passionleader.github.io/anu-agentic-coding-studio/assessment2-passionleader/
