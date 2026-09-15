@@ -7,6 +7,17 @@
  * regardless of import order (see universityTheme's brandCss doc comment).
  * Imported via `universityTheme({ brandCss: [...] })`. */
 
+/* Mostly-solid tinted surface with a light frosted edge, rather than a
+ * heavily see-through glass panel — content scrolling underneath should only
+ * barely show through. Built by taking the opaque tint (10% primary into
+ * --at-bg) and letting only a thin slice of it fade to transparent, so the
+ * fixed --at-primary token still drives the color without being redefined. */
 .at-nav {
-  background: color-mix(in srgb, var(--at-primary) 10%, var(--at-bg));
+  background: color-mix(
+    in srgb,
+    color-mix(in srgb, var(--at-primary) 10%, var(--at-bg)) 88%,
+    transparent
+  );
+  backdrop-filter: blur(6px) saturate(120%);
+  -webkit-backdrop-filter: blur(6px) saturate(120%);
 }
