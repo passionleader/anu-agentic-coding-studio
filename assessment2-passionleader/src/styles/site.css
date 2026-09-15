@@ -1,0 +1,12 @@
+/* Site-level visual styling — navigation, layout, interaction polish. This
+ * file never redefines the fixed --at-primary/--at-secondary/--at-tertiary
+ * tokens themselves (those come from astro-theme-slop/slop.css and stay as
+ * they arrived); it only uses those tokens to style elements the course is
+ * free to customise (navigation, styling — see README.md). Declarations here
+ * are unlayered, so they win over the theme's `@layer at.components` rules
+ * regardless of import order (see universityTheme's brandCss doc comment).
+ * Imported via `universityTheme({ brandCss: [...] })`. */
+
+.at-nav {
+  background: color-mix(in srgb, var(--at-primary) 10%, var(--at-bg));
+}

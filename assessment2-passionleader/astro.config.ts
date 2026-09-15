@@ -23,7 +23,9 @@ export default defineConfig({
       // SlopU's palette is a fixed part of the platform (per the starter
       // README and the assignment brief: "SlopU's name, marks and palette
       // ... stay as they arrived") --- not a course-level styling choice.
-      brandCss: "astro-theme-slop/slop.css",
+      // site.css layers course-owned styling (e.g. the nav surface) on top,
+      // using those fixed tokens rather than redefining them.
+      brandCss: ["astro-theme-slop/slop.css", "/src/styles/site.css"],
       imageFormat: "avif",
       llmsTxt: true,
       // The theme owns the markdown plugin chain, so astromotion's slide
