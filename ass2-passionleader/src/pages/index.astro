@@ -1,0 +1,84 @@
+---
+import Card from "astro-theme-university/components/Card.astro";
+import CardGrid from "astro-theme-university/components/CardGrid.astro";
+import ContentLayout from "astro-theme-university/layouts/ContentLayout.astro";
+import heroImage from "../assets/images/hero-home.png";
+import { courseMeta } from "../course-config";
+import { sessionLabels, siteConfig } from "../site-config";
+---
+
+<ContentLayout
+  title={`${courseMeta.code}: ${courseMeta.title}`}
+  description={courseMeta.description}
+  heroImage={heroImage}
+  heroImageAlt="A raked lecture theatre drawn as flat blue dots, one seat singled out in black by a sneeze-burst icon inside a prohibited-sign ring"
+  {...siteConfig}
+>
+  <ul class="course-tags" aria-label="Course tags">
+    {courseMeta.tags.map((tag) => <li>{tag}</li>)}
+  </ul>
+
+  <h2>What you will do</h2>
+  <p>
+    Each week you pick one public space — an elevator, a library, a queue —
+    and apply the same method to it: watch the unwritten rule as it actually
+    operates, isolate the smallest deliberate act that would break it, and
+    write down precisely what happens next. By Week 5 that method produces
+    Assignment 1; by Week 9 it produces Assignment 2; by Week 11 you perform
+    a technique live, under supervision; and Week 12's Final Exam tests how
+    well the method itself has stuck, on cases you haven't seen before.
+  </p>
+
+  <h2>Who it is for</h2>
+  <p>
+    Anyone willing to treat "everyone knows not to do that" as a claim worth
+    testing rather than a fact to take on faith. No prior sociology is
+    assumed. You should be comfortable observing strangers respectfully in
+    public and, in Week 11, performing an exaggerated (not harmful) breach of
+    etiquette in front of your own cohort.
+  </p>
+
+  <h2>Where to go next</h2>
+  <CardGrid columns={2}>
+    <Card title="Lectures" href="/lectures/">
+      <p>What is covered, week by week, and which topics each lecture draws on.</p>
+    </Card>
+    <Card title="Tutorial" href="/tutorials/">
+      <p>The weekly activity that turns each lecture's method into something you do.</p>
+    </Card>
+    <Card title="Quiz" href="/quizzes/">
+      <p>A short check, week by week, on whether that week's method landed.</p>
+    </Card>
+    <Card title="Assessment" href="/assessments/">
+      <p>What is marked, what it is worth, and when it is due.</p>
+    </Card>
+    <Card title={sessionLabels.plural} href="/sessions/">
+      <p>The weekly schedule and what happens in each teaching session.</p>
+    </Card>
+    <Card title="People" href="/people/">
+      <p>Who teaches the course and how to reach them.</p>
+    </Card>
+    <Card title="Resources & Policies" href="/policies/">
+      <p>Readings, referencing, slides — plus the rules on late work and integrity.</p>
+    </Card>
+  </CardGrid>
+</ContentLayout>
+
+<style>
+  .course-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    margin-block: 0 2rem;
+    padding: 0;
+    list-style: none;
+  }
+
+  .course-tags li {
+    padding: 0.25rem 0.65rem;
+    border-radius: 999px;
+    color: var(--at-text-secondary);
+    background: var(--at-bg-alt);
+    font-size: 0.9rem;
+  }
+</style>

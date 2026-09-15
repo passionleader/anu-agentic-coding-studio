@@ -1,0 +1,19 @@
+---
+import { getPublishedCollection } from "astro-course-university/content";
+import Card from "astro-theme-university/components/Card.astro";
+import CardGrid from "astro-theme-university/components/CardGrid.astro";
+
+const quizzes = await getPublishedCollection("quizzes");
+const visible = quizzes.sort((a, b) => a.data.week - b.data.week);
+---
+
+<CardGrid columns={2}>
+  {
+    visible.map((quiz) => (
+      <Card headingLevel="h2" title={quiz.data.title} href={`/quizzes/${quiz.id}/`}>
+        {quiz.data.description && <p>{quiz.data.description}</p>}
+        <p><small>Week {quiz.data.week} · {quiz.data.questions.length} questions</small></p>
+      </Card>
+    ))
+  }
+</CardGrid>

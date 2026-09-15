@@ -1,0 +1,127 @@
+---
+interface Question {
+  question: string;
+  options: string[];
+  correctIndex: number;
+}
+
+interface Props {
+  questions: Question[];
+}
+
+const { questions } = Astro.props;
+---
+
+<div class="quiz-list">
+  {
+    questions.map((q, i) => (
+      <form class="quiz-question" data-quiz-question data-correct-index={q.correctIndex}>
+        <fieldset>
+          <legend>
+            {i + 1}. {q.question}
+          </legend>
+          <ul class="quiz-options" role="list">
+            {q.options.map((option, idx) => (
+              <li>
+                <label>
+                  <input type="radio" name={`q${i}-answer`} value={idx} required />
+                  {option}
+                </label>
+              </li>
+            ))}
+          </ul>
+          <button type="submit">Check answer</button>
+          <p class="quiz-feedback" role="status" aria-live="polite" hidden />
+        </fieldset>
+      </form>
+    ))
+  }
+</div>
+
+<style>
+  .quiz-question {
+    margin-block-end: 2rem;
+    padding: 1rem;
+    border: 1px solid color-mix(in srgb, currentColor 20%, transparent);
+    border-radius: 0.5rem;
+  }
+
+  .quiz-question fieldset {
+    border: 0;
+    padding: 0;
+    margin: 0;
+  }
+
+  .quiz-question legend {
+    font-weight: 600;
+    padding: 0;
+    margin-block-end: 0.75rem;
+  }
+
+  .quiz-options {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 1rem;
+    display: grid;
+    gap: 0.5rem;
+  }
+
+  .quiz-options label {
+    display: flex;
+    align-items: baseline;
+    gap: 0.5rem;
+  }
+
+  .quiz-question :focus-visible {
+    outline: 2px solid currentColor;
+    outline-offset: 2px;
+  }
+
+  .quiz-feedback {
+    margin-block-start: 0.75rem;
+    font-weight: 600;
+  }
+
+  .quiz-feedback[data-correct="true"] {
+    color: color-mix(in srgb, currentColor 60%, green 40%);
+  }
+
+  .quiz-feedback[data-correct="false"] {
+    color: color-mix(in srgb, currentColor 60%, crimson 40%);
+  }
+</style>
+
+<script>
+  function setupQuizzes() {
+    for (const form of document.querySelectorAll<HTMLFormElement>("[data-quiz-question]")) {
+      if (form.hasAttribute("data-quiz-initialized")) continue;
+      form.setAttribute("data-quiz-initialized", "true");
+
+      form.addEventListener("submit", (event) => {
+        event.preventDefault();
+
+        const correctIndex = Number(form.dataset.correctIndex);
+        const selected = form.querySelector<HTMLInputElement>('input[type="radio"]:checked');
+        const feedback = form.querySelector<HTMLParagraphElement>(".quiz-feedback");
+        if (!feedback) return;
+
+        if (!selected) {
+          feedback.hidden = false;
+          feedback.removeAttribute("data-correct");
+          feedback.textContent = "Choose an answer first.";
+          return;
+        }
+
+        const isCorrect = Number(selected.value) === correctIndex;
+        feedback.hidden = false;
+        feedback.dataset.correct = String(isCorrect);
+        feedback.textContent = isCorrect
+          ? "Correct."
+          : "Not quite — check the week's material and try again.";
+      });
+    }
+  }
+
+  setupQuizzes();
+  document.addEventListener("astro:page-load", setupQuizzes);
+</script>
