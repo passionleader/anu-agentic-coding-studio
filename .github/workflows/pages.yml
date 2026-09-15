@@ -91,6 +91,13 @@ jobs:
       - name: Build assessment2-passionleader
         working-directory: assessment2-passionleader
         run: |
+          # astro.config.ts derives `base` from GITHUB_REPOSITORY, which here
+          # resolves to this portfolio repo (anu-agentic-coding-studio), not
+          # the nested /assessment2-passionleader/ path this project actually
+          # serves from in the combined site. Patch it at build time only —
+          # this file is subtree-synced from the course repo, so it must stay
+          # unmodified in the commit itself.
+          sed -i 's#const { site, base } = resolveDeployment(process.env, gitOrigin);#const site = "https://passionleader.github.io"; const base = "/anu-agentic-coding-studio/assessment2-passionleader";#' astro.config.ts
           pnpm install --frozen-lockfile
           pnpm build
 
