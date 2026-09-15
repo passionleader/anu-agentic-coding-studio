@@ -20,9 +20,10 @@ export default defineConfig({
   integrations: [
     universityTheme({
       defaultLayout: "src/layouts/PageLayout.astro",
-      // The whole brand choice: three colour tokens and a set of lockups. Keep
-      // institutional brand packages and assets out of this fictional site.
-      brandCss: "/src/styles/brand.css",
+      // SlopU's palette is a fixed part of the platform (per the starter
+      // README and the assignment brief: "SlopU's name, marks and palette
+      // ... stay as they arrived") --- not a course-level styling choice.
+      brandCss: "astro-theme-slop/slop.css",
       imageFormat: "avif",
       llmsTxt: true,
       // The theme owns the markdown plugin chain, so astromotion's slide

@@ -1,8 +1,6 @@
 import { defineSiteConfig } from "astro-theme-university/types";
 import { slopBranding } from "astro-theme-slop";
 import { courseMeta } from "./course-config";
-import slopDropletMark from "./assets/images/brand/favicon-droplet.png";
-import slopDropletLogo from "./assets/images/brand/logo-horizontal.png";
 
 // The underlying collection and URL remain `sessions`; these labels are the
 // language students see. This course runs them as small-group practicals
@@ -30,18 +28,6 @@ export const courseApiCollections = [
 export const siteConfig = defineSiteConfig({
   ...slopBranding,
   name: "Slop University",
-
-  // Override the shared institutional crest with this course's own mark: a
-  // sad, prohibited sneeze-droplet, matching the site's satirical tone
-  // instead of the serious shared-package crest. Site-specific props placed
-  // after the spread win over slopBranding's defaults (see astro-theme-slop's
-  // own doc comment). No separate dark variant: colorScheme below pins this
-  // site to light only, so logoDark never renders.
-  logo: slopDropletLogo,
-  logoDark: slopDropletLogo,
-  logoCompact: slopDropletMark,
-  logoCompactDark: slopDropletMark,
-  favicon: slopDropletMark,
 
   links: [
     { text: "Lectures", href: "/lectures/" },
