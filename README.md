@@ -90,3 +90,16 @@ pod's representative.
 
 **Live (original):** https://passionleader.github.io/anu-agentic-coding-studio/riff5-passionleader/original/
 **Live (modified):** https://passionleader.github.io/anu-agentic-coding-studio/riff5-passionleader/modified/
+
+## Assignment 2 — SLOP2950: Weaponised Etiquette
+
+Topic: a fictional, satirical university course on public etiquette.
+[`ass2-passionleader/`](ass2-passionleader) is **SLOP2950 — Weaponised
+Etiquette**, a full fake-course content site (Astro + Content Collections)
+covering 12 weeks of case studies on everyday manners (elevators, libraries,
+seat-saving, transit, footpaths, queues, restrooms), each with a lecture
+deck, a multiple-choice self-check quiz, and supporting assessments — built
+to read as an over-produced, over-assessed university course that grades
+rigorously on a subject nobody is ever formally taught.
+
+**Live:** https://comp4020-agentic-coding-studio.github.io/comp4020-ass2-passionleader/
