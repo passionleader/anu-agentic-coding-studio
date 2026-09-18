@@ -12,6 +12,16 @@
  * background. */
 @import url("astro-theme-university/styles/deck.css");
 
+/* Course-level typeface, mirroring src/styles/site.css --- decks don't load
+ * that stylesheet (see the file banner above), so the same --at-font-body
+ * override has to be repeated here. --at-font-mono is left on the theme's
+ * Roboto Mono, same as the main site. */
+.reveal {
+  --at-font-body:
+    var(--font-titillium-web, "Titillium Web"), -apple-system, blinkmacsystemfont, "Segoe UI",
+    roboto, oxygen, ubuntu, cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+}
+
 /* Neither reveal.js's own reveal.css nor astro-theme-university's deck.css
  * constrains slide image size --- that constraint normally comes from one of
  * reveal.js's stock themes (white.css, black.css, ...), none of which this
@@ -24,8 +34,13 @@
  * section auto-sized grid rows, and a percentage height on a descendant of
  * an auto-height box resolves to `auto` per spec --- so `max-height: 95%`
  * is silently inert. `vh` always has a definite basis, so it's the standard
- * workaround. */
-.reveal img,
+ * workaround.
+ *
+ * Images specifically get a further fixed-box + object-fit:cover treatment
+ * below (rather than just capping width/height like video/iframe still do
+ * here), so a wrong/right pair crops to a consistent frame instead of each
+ * photo keeping its own native aspect ratio --- a stretched or oddly-cropped
+ * image is harder to read at a glance than one that's simply cropped to fit. */
 .reveal video,
 .reveal iframe {
   max-width: 90%;
@@ -50,4 +65,58 @@
 }
 .reveal .slides section > :not(p:has(> img)) {
   grid-column: 1 / -1;
+}
+
+/* Crop, don't stretch: each image paragraph becomes a fixed-ratio box and the
+ * image inside fills it via object-fit: cover, so a bad/good pair reads as a
+ * matched frame instead of two photos at whatever aspect ratio they shipped
+ * with. This replaces the generic max-width/max-height cap above for images
+ * specifically (video/iframe keep that cap, unchanged).
+ *
+ * The ratio is wider than a native photo (3:1, not 4:3): at the two-column
+ * width this grid gives each image (~538px), 4:3 stood 403px tall, which on
+ * its own left the "wrong vs. right" slides --- heading, two verdict
+ * paragraphs, then this row --- run well past the 720px canvas. 3:1 crops to
+ * a shorter strip that still reads as a photo, not a slit. `position:
+ * relative` turns the box into the positioning context for `.image-credit`
+ * below, so the credit overlays the photo instead of pushing the row taller. */
+.reveal .slides section p:has(> img) {
+  position: relative;
+  aspect-ratio: 3 / 1;
+  overflow: hidden;
+}
+.reveal .slides section p:has(> img) img {
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  max-height: none;
+  object-fit: cover;
+}
+
+/* Every image paragraph's caption line ("Photo: X / Pexels") sits on the very
+ * next line of markdown with no blank line between --- CommonMark folds that
+ * into the *same* paragraph as the image, so it was rendering inside the
+ * fixed-ratio box above and getting clipped by that box's own
+ * `overflow: hidden`, invisible on every deck. Wrapping the caption text in
+ * `astro-theme-university`'s existing (until now unused) `.image-credit`
+ * class --- already styled as an absolutely-positioned bottom-right overlay
+ * in astro-theme-university/styles/deck.css --- puts it back on top of the
+ * photo instead of trying to flow below it, restoring the attribution
+ * without adding any row height. */
+
+/* Body text is the other overflow source: at 1.75rem/1.5 a "wrong vs. right"
+ * slide's heading + two verdict paragraphs alone can run close to the 720px
+ * canvas before the image row even starts, and several image-free "analysis"
+ * and References slides overflow on text volume alone. Trimmed slightly ---
+ * still comfortably readable at the deck's 1280x720 scale --- this buys back
+ * height across every text-heavy slide, not just the image ones. */
+.reveal .slides section :is(p, li) {
+  font-size: 1.4rem;
+  line-height: 1.3;
+}
+.reveal .slides section p {
+  margin-block-end: 0.6em;
+}
+.reveal .slides section :is(h2, h3, h4, h5, h6) {
+  margin: 0 0 1.2rem;
 }

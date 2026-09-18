@@ -27,6 +27,13 @@ questions:
       - "Ms. Halvorsen's"
       - "An anonymous public survey"
     correctIndex: 0
+  - question: "Two people both stop to check a phone notification on a crowded footpath — one mid-flow, one stepped aside first. Why does only one of them cause a pile-up?"
+    options:
+      - "Stepping aside removes the stop from the main flow entirely, so nobody behind has to react to it"
+      - "The one mid-flow was walking slower to begin with"
+      - "Pile-ups are random and unrelated to where someone stops"
+      - "Only stops longer than one minute cause any disruption at all"
+    correctIndex: 0
 ---
 
-Three questions on measuring a pedestrian pile-up as a fluid-dynamics problem.
+Four questions on measuring a pedestrian pile-up as a fluid-dynamics problem.

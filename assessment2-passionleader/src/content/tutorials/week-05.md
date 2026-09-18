@@ -15,8 +15,8 @@ related:
 ## Activity
 
 Observe a busy café, library, or shared space at peak time and note every
-claim to a seat or table that isn't backed by someone actually sitting there
-right now — a jacket, a bag, a laptop left open.
+territorial claim to a seat or table that isn't backed by someone actually
+sitting there right now — a jacket, a bag, a laptop left open.
 
 ## Record your reaction
 

@@ -1,5 +1,5 @@
 ---
-title: "Week 8: Sudden Stops and Pedestrian Flow"
+title: "Week 8: A Fluid-Dynamics Inquiry into Discontinuity Propagation in Ambulatory Flow"
 description:
   Stopping dead in a moving crowd to check your phone, and the pile-up that
   follows — read as a fluid-dynamics problem with a person at the front.
@@ -34,3 +34,20 @@ it.
 - measuring the pile-up: distance, duration, and how many people never learn
   why
 - case studies: doorway stops, escalator-exit stops, and the phone-check stop
+
+## Learning Objectives
+
+This week's objective is to formalise the sudden pedestrian stop as a
+measurable perturbation in an otherwise self-organizing fluid system, and to
+elevate a distinctly unremarkable act of thoughtlessness to the status of a
+peer-reviewable fluid-dynamics case study. Students should leave able to
+name, and disapprove of, a Unilateral Flow Interruption on sight.
+
+## Takeaways
+
+Graduates of this week's material acquire the Department of Ambulatory
+Dynamics' signature diagnostic skill: the ability to determine, from the
+specific quality of a stutter-step eight bodies back, exactly where and when
+the interruption occurred. As far as the department has been able to
+determine, this skill has no application whatsoever outside a crowded
+footpath.

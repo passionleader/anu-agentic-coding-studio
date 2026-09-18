@@ -1,8 +1,8 @@
 ---
-title: "Week 9 Tutorial: Re-Testing the Method"
+title: "Week 9 Tutorial: Re-Testing the Isolate–Contest–Verdict Protocol"
 description:
-  Applying the isolate-the-act / name-the-contest / state-the-verdict method
-  to a case you already know the answer to, ahead of Assignment 2.
+  Applying the Isolate–Contest–Verdict (ICV) Protocol to a case you already
+  know the answer to, ahead of Assignment 2.
 week: 9
 date: 2027-09-21
 teachers:
@@ -26,7 +26,7 @@ contested once you'd written it down plainly.
 
 ## Reflection
 
-State in a few sentences whether this week's method — isolate the act, name
+State in a few sentences whether the ICV Protocol — isolate the act, name
 what makes it deniable or contested, state a plain verdict — actually
 generalised for the case you picked, or whether forcing it into that shape
 lost something the original case had. [Assignment 2](/assessments/assignment-2/)

@@ -1,4 +1,4 @@
-import { defineConfig } from "astro/config";
+import { defineConfig, fontProviders } from "astro/config";
 import courseGraph from "astro-course-university";
 import universityTheme from "astro-theme-university";
 import { astromotion, deckRemarkPlugins } from "astromotion";
@@ -17,6 +17,20 @@ export default defineConfig({
   // and what a visitor clicks in agreement --- otherwise each click costs a
   // 301 on GitHub Pages.
   trailingSlash: "always",
+  // Course-level font, on top of the theme's own Public Sans/Roboto Mono
+  // registration (astro-theme-university/index.ts dedupes by name, so this
+  // doesn't collide). site.css/decks/theme.css point --at-font-body at this
+  // instead of Public Sans; --at-font-mono (code) is untouched. Titillium
+  // Web isn't shipped as a variable font by Google, so weights are listed
+  // discretely rather than as a single "100 900" range.
+  fonts: [
+    {
+      name: "Titillium Web",
+      cssVariable: "--font-titillium-web",
+      provider: fontProviders.google(),
+      weights: ["400", "600", "700"],
+    },
+  ],
   integrations: [
     universityTheme({
       defaultLayout: "src/layouts/PageLayout.astro",
@@ -48,7 +62,7 @@ export default defineConfig({
     // name.
     astromotion({
       theme: "./src/decks/theme.css",
-      fontVariables: ["--font-public-sans"],
+      fontVariables: ["--font-public-sans", "--font-titillium-web"],
     }),
   ],
 });

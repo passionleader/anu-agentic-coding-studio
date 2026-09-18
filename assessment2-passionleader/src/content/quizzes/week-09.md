@@ -34,7 +34,14 @@ questions:
       - "Because the earlier weeks' verdicts were wrong"
       - "It isn't meaningful — it's just a review for its own sake"
     correctIndex: 0
+  - question: "What does the Isolate–Contest–Verdict (ICV) Protocol actually add to the method used in Weeks 2 through 8?"
+    options:
+      - "A name — the three steps themselves are identical"
+      - "A fourth step, verification, not used in earlier weeks"
+      - "A legal enforcement mechanism"
+      - "A numeric score replacing the Bad manner / Good manner verdict"
+    correctIndex: 0
 ---
 
-Four questions on this week's synthesis of the elevator, seat-saving, and
+Five questions on this week's synthesis of the elevator, seat-saving, and
 transit-space cases.

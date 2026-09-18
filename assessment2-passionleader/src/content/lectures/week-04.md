@@ -1,5 +1,5 @@
 ---
-title: "Week 4: Modelling Noise Propagation in a Library"
+title: "Week 4: An Acoustic-Ethnographic Inquiry into the Reading Room"
 description:
   How sound actually travels through a reading room, and why "shush" is such
   an unreliable countermeasure.
@@ -33,3 +33,18 @@ exactly what makes it feel worse than the noise it's answering.
 - case studies: the noises a library punishes and the ones it lets go
 - discussion: why "the library is quiet" is enforced by glares rather than
   any actual authority
+
+## Learning Objectives
+
+By the end of this week, students will be able to model a reading room's
+noise floor with the seriousness normally reserved for load-bearing
+infrastructure, correctly classify a shush as a Disproportionate
+Retaliatory Broadcast, and articulate why the Acoustic Ethics Lab considers
+the library's entire enforcement apparatus to rest on eye contact alone.
+
+## Takeaways
+
+Graduates of this week will never again shush anyone without first
+performing, silently and instantaneously, a bystander-count comparison
+between the violation and the shush itself. Most will find the shush loses
+every time. None will stop shushing.

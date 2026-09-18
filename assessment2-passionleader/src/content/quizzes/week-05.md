@@ -27,6 +27,13 @@ questions:
       - "The customer asks staff to guard the table"
       - "The customer brings a second jacket to double the claim"
     correctIndex: 0
+  - question: "Why does this week say \"he saved a seat\" is an incomplete description on its own, whatever the verdict turns out to be?"
+    options:
+      - "Because it jumps straight to a verdict without isolating the one variable that actually decides the case — how scarce seats were at that moment"
+      - "Because it doesn't specify which chair was used"
+      - "Because it fails to name the jacket's brand"
+      - "Because it doesn't confirm whether the seat-saver eventually sat down"
+    correctIndex: 0
 ---
 
-Three questions on seat-saving as a property system with no formal enforcement.
+Four questions on seat-saving as a property system with no formal enforcement.

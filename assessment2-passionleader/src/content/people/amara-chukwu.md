@@ -1,8 +1,9 @@
 ---
 title: Dr. Amara Chukwu
 description:
-  Lecturer studying littering as an audience-less nuisance — who pays for a
-  dropped wrapper, and when, if ever, that cost returns to whoever dropped it.
+  Lecturer and principal investigator on the Bin-Adjacent Disposal
+  Initiative, a multi-year programme establishing, at some expense, that
+  litter accumulates near where people already are.
 affiliation: Slop University Department of Applied Incivility
 role: lecturer
 email: a.chukwu@slop.university
@@ -18,13 +19,16 @@ contact:
 
 Dr. Chukwu completed both her undergraduate degree and her PhD in
 Environmental Sociology at the University of Lagos, then held a postdoctoral
-fellowship at Seoul National University surveying exactly where litter
-accumulates on a footpath relative to the nearest bin.
+fellowship at Seoul National University, where a three-year, externally
+funded programme confirmed — to a publishable standard of rigour — that
+litter accumulates on a footpath in inverse proportion to distance from a
+bin.
 
-Her threshold-litter surveys — measuring what piles up on the footpath in
-the last few metres before a bin, and what doesn't — are the closest thing this
-department has to a genuinely quantitative case study, and she is quick to
-point out that it's also the one norm in the course that almost nobody
-enforces in real time.
-
-Photo: Katerina Holmes / Pexels
+She has since formalised this into what she calls the Threshold-Litter
+Model, presented as a keynote address at the International Symposium on
+Ambient Disposal Behaviour and now cited, by her own count, in two other
+papers. Colleagues in the department privately concede it is the closest
+thing the course has to a genuinely quantitative finding; Dr. Chukwu
+prefers "foundational." She continues to argue, in successive grant
+applications, that the model has been chronically under-enforced in the
+field despite being, as she puts it, "essentially self-evident."

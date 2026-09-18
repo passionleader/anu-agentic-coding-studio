@@ -16,7 +16,9 @@ related:
 Reflect on (don't stage) a public restroom's ambient norm — running taps,
 conversations dropped to nothing — and recall one moment where the
 pretence of silence held even though everyone present clearly knew
-otherwise.
+otherwise. In the Lab's terms: you are recalling a moment that stayed
+Ritual Tap Deployment rather than tipping into Unmasked Acoustic
+Disclosure.
 
 ## Record your reaction
 

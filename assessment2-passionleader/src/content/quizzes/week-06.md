@@ -27,6 +27,13 @@ questions:
       - "Asks every boarding passenger for permission to stay seated"
       - "Stands for the entire trip regardless of seat availability"
     correctIndex: 0
+  - question: "Name two things listed this week that cost another passenger something without breaking any actual rule."
+    options:
+      - "Any two of: the bag on the empty seat, a wide pole grip, or headphone volume pitched to be heard rather than merely audible"
+      - "Any two of: a delayed bus, a broken ticket machine, or a closed station exit"
+      - "Any two of: eating on board, standing near the doors, or checking a phone"
+      - "Any two of: loud music through open speakers, smoking on board, or blocking the doors"
+    correctIndex: 0
 ---
 
-Three questions on how claimed space works on a moving vehicle.
+Four questions on how claimed space works on a moving vehicle.

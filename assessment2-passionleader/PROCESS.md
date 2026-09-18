@@ -77,6 +77,32 @@ Deck imagery moved from generated vector art to real, attributed stock
 photography once vector art stopped carrying a convincing before/after beat
 ([`df8a346`](https://github.com/comp4020-agentic-coding-studio/comp4020-ass2-passionleader/commit/df8a346ae8ab7e18247fddd9104c0dc88141ef44)–[`e13cc1c`](https://github.com/comp4020-agentic-coding-studio/comp4020-ass2-passionleader/commit/e13cc1c75e027505fea6aa8d8f5f2923d6427aca)).
 
+## Calibrating exaggeration: naming the violation
+
+The first pass at all nine Bad/Good manner slides was accurate but flat —
+a cough described as "somewhat inconsiderate" reads as a note, not a
+satire. What moved it was one instruction: stop describing the behaviour
+and name it, the way an over-evaluated field names things — Exhibitionist
+Viral Projection, Unsolicited Ambient Broadcast, each pattern attributed to
+a fictional Slop University lab that treats cataloguing rude behaviour as
+a serious research programme
+([`c6a6e4c`](https://github.com/comp4020-agentic-coding-studio/comp4020-ass2-passionleader/commit/c6a6e4c7f5bbae5ec9801e7ca4a33dd5be56b91b)).
+The same treatment carried into lecture pages — week 4 earns a full,
+straight-faced "Learning Objectives" section that ends on "None will stop
+shushing." — and into teaching-team bios, kept to text only, no photo
+changes: Emeka Osei's "Pile-Up Coefficient" needed the same deadpan
+overclaiming as the slides it's drawn from
+([`ffa9056`](https://github.com/comp4020-agentic-coding-studio/comp4020-ass2-passionleader/commit/ffa905637e137c155eecdb148e99f226f4cccd3c)).
+A puppeteer-core screenshot pass, added this round specifically so the
+harness could compare rendered pages against the previously-deployed site
+rather than trust `pnpm check` alone
+([`dc2b602`](https://github.com/comp4020-agentic-coding-studio/comp4020-ass2-passionleader/commit/dc2b602adfbfe9c3818782c36e30af7034539a1e)),
+caught two real bugs along the way: slide images with no size constraint
+overflowing onto the surrounding text, and a photo credit that CommonMark
+was silently folding into the same paragraph as its image and clipping —
+both fixed in the deck theme, not the content
+([`fd44dc8`](https://github.com/comp4020-agentic-coding-studio/comp4020-ass2-passionleader/commit/fd44dc84292dd10798aca608223877516e8497c4)).
+
 ## Reflection
 
 **What was the breakthrough that moved the work forward?** Not a tool, a
@@ -92,3 +118,19 @@ task whether the work needs five roles debating it, or one continuing
 session showing me drafts to react to — and the same judgment call applies
 to content, not just process: whether a "manner" example is actually
 believable is still mine to make, not the model's.
+
+**Exaggeration doesn't generate itself.** The first pass at every Bad/Good
+pair was accurate, not funny — competent case studies, not satire. Getting
+to the coined-term, deadpan-academic version
+([`c6a6e4c`](https://github.com/comp4020-agentic-coding-studio/comp4020-ass2-passionleader/commit/c6a6e4c7f5bbae5ec9801e7ca4a33dd5be56b91b),
+[`ffa9056`](https://github.com/comp4020-agentic-coding-studio/comp4020-ass2-passionleader/commit/ffa905637e137c155eecdb148e99f226f4cccd3c))
+took an explicit instruction to push toward exaggeration and mock-academic
+framing — left to its own judgment, the model reached for restraint over
+the extremity satire actually needs. That was a small disappointment: I'd
+expected exaggeration to be something the model would supply on its own,
+and instead it needed to be named and demanded, the same way the tone rule
+itself did earlier. The payoff is that the result now sits closer to the
+brief's own target than the first pass did — content dense enough to look
+demanding while teaching nothing that couldn't be said in one sentence —
+which is, fittingly, exactly the kind of course Slop University would
+open.

@@ -16,7 +16,7 @@ related:
 ## Activity
 
 On public transport, or recalling a recent trip, note every instance of one
-passenger occupying more space than their body needs — a bag on a seat,
+passenger annexing more space than their body needs — a bag on a seat,
 spread legs, a wide pole grip.
 
 ## Record your reaction

@@ -16,9 +16,9 @@ related:
 ## Activity, part one: queueing
 
 Observe a queue anywhere strangers are waiting their turn — a counter, a bus
-stop, a food stall — and note where the agreement about whose turn it is
-looks strongest (a clear single-file front) versus weakest (an ambiguous
-cluster, a fork that never re-merged cleanly).
+stop, a food stall — and note where this civilisational protocol looks
+strongest (a clear single-file front) versus weakest (an ambiguous cluster,
+a fork that never re-merged cleanly).
 
 ## Activity, part two: threshold litter
 

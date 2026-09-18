@@ -1,5 +1,5 @@
 ---
-title: "Week 3: Power Dynamics of the Elevator"
+title: "Week 3: Socio-Political Dynamics of Confinement in Vertical Transit"
 description:
   A box with one door, one button panel, and no way to leave — read as the
   purest small-scale power structure in the built environment.
@@ -34,3 +34,19 @@ enough that the whole car reacts to it before anyone says a word.
 - the "wrong third of the car": personal space in a box that can't expand
 - case studies: single-input disruptions and how fast a car full of strangers
   recalibrates
+
+## Learning Objectives
+
+By the end of this week, students will be able to identify an elevator car
+as a fully sovereign, ungoverned micro-territory; correctly classify a
+door-close event as either a Unilateral Border Closure or an Open-Border
+Transit Accommodation; and explain, with a straight face, why none of this
+requires an elected government.
+
+## Takeaways
+
+Graduates of this week will never again stand in an elevator without
+silently auditing who has claimed the panel, who is holding the door, and
+who is occupying the wrong third of the car. This is, strictly speaking, a
+diminishment of everyday elevator rides. The course considers this an
+acceptable cost of rigor.

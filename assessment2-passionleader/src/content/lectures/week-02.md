@@ -1,5 +1,5 @@
 ---
-title: "Week 2: The Classroom"
+title: "Week 2: The Classroom as a Contested Acoustic Jurisdiction"
 description:
   One room, two entirely different kinds of violation — a cough at the
   fully deniable end, an answered phone call at the fully overt end.
@@ -37,3 +37,22 @@ conduct where none of that interpretive work is needed at all.
 - case two: overt classroom conduct — crinkly or strong-smelling food,
   phone calls answered in the room
 - discussion: what changes when intent is never in question at all
+
+## Learning Objectives
+
+By the end of this week, students will be able to formally distinguish
+deniable from overt acoustic violation, apply the timing/target/aftermath
+signal set with publishable rigor, and correctly classify a projected cough
+under the Slop University Department of Epidemiological Theatre's coding
+scheme. More broadly, this course's objective — restated here in its
+purest, most concentrated form — is to elevate a minor, universally
+ignored classroom irritation to the level of a defensible scholarly
+discipline, complete with its own acronyms.
+
+## Takeaways
+
+A student who completes this week correctly will leave able to identify,
+within roughly the first half-second, whether a cough was involuntary noise
+or a performance staged for an audience of one. This is not a life skill in
+any ordinary sense. It is, however, exactly the kind of skill this course
+was built to certify.

@@ -1,12 +1,24 @@
-"""One-off generator for fictional people-page avatars.
+"""Superseded one-off generator for fictional people-page avatars.
 
-Deliberately NOT photoreal: flat-vector silhouette portraits in the same
-two-ink house style as gen_brand_art.py, each with a small topical badge
-tied to that person's research blurb. Avoids sourcing/generating a
-real-or-real-seeming human face for a fictional persona.
+This flat-vector silhouette approach (two-ink house style shared with
+gen_brand_art.py, each portrait with a small topical badge tied to that
+person's research blurb) was the original stance: avoid sourcing or
+generating a real-or-real-seeming human face for a fictional persona,
+in favour of an obviously-illustrated stand-in.
 
-Not part of the build; run manually to (re)produce
-src/assets/images/people/<slug>.png.
+That policy was revisited: the 8 people photos now ship as photoreal
+AI-generated headshots (flux-schnell via the course image proxy, see
+scripts/gen_people_prompts.txt) instead. They replace the earlier
+real-photographer stock photos (Pexels/Unsplash) that were credited in
+each person's markdown body, which had the same real-individual-as-
+fictional-persona problem this script was written to avoid, just via a
+different source. A generated photoreal face that doesn't correspond to
+an actual person avoids that specific problem; it doesn't need to be
+non-photoreal to do so.
+
+Kept for reference / as a fallback style, not currently applied. Not
+part of the build; run manually to (re)produce
+src/assets/images/people/<slug>.png if reverting to this look.
 """
 
 import math

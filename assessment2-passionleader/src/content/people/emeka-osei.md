@@ -1,8 +1,9 @@
 ---
 title: Emeka Osei
 description:
-  Teaching fellow running the course's Drop-in Sessions, including the
-  Week 11 Live Practicum.
+  Teaching fellow and originator of the Pile-Up Coefficient, an
+  internationally uncontested ranking of queue-cutting technique observed
+  during the course's Drop-in Sessions.
 affiliation: Slop University Department of Applied Incivility
 role: tutor
 email: e.osei@slop.university
@@ -17,15 +18,16 @@ contact:
 ---
 
 Mr. Osei supervises every Drop-in Session, including the Week 11 Live
-Practicum, which means he has personally watched several hundred students
-attempt to cut a queue with a straight face and fail. He keeps a running,
-unofficial ranking.
+Practicum, a role he describes on his CV as "field director" of what he
+privately calls the Pile-Up Coefficient — a running, unofficial ranking of
+queue-cutting technique that he insists, despite having never submitted it
+anywhere, functions as "the field's reference standard."
 
-His own research spans the sudden pedestrian stop (week 8) — specifically,
-how far behind the stopper the resulting pile-up extends as a function of
-footpath width — and, earlier in his career, the audience-less nuisance:
-violations like littering that carry almost no witness at the moment they
-happen, which is where his 2019 paper feeds into Week 7's threshold-litter
-case. He will discuss either at length if asked.
-
-Photo: Yan Krukau / Pexels
+His own research spans the sudden pedestrian stop (week 8), where he has
+derived a formula relating footpath width to pile-up length that he
+presents, unprompted, as evidence of a "generalisable law of ambulatory
+disruption," and, earlier in his career, the audience-less nuisance — his
+2019 paper on witness-less violations, which he now describes as
+"foundational" to Week 7's threshold-litter case despite Dr. Chukwu having
+done all the measuring. He will discuss either at considerable length if
+asked, and at slightly greater length if not.

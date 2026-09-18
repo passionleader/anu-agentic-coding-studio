@@ -1,8 +1,9 @@
 ---
 title: Lachlan Reeve
 description:
-  Tutor studying claimed space on public transport, and the informal history
-  of how today's etiquette norms actually got written.
+  Tutor and self-appointed departmental historian, compiling what he calls
+  the definitive oral record of public-transport etiquette from whichever
+  archival pamphlet he most recently found interesting.
 affiliation: Slop University Department of Applied Incivility
 role: tutor
 email: l.reeve@slop.university
@@ -16,15 +17,14 @@ contact:
 ---
 
 Mr. Reeve holds a BA in History from the University of Melbourne and is
-finishing a PhD at Seoul National University tracing how public-transport
-etiquette norms actually formed — which turns out to owe less to politeness
-campaigns than to whichever informal rule survived the most crowded peak
-hour.
+finishing a PhD at Seoul National University on what his thesis proposal
+calls "the unwritten constitution of public-transport etiquette" — a
+project whose central finding, three years in, remains that norms tend to
+survive whichever peak hour was most crowded when they formed.
 
 He runs the Week 6 case study on claimed-versus-needed space on a crowded
-bus or subway carriage, and moonlights as the department's informal
-historian, which is
-mostly an excuse to open the Week 1 lecture with whichever archival
-etiquette-manual excerpt he found most recently.
-
-Photo: Darion Dewhirst / Unsplash
+bus or subway carriage, and has appointed himself the department's
+informal historian, a title with no committee, no budget, and no fixed
+duties beyond opening the Week 1 lecture with whichever archival
+etiquette-manual excerpt he found most recently and describing it, every
+time, as "recently rediscovered."

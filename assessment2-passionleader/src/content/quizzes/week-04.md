@@ -27,6 +27,13 @@ questions:
       - "A local noise ordinance"
       - "Nothing; the norm isn't actually enforced at all"
     correctIndex: 0
+  - question: "A five-minute phone call goes unchallenged; a ten-second shush in response draws visible reactions across the whole floor. What does this asymmetry tell you about how the room enforces its own norms?"
+    options:
+      - "Enforcement itself carries a bigger, more visible social cost than the violation it's answering — part of why norms like this are so rarely enforced directly"
+      - "It shows the phone call was actually the quieter of the two sounds"
+      - "It shows shushing is legally protected speech and phone calls are not"
+      - "It shows the room has no functioning norm at all"
+    correctIndex: 0
 ---
 
 Three questions on how sound and enforcement actually work in a library.

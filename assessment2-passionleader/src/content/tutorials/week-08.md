@@ -15,7 +15,9 @@ related:
 
 Watch a busy footpath, doorway, or escalator exit for a sudden stop —
 someone checking a phone, reading a sign — and note how far back the
-disruption propagates before it clears.
+disruption propagates before it clears. In the department's terms: you are
+looking for a live Unilateral Flow Interruption, and, if you're lucky, a
+clean Margin-Seeking Deceleration Protocol to compare it against.
 
 ## Record your reaction
 

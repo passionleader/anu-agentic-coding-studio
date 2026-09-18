@@ -7,6 +7,17 @@
  * regardless of import order (see universityTheme's brandCss doc comment).
  * Imported via `universityTheme({ brandCss: [...] })`. */
 
+/* Course-level typeface: Titillium Web (free, Google Fonts) in place of the
+ * theme's default Public Sans, registered as a site font in astro.config.ts.
+ * Overriding the semantic --at-font-body token (rather than every selector
+ * that uses it) keeps this a one-line change and leaves --at-font-mono
+ * (code blocks) on the theme's Roboto Mono, since that one reads fine as-is. */
+:root {
+  --at-font-body:
+    var(--font-titillium-web, "Titillium Web"), -apple-system, blinkmacsystemfont, "Segoe UI",
+    roboto, oxygen, ubuntu, cantarell, "Fira Sans", "Droid Sans", "Helvetica Neue", sans-serif;
+}
+
 /* Mostly-solid tinted surface with a light frosted edge, rather than a
  * heavily see-through glass panel — content scrolling underneath should only
  * barely show through. Built by taking the opaque tint (10% primary into

@@ -1,8 +1,9 @@
 ---
 title: Dr. Wei-Lin Chow
 description:
-  Teaching fellow studying involuntary noise as signal — coughs, sneezes,
-  and the exact moment a room decides one was on purpose.
+  Teaching fellow and author of "the cough taxonomy," a formal signal-
+  processing framework for involuntary noise that took a PhD to arrive at
+  what most rooms already knew by instinct.
 affiliation:
   Slop University Department of Applied Incivility, cross-appointed with the
   Centre for Ambient Ethics
@@ -18,15 +19,16 @@ contact:
 ---
 
 Dr. Chow took a BSc in Psychology at the National University of Singapore
-and a PhD in Social Signal Processing at ETH Zürich, where she built the
-first version of what students now call, only slightly unfairly, "the cough
-taxonomy."
+and a PhD in Social Signal Processing at ETH Zürich, a six-year programme
+that culminated in what she formally titles the Involuntary Signal
+Framework and what students call, only slightly unfairly, "the cough
+taxonomy" — a three-variable model (timing, target, aftermath) that took a
+doctoral committee's sign-off to confirm what any lecture theatre already
+works out for itself in real time.
 
-Her work reads involuntary noise the way other fields read speech: as a
-signal with timing, target, and aftermath, all of which change the instant a
-lecture theatre decides a particular cough wasn't an accident. She is
-cross-appointed with the Centre for Ambient Ethics, alongside Dr. Tanaka, and
-the two of them disagree cheerfully about whether a classroom or a library is
-the harder room to read.
-
-Photo: Ketut Subiyanto / Pexels
+She has presented the framework at two conferences, cited it in every
+paper she has published since, and is cross-appointed with the Centre for
+Ambient Ethics, alongside Dr. Tanaka, with whom she disagrees cheerfully
+and at length — in a running exchange now informally referred to around
+the department as "the seminar" — about whether a classroom or a library
+is the harder room to read.

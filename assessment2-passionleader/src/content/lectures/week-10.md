@@ -1,5 +1,5 @@
 ---
-title: "Week 10: Managing Sound in the Public Restroom"
+title: "Week 10: A Phenomenological Inquiry into Acoustic Self-Deception in the Public Restroom"
 description:
   The one public space designed around pretending nobody can hear anything —
   and what happens when that pretence is dropped.
@@ -37,3 +37,18 @@ assuming it costs everything, is the rest of the method.
   the silence costs
 - discussion: is this norm protecting privacy, or just protecting everyone
   from admitting there wasn't any
+
+## Learning Objectives
+
+This week's objective is to formally classify one of the public restroom's
+oldest social technologies — the running tap — as a masking countermeasure
+of measurable, if entirely ceremonial, value, and to train students to
+recognise an Unmasked Acoustic Disclosure the instant it begins.
+
+## Takeaways
+
+By the end of this week, students will possess the Acoustic Ethics Lab's
+core professional competency: the ability to identify, purely from the
+texture of an unmasked voice, precisely how much of a stranger's phone call
+has already been involuntarily overheard. The Lab notes that this
+competency has never once proven useful outside a public restroom.
