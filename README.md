@@ -103,3 +103,15 @@ to read as an over-produced, over-assessed university course that grades
 rigorously on a subject nobody is ever formally taught.
 
 **Live:** https://passionleader.github.io/anu-agentic-coding-studio/assessment2-passionleader/
+
+## Crit 8 — It's alive! (final project, proof of life)
+
+Topic: the first working version of the final project, deployed on Fly.io.
+[`crit8-passionleader/`](crit8-passionleader) is **Poop Room** 💩, a 3D public
+bathroom (Three.js) where a visitor claims a name, leaves one poop with Space,
+and finds it again with their name over it when they come back — Hono +
+SQLite on a Fly volume, calm BGM and a synthesised fart. Mirrored from the
+`crit-8` cutoff tag; unlike the static projects above it's a server app, so
+it runs on Fly rather than on this repo's Pages site.
+
+**Live:** https://comp4020-final-passionleader.fly.dev/
