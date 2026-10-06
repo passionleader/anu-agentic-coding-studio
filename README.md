@@ -113,5 +113,5 @@ and finds it again with their name over it when they come back — Hono +
 SQLite on a Fly volume, calm BGM and a synthesised fart. Mirrored from the
 `crit-8` cutoff tag; unlike the static projects above it's a server app, so
 it runs on Fly rather than on this repo's Pages site.
-
-**Live:** https://comp4020-final-passionleader.fly.dev/
+<img width="1386" height="1021" alt="image" src="https://github.com/user-attachments/assets/706e7a46-5b97-4cfb-a4eb-3a51ce8e95b5" />
+**Live:** [https://comp4020-final-passionleader.fly.dev/](https://comp4020-final-passionleader.fly.dev/)
