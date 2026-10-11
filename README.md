@@ -112,9 +112,9 @@ bathroom (Three.js) where a visitor claims a name, leaves one poop with Space,
 and finds it again with their name over it when they come back — Hono +
 SQLite on a Fly volume, calm BGM and a synthesised fart. Mirrored from the
 `crit-8` cutoff tag; unlike the static projects above it's a server app, so
-it runs on Fly rather than on this repo's Pages site.
+it runs on Fly rather than on this repo's Pages site. Crits 8–10 share that
+one server, so its live link goes on the final project's entry only.
 <img width="1386" height="1021" alt="image" src="https://github.com/user-attachments/assets/706e7a46-5b97-4cfb-a4eb-3a51ce8e95b5" />
-**Live:** [https://comp4020-final-passionleader.fly.dev/](https://comp4020-final-passionleader.fly.dev/)
 
 ## Crit 9 — All at once (final project, real-time)
 
@@ -126,5 +126,3 @@ a space sees each other walk, chat, wave, dance and stick notes live over
 WebSockets, with the decision in
 [`docs/decisions/001`](crit9-passionleader/docs/decisions/001-what-lasts-and-who-sees-it.md).
 Mirrored from the `crit-9` cutoff tag; like crit 8 it runs on Fly, not on Pages.
-
-**Live:** [https://comp4020-final-passionleader.fly.dev/](https://comp4020-final-passionleader.fly.dev/)
