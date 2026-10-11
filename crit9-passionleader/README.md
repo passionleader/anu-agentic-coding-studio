@@ -1,0 +1,74 @@
+# ANU campus, unofficially
+
+A small 3D, real-time space for the ANU community: a stretch of campus between
+building 155 (Marie Reay Teaching Centre) and building 154 (Di Riddell Student
+Centre), the Student Hub inside 154, and a COMP8020 classroom inside 155.
+Everyone in a space sees everyone else walk, chat, wave, dance and leave sticky
+notes, live. It is not an official ANU service.
+
+## Who it's for
+
+Anyone connected to ANU. For now it is built mostly around students talking to
+students, but the aim is a place where staff and academics can talk with
+students informally and at ease. You can hang out with live chat and emotes, or
+leave a trace with a sticky note. Students, staff and academics
+should feel at home in a virtual space shaped like the real campus they know.
+
+## How to use it
+
+1. Type your student number (e.g. `u1234567`); staff and visitors use any name
+   of up to 8 letters, digits and underscores. Nothing checks a number is real.
+   Your browser remembers you, and you come back where you left.
+2. **WASD** to walk, **Space** to jump, **E** at a door to go in or out. On a
+   phone: the pad and the Menu, Jump and Use buttons.
+3. **Enter** to chat (gone after a minute). Hold **Q** to wave, say yes or no,
+   "How ya doing, mate?", dance, or stick a note.
+4. A note stays where you stood until you or the admin remove it. Walk onto one
+   and press **E** to read and comment.
+5. The gear (top right) switches graphics between Low and High.
+
+## What good means for this app
+
+- **Familiar places, so less effort.** By processing fluency theory (Reber,
+  Schwarz & Winkielman, 2004), the brain spends less effort on visual and
+  spatial information it already knows (a mental map), and that fluency feels
+  safe and pleasant. By cognitive load theory (Sweller, 1988), a predictable,
+  familiar campus cuts the extraneous load of learning a virtual world, leaving
+  more for real tasks, deep thinking and creative work together. So the spaces
+  follow the real campus, and people can settle in without friction.
+- **Accessible from anywhere.** No building to reach, no weather, no physical
+  barrier: a community space in the browser, on a laptop or a phone.
+- **A place to rest, not another work screen.** Not the 2D tools we stare at
+  all day, but a game-like space where anyone can drop in, relax and socialise
+  without pressure.
+- **Easy for shy people.** Calm music and game-like art make it easier to be
+  social. Stick a note to leave your mark, let classmates comment on it, or
+  just dance together.
+
+### Which of these are checked
+
+Enforced by `spec/`: name rules (`campus.test.ts`); notes and comments
+persist, stay in their space, keep their limits, and only their author or an
+admin removes them (`campus.test.ts`, `rules.test.ts`); movement, chat, emotes
+and new notes reach the same space within a second, and no other
+(`realtime.test.ts`). Keyboard and phone controls are a rule in `CLAUDE.md`.
+Judged by people: whether it feels familiar and restful, and whether talking
+gets easier.
+
+## What I chose not to build (yet)
+
+Counselling and group-chat rooms, a classroom picker, sitting on chairs,
+boards, mail, one-to-one chat, voice, and character colours. The buildings are
+simplified, not surveyed.
+
+## What I read while deciding
+
+- Reber, R., Schwarz, N. & Winkielman, P. (2004). Processing fluency and
+  aesthetic pleasure. *Personality and Social Psychology Review*, 8(4), 364–382.
+- Sweller, J. (1988). Cognitive load during problem solving: effects on
+  learning. *Cognitive Science*, 12(2), 257–285.
+- Andrew Dowell, [A practical guide to Game Design](https://www.artstation.com/blogs/andrewdowell/PQaWj/a-practical-guide-to-game-design):
+  why I want a place to talk, not a game.
+- Comcare, [Effective communication](https://www.comcare.gov.au/safe-healthy-work/healthy-workplace/work-design/better-practice-guides/effective-communication).
+- [hop.earth](https://hop.earth/) and [FrameVR](https://learn.framevr.io/):
+  real-time spaces in the browser.

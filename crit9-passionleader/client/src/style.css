@@ -1,0 +1,192 @@
+:root {
+  --ink: #3b2a12;
+  --paper: #f3e7a6;
+  --accent: #6b3f1d;
+  color-scheme: light;
+}
+* { box-sizing: border-box; }
+html, body {
+  margin: 0;
+  height: 100%;
+  overflow: hidden;
+  background: #bfdcf2;
+  color: var(--ink);
+  font-family: system-ui, sans-serif;
+  touch-action: none;
+}
+#stage { position: fixed; inset: 0; outline: none; }
+#stage canvas { display: block; }
+
+#hud {
+  position: fixed; top: 12px; left: 16px; right: 16px;
+  pointer-events: none; text-shadow: 0 1px 0 rgba(255, 255, 255, 0.6);
+}
+#hud p { margin: 0 0 4px; }
+#hud-name {
+  display: inline-block; padding: 3px 10px; border-radius: 8px;
+  background: rgba(255, 251, 224, 0.88); font-weight: 700;
+}
+#hud-help { font-size: 0.85rem; opacity: 0.8; }
+#toast { min-height: 1.2em; font-size: 0.9rem; font-weight: 600; }
+#toast:not(:empty) { display: inline-block; padding: 2px 10px; border-radius: 8px; background: rgba(255, 251, 224, 0.88); }
+
+#join {
+  position: fixed; inset: 0; display: grid; place-items: center;
+  padding: 16px; background: rgba(60, 45, 10, 0.55); z-index: 10;
+}
+#join[hidden] { display: none; }
+#join-form {
+  width: min(380px, 100%); padding: 24px; border-radius: 16px;
+  background: var(--paper); box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+}
+#join-form h1 { margin: 0 0 12px; font-size: 1.6rem; }
+#join-form label { display: block; margin-bottom: 6px; font-size: 0.9rem; }
+#name {
+  width: 100%; padding: 10px 12px; font-size: 1.1rem; border-radius: 8px;
+  border: 2px solid var(--accent); background: #fffbe0; color: var(--ink);
+}
+#join-error { min-height: 1.3em; margin: 6px 0; color: #a01818; font-size: 0.9rem; }
+#enter {
+  width: 100%; padding: 12px; font-size: 1.1rem; font-weight: 700; cursor: pointer;
+  border: 0; border-radius: 8px; background: var(--accent); color: #fff;
+}
+#enter:disabled { opacity: 0.6; cursor: wait; }
+#flavour {
+  margin: 16px 0 0; padding-left: 18px; font-size: 0.85rem;
+  font-style: italic; opacity: 0.85;
+}
+
+#touch { display: none; }
+@media (pointer: coarse), (max-width: 700px) {
+  #touch:not([hidden]) {
+    display: flex; position: fixed; left: 0; right: 0; bottom: 0;
+    padding: 16px; justify-content: space-between; align-items: flex-end;
+    pointer-events: none;
+  }
+}
+#touch button {
+  pointer-events: auto; border: 0; color: #fff; background: rgba(107, 63, 29, 0.85);
+  font-weight: 700; user-select: none; -webkit-user-select: none; touch-action: none;
+}
+#dpad {
+  display: grid; gap: 6px; grid-template-columns: repeat(3, 56px); grid-template-rows: repeat(2, 56px);
+}
+#dpad button { border-radius: 12px; font-size: 1.3rem; }
+#dpad [data-dir="up"] { grid-column: 2; grid-row: 1; }
+#dpad [data-dir="left"] { grid-column: 1; grid-row: 2; }
+#dpad [data-dir="down"] { grid-column: 2; grid-row: 2; }
+#dpad [data-dir="right"] { grid-column: 3; grid-row: 2; }
+#actions { display: flex; gap: 10px; align-items: flex-end; }
+#use-btn { width: 84px; height: 84px; border-radius: 50%; font-size: 1.05rem; }
+#jump-btn, #menu-btn { width: 64px; height: 64px; border-radius: 50%; font-size: 0.95rem; }
+
+#mute {
+  position: fixed; top: 10px; right: 12px; z-index: 20;
+  width: 44px; height: 44px; border-radius: 50%;
+  border: 0; background: rgba(255, 255, 255, 0.9);
+  font-size: 1.3rem; cursor: pointer; box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+}
+#mute:focus-visible { outline: 3px solid #6b3f1d; outline-offset: 2px; }
+
+/* On desktop the key guide (keyguide.ts) shows the controls; phones get a line of text. */
+.touch-help { display: none; }
+@media (pointer: coarse), (max-width: 700px) {
+  .touch-help { display: block; }
+}
+
+/* Other players' names float over their heads, always visible. */
+.player-label {
+  padding: 1px 7px; border-radius: 8px;
+  background: rgba(59, 42, 18, 0.85); color: #fff;
+  font: 700 12px system-ui, sans-serif; white-space: nowrap;
+}
+
+/* What E would do right now: a door to go through or a note to read. */
+#hint {
+  position: fixed; left: 50%; bottom: 22%; transform: translateX(-50%);
+  margin: 0; padding: 8px 16px; border-radius: 999px;
+  background: rgba(31, 45, 61, 0.88); color: #fff;
+  font: 700 0.95rem system-ui, sans-serif; pointer-events: none; z-index: 5;
+  max-width: calc(100vw - 32px); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+#hint[hidden] { display: none; }
+
+.door-label {
+  padding: 2px 8px; border-radius: 6px; background: rgba(31, 45, 61, 0.85); color: #fff;
+  font: 700 12px system-ui, sans-serif; white-space: nowrap;
+}
+.note-label {
+  padding: 1px 6px; border-radius: 6px; background: #fff7b0; color: var(--ink);
+  border: 1px solid #c9b23a; font: 600 11px system-ui, sans-serif; white-space: nowrap;
+}
+.bubble {
+  max-width: 220px; padding: 6px 10px; border-radius: 12px; background: #fff; color: var(--ink);
+  border: 2px solid var(--ink); font: 600 13px/1.3 system-ui, sans-serif; text-align: center;
+  white-space: normal; overflow-wrap: anywhere;
+}
+
+.join-sub { margin: -4px 0 12px; font-size: 0.85rem; opacity: 0.85; }
+.join-hint { margin: 2px 0 6px; font-size: 0.8rem; opacity: 0.75; }
+#password-row { margin-top: 10px; }
+#password-row[hidden] { display: none; }
+#password {
+  width: 100%; padding: 10px 12px; font-size: 1.1rem; border-radius: 8px;
+  border: 2px solid var(--accent); background: #fffbe0; color: var(--ink);
+}
+
+/* Narrow phones: the pad and three action buttons must fit side by side. */
+@media (max-width: 420px) {
+  #touch:not([hidden]) { padding: 12px; }
+  #dpad { gap: 6px; grid-template-columns: repeat(3, 48px); grid-template-rows: repeat(2, 48px); }
+  #actions { gap: 6px; }
+  #use-btn { width: 68px; height: 68px; }
+  #jump-btn, #menu-btn { width: 52px; height: 52px; font-size: 0.85rem; }
+}
+
+/* Settings: a gear beside the mute button, and a small dialog. */
+#settings-btn {
+  position: fixed; top: 10px; right: 62px; z-index: 20;
+  width: 44px; height: 44px; border-radius: 50%;
+  border: 0; background: rgba(255, 255, 255, 0.9);
+  font-size: 1.25rem; cursor: pointer; box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+}
+#settings-btn:focus-visible { outline: 3px solid #6b3f1d; outline-offset: 2px; }
+#settings {
+  position: fixed; inset: 0; z-index: 30; display: grid; place-items: center;
+  padding: 16px; background: rgba(20, 20, 20, 0.45);
+}
+#settings[hidden] { display: none; }
+.settings-card {
+  width: min(360px, 100%); padding: 20px; border-radius: 14px;
+  background: var(--paper); color: var(--ink); box-shadow: 0 10px 30px rgba(0, 0, 0, 0.35);
+}
+.settings-card h2 { margin: 0 0 12px; font-size: 1.3rem; }
+.settings-card fieldset { border: 0; margin: 0; padding: 0; display: grid; gap: 8px; }
+.settings-card legend { font-weight: 700; margin-bottom: 6px; }
+.settings-card label { display: flex; gap: 8px; align-items: center; cursor: pointer; }
+.settings-note { font-size: 0.82rem; opacity: 0.8; margin: 12px 0; }
+.settings-actions { display: flex; gap: 8px; justify-content: flex-end; }
+.settings-actions button {
+  padding: 8px 16px; border-radius: 8px; border: 0; font-weight: 700; cursor: pointer;
+  background: #e6dcc0; color: var(--ink);
+}
+.settings-actions button[type="submit"] { background: var(--accent); color: #fff; }
+
+/* Choosing between sticky notes stuck on the same spot. */
+#note-chooser {
+  position: fixed; inset: 0; z-index: 30; display: grid; place-items: center;
+  padding: 16px; background: rgba(20, 20, 20, 0.45);
+}
+#note-chooser[hidden] { display: none; }
+.chooser-list { list-style: none; margin: 0 0 14px; padding: 0; display: grid; gap: 6px; }
+.chooser-list button {
+  width: 100%; display: grid; grid-template-columns: auto 1fr; gap: 2px 10px; align-items: center;
+  text-align: left; padding: 8px 10px; border-radius: 8px; border: 2px solid transparent;
+  background: #fff7d6; color: var(--ink); cursor: pointer; font: inherit;
+}
+.chooser-list button:hover, .chooser-list button:focus-visible { border-color: var(--accent); outline: none; }
+.chooser-num {
+  grid-row: span 2; width: 26px; height: 26px; border-radius: 50%; display: grid; place-items: center;
+  background: var(--accent); color: #fff; font-weight: 700;
+}
+.chooser-preview { font-size: 0.85rem; opacity: 0.8; overflow-wrap: anywhere; }
