@@ -115,3 +115,16 @@ SQLite on a Fly volume, calm BGM and a synthesised fart. Mirrored from the
 it runs on Fly rather than on this repo's Pages site.
 <img width="1386" height="1021" alt="image" src="https://github.com/user-attachments/assets/706e7a46-5b97-4cfb-a4eb-3a51ce8e95b5" />
 **Live:** [https://comp4020-final-passionleader.fly.dev/](https://comp4020-final-passionleader.fly.dev/)
+
+## Crit 9 — All at once (final project, real-time)
+
+Topic: make the final project real-time and record how it behaves with several
+people at once. [`crit9-passionleader/`](crit9-passionleader) is **ANU campus,
+unofficially**: Poop Room became a small 3D ANU campus (the lawn between
+buildings 155 and 154, the Student Hub, a COMP8020 classroom) where everyone in
+a space sees each other walk, chat, wave, dance and stick notes live over
+WebSockets, with the decision in
+[`docs/decisions/001`](crit9-passionleader/docs/decisions/001-what-lasts-and-who-sees-it.md).
+Mirrored from the `crit-9` cutoff tag; like crit 8 it runs on Fly, not on Pages.
+
+**Live:** [https://comp4020-final-passionleader.fly.dev/](https://comp4020-final-passionleader.fly.dev/)
