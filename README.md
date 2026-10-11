@@ -125,4 +125,9 @@ buildings 155 and 154, the Student Hub, a COMP8020 classroom) where everyone in
 a space sees each other walk, chat, wave, dance and stick notes live over
 WebSockets, with the decision in
 [`docs/decisions/001`](crit9-passionleader/docs/decisions/001-what-lasts-and-who-sees-it.md).
+<img width="1601" height="1098" alt="Screenshot From 2026-10-12 09-39-08" src="https://github.com/user-attachments/assets/51defc73-9785-4049-a90f-1e54b1eb3c68" />
+<img width="1601" height="1098" alt="Screenshot From 2026-10-12 09-35-11" src="https://github.com/user-attachments/assets/bf531303-e985-4f2d-b569-a4343023d569" />
+
+**Live:** [https://passionleader.github.io/anu-agentic-coding-studio/assessment2-passionleader/](https://comp4020-final-passionleader.fly.dev/)
+
 Mirrored from the `crit-9` cutoff tag; like crit 8 it runs on Fly, not on Pages.
