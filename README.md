@@ -131,3 +131,19 @@ WebSockets, with the decision in
 **Live:** [https://passionleader.github.io/anu-agentic-coding-studio/assessment2-passionleader/](https://comp4020-final-passionleader.fly.dev/)
 
 Mirrored from the `crit-9` cutoff tag; like crit 8 it runs on Fly, not on Pages.
+
+## Crit 10 — Fly by instruments (final project, people told apart)
+
+Topic: make the final project tell people apart, decide on the server what
+each may see and change, and narrate from the logs who did what.
+[`crit10-passionleader/`](crit10-passionleader) is **ANU Crossing
+(Unofficial)**: the campus grew Chifley Library, meeting rooms that hold six,
+classroom and Student Hub boards where labs and students find each other, and
+file sharing through a private S3 bucket; the admin reads a seven-day log,
+reports about people (with the last five minutes of chat) and can restrict
+someone, all checked on the server, with the decision in
+[`docs/decisions/002`](crit10-passionleader/docs/decisions/002-who-may-see-and-change-what.md).
+
+**Live:** https://comp4020-final-passionleader.fly.dev/
+
+Mirrored from the `crit-10` cutoff tag; like crits 8 and 9 it runs on Fly, not on Pages.
