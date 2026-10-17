@@ -1,0 +1,24 @@
+/* The bug report form, in the settings dialog's style. */
+
+#bug-report {
+  position: fixed; inset: 0; z-index: 30; display: grid; place-items: center;
+  padding: 16px; background: rgba(20, 20, 20, 0.45);
+}
+.bug-card { width: min(460px, 100%); }
+.bug-hint { margin: 0 0 10px; font-size: 0.9rem; opacity: 0.8; }
+.bug-card textarea {
+  width: 100%; box-sizing: border-box; padding: 8px 10px; resize: vertical;
+  border: 1px solid #8a6a50; border-radius: 8px; font: inherit;
+}
+.bug-shot { display: block; margin-top: 8px; font-size: 0.9rem; }
+.bug-shot input { display: block; margin-top: 4px; max-width: 100%; }
+.bug-status { min-height: 1.3em; margin: 6px 0 10px; font-size: 0.9rem; }
+.bug-card .settings-actions button { min-height: 44px; }
+.bug-card .bug-send { background: var(--accent); color: #fff; }
+.bug-who { display: block; margin-bottom: 8px; font-size: 0.9rem; }
+.bug-who input {
+  display: block; width: 100%; box-sizing: border-box; min-height: 44px; margin-top: 4px; padding: 0 10px;
+  border: 1px solid #8a6a50; border-radius: 8px; font: inherit;
+}
+.bug-chat { display: flex; align-items: center; gap: 8px; min-height: 44px; margin-bottom: 6px; font-size: 0.9rem; }
+.bug-chat input { width: 20px; height: 20px; }
