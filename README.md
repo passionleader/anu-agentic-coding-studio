@@ -127,9 +127,6 @@ WebSockets, with the decision in
 [`docs/decisions/001`](crit9-passionleader/docs/decisions/001-what-lasts-and-who-sees-it.md).
 <img width="1601" height="1098" alt="Screenshot From 2026-10-12 09-39-08" src="https://github.com/user-attachments/assets/51defc73-9785-4049-a90f-1e54b1eb3c68" />
 <img width="1601" height="1098" alt="Screenshot From 2026-10-12 09-35-11" src="https://github.com/user-attachments/assets/bf531303-e985-4f2d-b569-a4343023d569" />
-
-**Live:** [https://passionleader.github.io/anu-agentic-coding-studio/assessment2-passionleader/](https://comp4020-final-passionleader.fly.dev/)
-
 Mirrored from the `crit-9` cutoff tag; like crit 8 it runs on Fly, not on Pages.
 
 ## Crit 10 — Fly by instruments (final project, people told apart)
@@ -143,7 +140,8 @@ file sharing through a private S3 bucket; the admin reads a seven-day log,
 reports about people (with the last five minutes of chat) and can restrict
 someone, all checked on the server, with the decision in
 [`docs/decisions/002`](crit10-passionleader/docs/decisions/002-who-may-see-and-change-what.md).
-
+<img width="1909" height="1032" alt="Screenshot From 2026-10-18 01-12-26" src="https://github.com/user-attachments/assets/ecc899d1-a88c-4cc2-a143-460f463aa80d" />
+<img width="1909" height="1032" alt="Screenshot From 2026-10-18 01-13-06" src="https://github.com/user-attachments/assets/95203fee-24f5-4304-995d-6688b42ec44f" />
+<img width="1913" height="577" alt="Screenshot From 2026-10-18 01-13-41" src="https://github.com/user-attachments/assets/7b5182d2-3c5c-432c-90dd-7f3add21e1c5" />
 **Live:** https://comp4020-final-passionleader.fly.dev/
-
 Mirrored from the `crit-10` cutoff tag; like crits 8 and 9 it runs on Fly, not on Pages.
