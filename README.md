@@ -158,8 +158,8 @@ notes, events, visit stamps, a games table, and AI campus assistants that
 answer only from ANU's own pages. As submitted for COMP8020 (main at
 `21a5d95`), with the [research note](assessment3-passionleader/research-note.md),
 [PROCESS](assessment3-passionleader/PROCESS.md) and the planning documents in
-Korean: [checklist](assessment3-passionleader/docs/Integreted_checklist.ko.md)
-(English: [checklist.md](assessment3-passionleader/docs/checklist.md)) and
+Korean: [checklist](assessment3-passionleader/docs/integrated_checklist.ko.md)
+(English: [integrated_checklist.en.md](assessment3-passionleader/docs/integrated_checklist.en.md)) and
 [plan](assessment3-passionleader/docs/Integreted_plan_public.md).
 
 **Live:** https://comp4020-final-passionleader.fly.dev/
