@@ -871,7 +871,8 @@ export function attachRealtime(server: Server): void {
     }
     // Fly puts the visitor's address in Fly-Client-IP; locally, the socket's (admin's log only).
     const fly = req.headers["fly-client-ip"];
-    const ip = (typeof fly === "string" ? fly : null) ?? req.socket.remoteAddress ?? null;
+    const xff = req.headers["x-forwarded-for"];
+    const ip = (typeof fly === "string" ? fly : null) ?? (typeof xff === "string" ? xff.split(",")[0]!.trim() || null : null) ?? req.socket.remoteAddress ?? null;
     wss.handleUpgrade(req, socket, head, (ws) => onConnect(ws, visitor, ip));
   });
 

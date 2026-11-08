@@ -255,7 +255,7 @@ export function mountSettings(opts: { credits(): void; reportBug(): void; report
   const verify = document.createElement("button");
   verify.type = "button";
   verify.className = "settings-bug settings-verify";
-  verify.textContent = "✉️ Verify my ANU email (sign up)";
+  verify.textContent = "✉️ Verify my email (sign up)";
 
   // A link that opens the campus at this spot (placelink.ts), for sending to a friend on a phone too.
   const place = document.createElement("button");

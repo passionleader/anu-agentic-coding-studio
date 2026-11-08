@@ -13,6 +13,7 @@ const NAME_RE = /^[A-Za-z0-9_]{1,8}$/;
 const CODE_RE = /^\d{6}$/;
 const STUDENT_RE = /^u\d{7}$/i;
 const STAFF_RE = /^[^\s@]+@anu\.edu\.au$/i;
+const EMAIL_RE = /^[^\s@]{1,64}@[a-z0-9.-]+\.[a-z]{2,}$/i;
 const MIN_PASSWORD = 8;
 
 export function mountSignIn(opts: {
@@ -91,7 +92,7 @@ export function mountSignIn(opts: {
   // Two recommendations instead of the controls (the user, 11/9): the in-game guide shows the
   // keys, and these are what make the first visit go well.
   const tips = [
-    "Strongly recommended: sign up with your ANU email. A guest can only walk, chat and use team rooms.",
+    "Strongly recommended: sign up with your email. A guest can only walk, chat and use team rooms.",
     "Strongly recommended: use a computer. The campus is built for a keyboard and a bigger screen. A phone works, with less room.",
   ];
   for (const line of tips) {
@@ -131,12 +132,12 @@ export function mountSignIn(opts: {
   function buildSignIn(): { form: HTMLFormElement; focus: () => void; clear: (msg?: string) => void } {
     const form = el("form", "si-form");
     form.noValidate = true;
-    const name = field("Name or student number", { autocomplete: "username", maxLength: 80, required: true, placeholder: "u1234567, your name, or staff email" });
+    const name = field("Name, student number or email", { autocomplete: "username", maxLength: 254, required: true, placeholder: "your name, u1234567, or email" });
     const pw = field("Password", { autocomplete: "current-password", type: "password" });
     const error = el("p", "si-error");
     error.setAttribute("role", "alert");
     const submit = primary("Sign in");
-    const signup = primary("Sign up with your ANU email");
+    const signup = primary("Sign up with your email");
     signup.type = "button";
     signup.classList.add("si-signup");
     const guest = link("Continue as a guest");
@@ -173,18 +174,18 @@ export function mountSignIn(opts: {
     const signup = kind === "signup";
     const form = el("form", "si-form");
     form.noValidate = true;
-    form.append(el("h2", "si-h2", signup ? "Sign up with your ANU email" : "Forgot your password?"));
+    form.append(el("h2", "si-h2", signup ? "Sign up with your email" : "Forgot your password?"));
     form.append(
       el(
         "p",
         "si-hint",
-        signup ? "We email a 6-digit code to your ANU address to check it's you. Your email is never shown to anyone." : "We email a 6-digit code to your ANU address so you can set a new password.",
+        signup ? "We email a 6-digit code to your address to check it's you. Your email is never shown to anyone." : "We email a 6-digit code to your address so you can set a new password.",
       ),
     );
 
     // Step 1: who.
     const step1 = el("div", "si-step");
-    const student = field("Student number", { autocomplete: "username", maxLength: 8, placeholder: "u1234567", inputMode: "text" });
+    const student = field("Student number or email", { autocomplete: "email", maxLength: 254, placeholder: "u1234567 or you@example.com", inputMode: "email" });
     const staffRow = el("label", "si-check");
     const staffBox = el("input");
     staffBox.type = "checkbox";
@@ -222,8 +223,9 @@ export function mountSignIn(opts: {
         const email = staff.input.value.trim().toLowerCase();
         return STAFF_RE.test(email) ? { staff: true, email } : "Enter your @anu.edu.au email address.";
       }
-      const studentNo = student.input.value.trim().toLowerCase();
-      return STUDENT_RE.test(studentNo) ? { studentNo } : "Enter your student number, like u1234567.";
+      const typed = student.input.value.trim().toLowerCase();
+      if (STUDENT_RE.test(typed)) return { studentNo: typed };
+      return EMAIL_RE.test(typed) ? { email: typed } : "Enter your student number (like u1234567) or your email.";
     };
 
     staffBox.addEventListener("change", () => {
@@ -307,7 +309,7 @@ export function mountSignIn(opts: {
     bar.setAttribute("aria-valuemax", "4");
     const segs = [0, 1, 2, 3].map(() => el("span", "si-seg"));
     bar.append(...segs);
-    form.append(bar, el("h2", "si-h2", "Sign up with your ANU email"));
+    form.append(bar, el("h2", "si-h2", "Sign up with your email"));
 
     const mkStep = (hint: string): { step: HTMLDivElement; error: HTMLParagraphElement; actions: HTMLDivElement } => {
       const step = el("div", "si-step");
@@ -320,8 +322,8 @@ export function mountSignIn(opts: {
     const backBtn = (): HTMLButtonElement => link("← Back");
 
     // Step 1: who.
-    const s1 = mkStep("We email a 6-digit code to your ANU address to check it's you. Your email is never shown to anyone.");
-    const student = field("Student number", { autocomplete: "username", maxLength: 8, placeholder: "u1234567", inputMode: "text" });
+    const s1 = mkStep("We email a 6-digit code to your address to check it's you. Your email is never shown to anyone.");
+    const student = field("Student number or email", { autocomplete: "email", maxLength: 254, placeholder: "u1234567 or you@example.com", inputMode: "email" });
     const staffRow = el("label", "si-check");
     const staffBox = el("input");
     staffBox.type = "checkbox";
@@ -404,8 +406,9 @@ export function mountSignIn(opts: {
         const email = staff.input.value.trim().toLowerCase();
         return STAFF_RE.test(email) ? { staff: true, email } : "Enter your @anu.edu.au email address.";
       }
-      const studentNo = student.input.value.trim().toLowerCase();
-      return STUDENT_RE.test(studentNo) ? { studentNo } : "Enter your student number, like u1234567.";
+      const typed = student.input.value.trim().toLowerCase();
+      if (STUDENT_RE.test(typed)) return { studentNo: typed };
+      return EMAIL_RE.test(typed) ? { email: typed } : "Enter your student number (like u1234567) or your email.";
     };
     staffBox.addEventListener("change", () => {
       student.wrap.hidden = staffBox.checked;

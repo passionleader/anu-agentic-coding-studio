@@ -98,7 +98,7 @@ export const join = (name: string, token?: string, password?: string): Promise<S
   request<Session>("/api/join", "POST", { name, token, password });
 
 /** Who's signing up or resetting: a student number, or staff's @anu.edu.au address. */
-export type AnuWho = { studentNo: string } | { staff: true; email: string };
+export type AnuWho = { studentNo: string } | { staff: true; email: string } | { email: string };
 /** In as a guest: this browser's guest back, or a new guestNNN. */
 export const joinAsGuest = (token?: string): Promise<Session> => request<Session>("/api/guest", "POST", { token });
 /** Emails a six-digit sign-up code to the ANU address. */

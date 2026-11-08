@@ -211,6 +211,9 @@ const body = (c: Context): Promise<Body> => c.req.json<Body>().catch(() => ({}))
 function ipOf(c: Context): string | null {
   const fly = c.req.header("fly-client-ip");
   if (fly) return fly;
+  // Render (and most proxies) put the visitor first in X-Forwarded-For.
+  const xff = c.req.header("x-forwarded-for");
+  if (xff) return xff.split(",")[0]!.trim() || null;
   try {
     return getConnInfo(c).remote.address ?? null;
   } catch {
@@ -293,7 +296,7 @@ app.post("/api/join", async (c) => {
   // A student number or email is private, unlike a name (on everyone's name tag): the answer
   // never says whether one has an account. No account and a wrong password read the same.
   const privateId = /^u\d{7}$/i.test(name) || /@/.test(name);
-  const byEmail = /^u\d{7}$/i.test(name) ? findByEmail(`${name.toLowerCase()}@anu.edu.au`) : /@anu\.edu\.au$/i.test(name) ? findByEmail(name.toLowerCase()) : undefined;
+  const byEmail = /^u\d{7}$/i.test(name) ? findByEmail(`${name.toLowerCase()}@anu.edu.au`) : /@/.test(name) ? findByEmail(name.toLowerCase()) : undefined;
   const typed = typeof password === "string" && password.trim() ? password.trim() : "";
   if (privateId && !typed) return c.json({ error: "Type your password.", password: true }, 401);
   if (privateId && (!byEmail?.passwordHash || !checkPassword(typed, byEmail.passwordHash))) {
@@ -401,12 +404,20 @@ const STAFF_EMAIL = /^[a-z][a-z0-9._-]{0,63}@anu\.edu\.au$/i;
 const code6 = (): string => String(randomInt(0, 1_000_000)).padStart(6, "0");
 const hashCode = (email: string, code: string): string => createHash("sha256").update(`${email.toLowerCase()}:${code}`).digest("hex");
 
-/** The ANU email a sign-up names, and whether it's staff's; or an error. */
+// Portfolio build: any email may sign up as a student; staff stays @anu.edu.au only.
+const ANY_EMAIL = /^[^\s@]{1,64}@[a-z0-9.-]+\.[a-z]{2,}$/i;
+
+/** The email a sign-up names, and whether it's staff's; or an error. */
 function anuEmail(b: Body): { email: string; staff: boolean } | { error: string } {
   if (b.staff === true) {
     const email = typeof b.email === "string" ? b.email.trim().toLowerCase() : "";
     if (!STAFF_EMAIL.test(email) || STUDENT_NO.test(email.split("@")[0]!)) return { error: "Staff: your @anu.edu.au address (not a student number)." };
     return { email, staff: true };
+  }
+  const other = typeof b.email === "string" ? b.email.trim().toLowerCase() : "";
+  if (other) {
+    if (other.length > 254 || !ANY_EMAIL.test(other)) return { error: "That doesn't look like an email address." };
+    return { email: other, staff: false };
   }
   const no = typeof b.studentNo === "string" ? b.studentNo.trim().toLowerCase() : "";
   if (!STUDENT_NO.test(no)) return { error: "Your student number, like u1234567." };
@@ -418,7 +429,7 @@ function anuEmail(b: Body): { email: string; staff: boolean } | { error: string 
 // from one IP, and 200 an hour in all.
 const codeMailed: { ip: string | null; at: number }[] = [];
 const CODES_PER_IP_HOUR = 5;
-const CODES_PER_HOUR = 200;
+const CODES_PER_HOUR = Number(process.env.CODES_PER_HOUR) || 200;
 function codeQuotaLeft(ip: string | null): boolean {
   // The spec signs up a hundred visitors from one address; its outbox sends nothing.
   if (testOutbox()) return true;

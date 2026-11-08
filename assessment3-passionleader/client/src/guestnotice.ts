@@ -27,7 +27,7 @@ export function mountGuestNotice(opts: { signUp(): void }): { maybeOpen(): void 
   can.textContent = "You can walk around, chat, emote, use team rooms, talk by voice and ask the AI assistants.";
   const cannot = document.createElement("p");
   cannot.className = "signup-ask";
-  cannot.textContent = "Signing up with an ANU email is needed for sticky notes, posts and comments, hearts, study groups, mail, files, saving a room's chat and reporting someone.";
+  cannot.textContent = "Signing up with an email is needed for sticky notes, posts and comments, hearts, study groups, mail, files, saving a room's chat and reporting someone.";
   const kept = document.createElement("p");
   kept.className = "signup-ask guest-kept";
   kept.textContent =

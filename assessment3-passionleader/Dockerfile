@@ -23,7 +23,7 @@ COPY package.json pnpm-lock.yaml pnpm-workspace.yaml ./
 RUN pnpm install --prod --frozen-lockfile --filter . --ignore-scripts
 COPY server/ server/
 # operator tools, run over flyctl ssh: reset-db.ts and seed-accounts.ts
-COPY scripts/reset-db.ts scripts/seed-accounts.ts scripts/
+COPY scripts/reset-db.ts scripts/seed-accounts.ts scripts/start-render.sh scripts/
 COPY README.md ./
 # Seongsu answers from these (server/projectdocs.ts loads them at start).
 COPY PROCESS.md CLAUDE.md ./
@@ -33,4 +33,8 @@ COPY reflections/ reflections/
 COPY --from=build /app/client/dist client/dist
 ENV NODE_ENV=production
 ENV DATABASE_PATH=/data/app.db
-CMD ["node", "server/main.ts"]
+# The AI guides' pages (public ANU pages, crawled), attached to a GitHub release
+# so the repo stays small. Set KNOWLEDGE_URL to an empty value to build without them.
+ARG KNOWLEDGE_URL=https://github.com/passionleader/anu-agentic-coding-studio/releases/download/knowledge-2026-11/knowledge.db.gz
+RUN mkdir -p /seed && if [ -n "$KNOWLEDGE_URL" ]; then node -e "fetch(process.argv[1]).then(async r=>{if(!r.ok)throw new Error('knowledge '+r.status);require('fs').writeFileSync('/seed/knowledge.db.gz',Buffer.from(await r.arrayBuffer()))})" "$KNOWLEDGE_URL"; fi
+CMD ["sh", "scripts/start-render.sh"]
