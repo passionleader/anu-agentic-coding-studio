@@ -48,7 +48,7 @@ satisfaction, so the live count is the thing I care about most.
 
 My notes live outside the repo in Korean. `Integreted_plan.md` collects
 ideas as they come, and I only add. From it grew a numbered
-checklist ([translated](docs/checklist.md)): whatever I want in a week goes in as a new number, and what's done
+checklist ([translated](docs/integrated_checklist.en.md)): whatever I want in a week goes in as a new number, and what's done
 gets ticked with its date and commit. The same numbers appear in commit
 messages, so '97:' in a message points to checklist item 97 ([0d920b2](https://github.com/comp4020-agentic-coding-studio/comp4020-final-passionleader/commit/0d920b2)).
 The agent turned these notes into the repo's English documents, from the

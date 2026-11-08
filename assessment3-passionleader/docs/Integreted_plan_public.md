@@ -381,7 +381,7 @@
 
 ## 구현 순서 (전체, 후순위 포함)
 
-> 2026-10-16: 내용이 길어져서 [`Integreted_checklist.md`](Integreted_checklist.md)로 옮김. 번호·✅·[급조]·[점검] 표시는 그 파일에서 그대로 이어감.
+> 2026-10-16: 내용이 길어져서 [`Integreted_checklist.md`](integrated_checklist.ko.md)로 옮김. 번호·✅·[급조]·[점검] 표시는 그 파일에서 그대로 이어감.
 
 ----
 
