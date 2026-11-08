@@ -1,0 +1,58 @@
+/* The tutorial's checklist: bottom right, small, out of the way. */
+#quests {
+  position: fixed; right: 16px; bottom: 16px; z-index: 6; width: 260px;
+  padding: 8px 10px; border-radius: 12px; background: rgba(252, 248, 236, 0.94);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2); font: 0.85rem system-ui, sans-serif; color: var(--ink, #3b2a12);
+}
+#quests[hidden] { display: none; }
+.quests-head { display: flex; justify-content: space-between; align-items: center; gap: 6px; }
+.quests-title { border: 0; background: none; font: 700 0.9rem system-ui, sans-serif; cursor: pointer; padding: 6px 2px; min-height: 36px; text-align: left; color: inherit; }
+.quests-skip { border: 0; background: none; text-decoration: underline; cursor: pointer; min-height: 36px; padding: 0 4px; color: inherit; font: inherit; }
+.quests-list { list-style: none; margin: 4px 0 0; padding: 0; }
+.quests-list li { padding: 3px 0; }
+.quests-list li.is-done { opacity: 0.6; text-decoration: line-through; }
+.quests-list li.just-done { animation: quest-flash 0.9s ease-out; }
+@keyframes quest-flash {
+  0% { background: rgba(47, 179, 128, 0.55); transform: scale(1.04); }
+  100% { background: transparent; transform: none; }
+}
+/* Confetti: a burst up and out, then falling, spinning. */
+.confetti {
+  position: fixed; z-index: 60; width: 8px; height: 12px; border-radius: 2px;
+  pointer-events: none; animation: confetti-fall 1.5s cubic-bezier(0.2, 0.6, 0.4, 1) forwards;
+}
+@keyframes confetti-fall {
+  0% { transform: translate(0, 0) rotate(0); opacity: 1; }
+  20% { transform: translate(calc(var(--dx) * 0.4), -60px) rotate(calc(var(--spin) * 0.3)); }
+  100% { transform: translate(var(--dx), var(--dy)) rotate(var(--spin)); opacity: 0; }
+}
+.quests-cheer {
+  position: fixed; left: 50%; top: 22%; z-index: 61; transform: translateX(-50%);
+  padding: 14px 24px; border-radius: 16px; background: var(--paper, #fcf8ec);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3); font: 700 1.3rem system-ui, sans-serif; color: var(--ink, #3b2a12);
+  animation: cheer 3.6s ease forwards; pointer-events: none;
+}
+@keyframes cheer {
+  0% { opacity: 0; transform: translate(-50%, 20px) scale(0.8); }
+  10% { opacity: 1; transform: translate(-50%, 0) scale(1.08); }
+  16% { transform: translate(-50%, 0) scale(1); }
+  85% { opacity: 1; }
+  100% { opacity: 0; transform: translate(-50%, -10px); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .quests-list li.just-done, .quests-cheer { animation-duration: 0.01s; }
+  .quests-cheer { animation: none; opacity: 1; }
+}
+.quests-next { display: none; }
+/* Phones (plan 87): one line at the top, under the HUD, the next quest and Skip; the touch controls own the bottom. */
+@media (max-width: 700px), (pointer: coarse) {
+  #quests {
+    /* Under the HUD's three lines (name, online, status: 11/4), Chat and its input line, not over the status button. */
+    left: 50%; right: auto; bottom: auto; top: calc(212px + env(safe-area-inset-top, 0px)); transform: translateX(-50%);
+    width: min(440px, calc(100vw - 32px)); padding: 2px 4px 2px 12px; display: flex; align-items: center; gap: 6px;
+  }
+  #quests[hidden] { display: none; }
+  #quests .quests-title, #quests .quests-list { display: none; }
+  #quests .quests-head { order: 2; }
+  #quests .quests-next { display: block; flex: 1; margin: 0; font-size: 0.82rem; font-weight: 600; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+}
