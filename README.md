@@ -145,3 +145,22 @@ someone, all checked on the server, with the decision in
 <img width="1913" height="577" alt="Screenshot From 2026-10-18 01-13-41" src="https://github.com/user-attachments/assets/7b5182d2-3c5c-432c-90dd-7f3add21e1c5" />
 **Live:** https://comp4020-final-passionleader.fly.dev/
 Mirrored from the `crit-10` cutoff tag; like crits 8 and 9 it runs on Fly, not on Pages.
+
+## Assignment 3 — Final project: ANU Crossing (Unofficial)
+
+Topic: a full-stack, multi-user app of your own, deployed on Fly.io, with the
+process behind it. [`assessment3-passionleader/`](assessment3-passionleader) is
+**ANU Crossing (Unofficial)**, a small 3D ANU campus (the lawn between 155 and
+154 with its OpenStreetMap surroundings, the Student Hub, the ANUSA lounge, the
+Career Hub, Chifley Library, classrooms and meeting rooms) where students and
+staff meet by chance: chat, whispers, mail, voice, sticky notes, boards, shared
+notes, events, visit stamps, a games table, and AI campus assistants that
+answer only from ANU's own pages. As submitted for COMP8020 (main at
+`21a5d95`), with the [research note](assessment3-passionleader/research-note.md),
+[PROCESS](assessment3-passionleader/PROCESS.md) and the planning documents in
+Korean: [checklist](assessment3-passionleader/docs/Integreted_checklist.ko.md)
+(English: [checklist.md](assessment3-passionleader/docs/checklist.md)) and
+[plan](assessment3-passionleader/docs/Integreted_plan_public.md).
+
+**Live:** https://comp4020-final-passionleader.fly.dev/
+Mirrored from the final submission; like crits 8–10 it runs on Fly, not on Pages.
