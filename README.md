@@ -113,54 +113,37 @@ and finds it again with their name over it when they come back — Hono +
 SQLite on a Fly volume, calm BGM and a synthesised fart. Mirrored from the
 `crit-8` cutoff tag; unlike the static projects above it's a server app, so
 it runs on Fly rather than on this repo's Pages site. Crits 8–10 share that
-one server, so its live link goes on the final project's entry only.
+one server; its successor is ANU Crossing, below.
 <img width="1386" height="1021" alt="image" src="https://github.com/user-attachments/assets/706e7a46-5b97-4cfb-a4eb-3a51ce8e95b5" />
 
-## Crit 9 — All at once (final project, real-time)
+## Crit 9, Crit 10 and the final project — ANU Crossing (Unofficial)
 
-Topic: make the final project real-time and record how it behaves with several
-people at once. [`crit9-passionleader/`](crit9-passionleader) is **ANU campus,
-unofficially**: Poop Room became a small 3D ANU campus (the lawn between
-buildings 155 and 154, the Student Hub, a COMP8020 classroom) where everyone in
-a space sees each other walk, chat, wave, dance and stick notes live over
-WebSockets, with the decision in
-[`docs/decisions/001`](crit9-passionleader/docs/decisions/001-what-lasts-and-who-sees-it.md).
-<img width="1601" height="1098" alt="Screenshot From 2026-10-12 09-39-08" src="https://github.com/user-attachments/assets/51defc73-9785-4049-a90f-1e54b1eb3c68" />
-<img width="1601" height="1098" alt="Screenshot From 2026-10-12 09-35-11" src="https://github.com/user-attachments/assets/bf531303-e985-4f2d-b569-a4343023d569" />
-Mirrored from the `crit-9` cutoff tag; like crit 8 it runs on Fly, not on Pages.
+These three steps grew one app, now in its own repository:
+**[passionleader/ANU-Crossing](https://github.com/passionleader/ANU-Crossing)**
+· **Live:** https://anu-crossing.passionleader.click
 
-## Crit 10 — Fly by instruments (final project, people told apart)
+[Watch the demo video](https://github.com/passionleader/ANU-Crossing/blob/main/docs/demo/meet.webm)
+(two members meet on the lawn at sunset, wave, chat and dance).
 
-Topic: make the final project tell people apart, decide on the server what
-each may see and change, and narrate from the logs who did what.
-[`crit10-passionleader/`](crit10-passionleader) is **ANU Crossing
-(Unofficial)**: the campus grew Chifley Library, meeting rooms that hold six,
-classroom and Student Hub boards where labs and students find each other, and
-file sharing through a private S3 bucket; the admin reads a seven-day log,
-reports about people (with the last five minutes of chat) and can restrict
-someone, all checked on the server, with the decision in
-[`docs/decisions/002`](crit10-passionleader/docs/decisions/002-who-may-see-and-change-what.md).
-<img width="1909" height="1032" alt="Screenshot From 2026-10-18 01-12-26" src="https://github.com/user-attachments/assets/ecc899d1-a88c-4cc2-a143-460f463aa80d" />
-<img width="1909" height="1032" alt="Screenshot From 2026-10-18 01-13-06" src="https://github.com/user-attachments/assets/95203fee-24f5-4304-995d-6688b42ec44f" />
-<img width="1913" height="577" alt="Screenshot From 2026-10-18 01-13-41" src="https://github.com/user-attachments/assets/7b5182d2-3c5c-432c-90dd-7f3add21e1c5" />
-**Live:** https://comp4020-final-passionleader.fly.dev/
-Mirrored from the `crit-10` cutoff tag; like crits 8 and 9 it runs on Fly, not on Pages.
+**What and why.** A small 3D, real-time piece of the ANU campus where
+students, staff and academics meet by chance. When I arrived I didn't know
+where to ask even simple questions, and my interviews in other courses
+pointed the same way: students and staff rarely meet outside class. So the
+campus is laid out from my own photos and drawings, music keeps it a place
+to rest, and anyone can ask an AI assistant that answers only from ANU's own
+pages.
 
-## Assignment 3 — Final project: ANU Crossing (Unofficial)
+- **Crit 9 (real-time):** Poop Room became the campus. Everyone in a space
+  sees each other walk, chat, wave and stick notes live over WebSockets.
+- **Crit 10 (people told apart):** Chifley Library, meeting rooms for six,
+  boards where labs and students find each other, files in a private S3
+  bucket, and an admin log with reports and restrictions, all checked on the
+  server.
+- **Final project (COMP8020):** ANU email sign-up (SES), voice and screen
+  sharing (LiveKit), the AI campus assistants on Amazon Bedrock with RAG over
+  crawled ANU pages, the Career Hub, events, visit stamps and the campus at
+  night. Built with several Claude Code sessions working in parallel.
 
-Topic: a full-stack, multi-user app of your own, deployed on Fly.io, with the
-process behind it. [`assessment3-passionleader/`](assessment3-passionleader) is
-**ANU Crossing (Unofficial)**, a small 3D ANU campus (the lawn between 155 and
-154 with its OpenStreetMap surroundings, the Student Hub, the ANUSA lounge, the
-Career Hub, Chifley Library, classrooms and meeting rooms) where students and
-staff meet by chance: chat, whispers, mail, voice, sticky notes, boards, shared
-notes, events, visit stamps, a games table, and AI campus assistants that
-answer only from ANU's own pages. As submitted for COMP8020 (main at
-`21a5d95`), with the [research note](assessment3-passionleader/research-note.md),
-[PROCESS](assessment3-passionleader/PROCESS.md) and the planning documents in
-Korean: [checklist](assessment3-passionleader/docs/integrated_checklist.ko.md)
-(English: [integrated_checklist.en.md](assessment3-passionleader/docs/integrated_checklist.en.md)) and
-[plan](assessment3-passionleader/docs/Integreted_plan_public.md).
-
-**Live:** https://comp4020-final-passionleader.fly.dev/
-Mirrored from the final submission; like crits 8–10 it runs on Fly, not on Pages.
+Stack: Node 24, Hono, SQLite, WebSocket, Three.js, AWS (S3, SES, Bedrock),
+LiveKit. The repository keeps the full history, the README's argument,
+PROCESS, the decision records, reflections and the research note.
