@@ -122,8 +122,9 @@ These three steps grew one app, now in its own repository:
 **[passionleader/ANU-Crossing](https://github.com/passionleader/ANU-Crossing)**
 · **Live:** https://anu-crossing.passionleader.click
 
-[Watch the demo video](https://github.com/passionleader/ANU-Crossing/blob/main/docs/demo/meet.webm)
-(two members meet on the lawn at sunset, wave, chat and dance).
+[![Two members meet outside on campus at sunset: Mina walks up and waves, asks in the chat whether Sam is getting coffee before the lecture, Sam answers, and Mina dances.](https://raw.githubusercontent.com/passionleader/ANU-Crossing/main/docs/demo/meet.gif)](https://github.com/passionleader/ANU-Crossing/blob/main/docs/demo/meet.webm)
+
+<sub>[Click to play the video](https://github.com/passionleader/ANU-Crossing/blob/main/docs/demo/meet.webm) (two members meet on the lawn at sunset, wave, chat and dance).</sub>
 
 **What and why.** A small 3D, real-time piece of the ANU campus where
 students, staff and academics meet by chance. When I arrived I didn't know
